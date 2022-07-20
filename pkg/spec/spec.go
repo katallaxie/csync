@@ -1,10 +1,13 @@
 package spec
 
 import (
+	"fmt"
 	"io/ioutil"
+	"os"
 	"reflect"
 	"strings"
 
+	"github.com/andersnormal/pkg/utils"
 	"github.com/go-playground/validator/v10"
 	"gopkg.in/yaml.v3"
 )
@@ -16,11 +19,11 @@ type Spec struct {
 	// Storage ...
 	Storage string `validate:"required" yaml:"storage"`
 	// Apps ...
-	Apps []App `yaml:"apps"`
+	Apps []App `yaml:"apps,omitempty"`
 	// Includes ...
-	Includes []string `yaml:"includes"`
+	Includes []string `yaml:"includes,omitempty"`
 	// Excludes ...
-	Excludes []string `yaml:"excludes"`
+	Excludes []string `yaml:"excludes,omitempty"`
 }
 
 // App ...
@@ -58,6 +61,32 @@ func (s *Spec) Validate() error {
 	}
 
 	return v.Struct(s)
+}
+
+// Write ...
+func Write(s *Spec, file string, force bool) error {
+	b, err := yaml.Marshal(s)
+	if err != nil {
+		return err
+	}
+
+	ok, _ := utils.FileExists(file)
+	if ok && !force {
+		return fmt.Errorf("%s already exists, use --force to overwrite", file)
+	}
+
+	f, err := os.Create(file)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	_, err = f.Write(b)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // Load ...

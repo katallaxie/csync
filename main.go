@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/katallaxie/csync/pkg/config"
+	"github.com/katallaxie/csync/pkg/spec"
 	"mvdan.cc/sh/syntax"
 
 	"github.com/spf13/pflag"
@@ -66,6 +67,19 @@ func main() {
 
 	if cfg.Flags.Help {
 		pflag.Usage()
+		os.Exit(0)
+	}
+
+	if cfg.Flags.Init {
+		s := &spec.Spec{
+			Version: 1,
+			Storage: "icloud",
+		}
+
+		if err := spec.Write(s, cfg.File, cfg.Flags.Force); err != nil {
+			log.Fatal(err)
+		}
+
 		os.Exit(0)
 	}
 
