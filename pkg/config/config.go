@@ -4,6 +4,8 @@ import (
 	"os"
 	"path/filepath"
 	"syscall"
+
+	"github.com/katallaxie/csync/pkg/spec"
 )
 
 // Flags ...
@@ -12,6 +14,7 @@ type Flags struct {
 	Force    bool
 	Help     bool
 	Init     bool
+	Restore  bool
 	Validate bool
 	Verbose  bool
 	Version  bool
@@ -74,4 +77,14 @@ func (c *Config) InitDefaultConfig() error {
 // Cwd ...
 func (c *Config) Cwd() (string, error) {
 	return os.Getwd()
+}
+
+// SpecFile ...
+func (c *Config) LoadSpec() (*spec.Spec, error) {
+	s, err := spec.Load(c.File)
+	if err != nil {
+		return nil, err
+	}
+
+	return s, nil
 }

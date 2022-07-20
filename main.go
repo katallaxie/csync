@@ -56,11 +56,35 @@ func main() {
 	pflag.StringVarP(&cfg.File, "config", "c", cfg.File, "config file")
 	pflag.BoolVarP(&cfg.Flags.Validate, "validate", "V", cfg.Flags.Validate, "validate config")
 	pflag.BoolVar(&cfg.Flags.Version, "version", cfg.Flags.Version, "version")
+	pflag.BoolVar(&cfg.Flags.Restore, "restore", cfg.Flags.Version, "restore")
 	pflag.Parse()
 
 	if cfg.Flags.Version {
 		fmt.Printf("%s\n", getVersion())
 		return
+	}
+
+	if cfg.Flags.Help {
+		pflag.Usage()
+		os.Exit(0)
+	}
+
+	s, err := cfg.LoadSpec()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if cfg.Flags.Validate {
+		err = s.Validate()
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		if cfg.Flags.Verbose {
+			log.Print("OK")
+		}
+
+		os.Exit(0)
 	}
 
 	_, _, err = parseArgs()
