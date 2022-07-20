@@ -1,0 +1,58 @@
+builds:
+  - 
+    id: csync
+    binary: csync-{{.Os}}-{{ .Arch }}
+    main: main.go
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - 386
+      - amd64
+      - arm
+      - arm64
+    ignore:
+        - goos: darwin
+          goarch: 386
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+        - -s -w
+    no_unique_dist_dir: true
+
+archives:
+  -
+    id: csync
+    builds:
+      - csync
+    name_template: "csync_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+brews:
+  -
+    name: csync
+    ids:
+      - csync
+    tap: 
+      owner: katallaxie
+      name: run-csync
+    folder: Formula
+    goarm: "7"
+    homepage: https://katallaxie.github.io/csync/
+    dependencies:
+      - name: go
+        type: optional
+    install: |-
+      bin.install "csync"
+
+gomod:
+  proxy: true
+
+release:
+  draft: true
+
+snapshot:
+  name_template: "{{.Tag}}"
+
+checksum:
+  name_template: "csync_checksums.txt"

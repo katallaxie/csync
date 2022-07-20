@@ -1,0 +1,16 @@
+{
+    "name": "katallaxie/run",
+    "image": "mcr.microsoft.com/vscode/devcontainers/universal:latest",
+    "postCreateCommand": "bash scripts/postCreateCommand.sh",
+    "forwardPorts": [3000],
+    "appPort": [3000],
+    "portsAttributes": {
+      "3000": {
+        "label": "web"
+      }
+    },
+     "extensions": [
+      "golang.Go",
+      "kangping.protobuf"
+    ]
+}

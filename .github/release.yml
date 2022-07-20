@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  test:
+    uses: ./.github/workflows/main.yml
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [ test ]
+    steps:
+    -
+      name: Check out code into the Go module directory
+      uses: actions/checkout@v1
+    -
+      name: Set up Go
+      uses: actions/setup-go@v1
+      with:
+        go-version: '1.18.x'
+    -
+      name: goreleaser
+      uses: goreleaser/goreleaser-action@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      with:
+        version: latest
+        args: release
+      if: success()
