@@ -1,2 +1,7 @@
 spec: 1
 storage: icloud
+apps:
+  - 
+    name: "nano"
+    files:
+      - "/Libary/Preferences/"
