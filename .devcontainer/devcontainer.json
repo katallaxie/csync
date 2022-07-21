@@ -11,6 +11,7 @@
     },
      "extensions": [
       "golang.Go",
-      "kangping.protobuf"
+      "kangping.protobuf",
+      "GitHub.copilot"
     ]
 }

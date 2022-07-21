@@ -73,12 +73,7 @@ func main() {
 	}
 
 	if cfg.Flags.Init {
-		s := &spec.Spec{
-			Version: 1,
-			Storage: "icloud",
-		}
-
-		if err := spec.Write(s, cfg.File, cfg.Flags.Force); err != nil {
+		if err := spec.Write(spec.Default(), cfg.File, cfg.Flags.Force); err != nil {
 			log.Fatal(err)
 		}
 

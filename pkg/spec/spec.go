@@ -17,8 +17,8 @@ import (
 type Spec struct {
 	// Version ...
 	Version int `validate:"required" yaml:"version"`
-	// Storage ...
-	Storage string `validate:"required" yaml:"storage"`
+	// Provider ...
+	Provider Provider `validate:"required" yaml:"provider"`
 	// Apps ...
 	Apps []App `yaml:"apps,omitempty"`
 	// Includes ...
@@ -27,6 +27,22 @@ type Spec struct {
 	Excludes []string `yaml:"excludes,omitempty"`
 
 	sync.Mutex
+}
+
+// Default ...
+func Default() *Spec {
+	return &Spec{
+		Version: 1,
+		Provider: Provider{
+			Name: "icloud",
+		},
+	}
+}
+
+// Provider ...
+type Provider struct {
+	Name string `validate:"required" yaml:"name"`
+	Path string `yaml:"path"`
 }
 
 // App ...
@@ -106,4 +122,9 @@ func Load(file string) (*Spec, error) {
 	}
 
 	return &spec, nil
+}
+
+// FilePathFromProvider ...
+func FilePathFromProvider(p *Provider, f string) string {
+	return f
 }

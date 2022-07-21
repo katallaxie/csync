@@ -1,5 +1,7 @@
 spec: 1
-storage: icloud
+provider:
+  name: icloud
+  # path: override the destination
 apps:
   - 
     name: "nano"
