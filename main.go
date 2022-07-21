@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"math/rand"
@@ -9,6 +10,7 @@ import (
 	"time"
 
 	"github.com/katallaxie/csync/pkg/config"
+	"github.com/katallaxie/csync/pkg/linker"
 	"github.com/katallaxie/csync/pkg/spec"
 	"mvdan.cc/sh/syntax"
 
@@ -104,6 +106,20 @@ func main() {
 	_, _, err = parseArgs()
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	l := linker.New()
+
+	for _, a := range s.Apps {
+		s.Lock()
+		defer s.Unlock()
+
+		if err := l.Link(ctx, &a); err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	os.Exit(0)

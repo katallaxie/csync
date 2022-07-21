@@ -6,6 +6,7 @@ import (
 	"os"
 	"reflect"
 	"strings"
+	"sync"
 
 	"github.com/andersnormal/pkg/utils"
 	"github.com/go-playground/validator/v10"
@@ -24,6 +25,8 @@ type Spec struct {
 	Includes []string `yaml:"includes,omitempty"`
 	// Excludes ...
 	Excludes []string `yaml:"excludes,omitempty"`
+
+	sync.Mutex
 }
 
 // App ...
