@@ -5,6 +5,7 @@ import (
 	"errors"
 	"os"
 
+	"github.com/andersnormal/pkg/utils/files"
 	"github.com/katallaxie/csync/pkg/spec"
 )
 
@@ -70,6 +71,24 @@ func (l *linker) Link(ctx context.Context, app *spec.App) error {
 
 		if fi.Mode()&os.ModeSymlink == os.ModeSymlink {
 			continue // already is a symlink, needs force
+		}
+
+		// Copy file ...
+		_, err = files.CopyFile(src, dst, true)
+		if err != nil {
+			return err
+		}
+
+		// Delete source file ...
+		err = os.Remove(src)
+		if err != nil {
+			return err
+		}
+
+		// Create symlink ...
+		err = os.Symlink(dst, src)
+		if err != nil {
+			return err
 		}
 	}
 
