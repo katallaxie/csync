@@ -8,7 +8,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/andersnormal/pkg/utils"
+	"github.com/andersnormal/pkg/utils/files"
 	"github.com/go-playground/validator/v10"
 	"gopkg.in/yaml.v3"
 )
@@ -89,7 +89,7 @@ func Write(s *Spec, file string, force bool) error {
 		return err
 	}
 
-	ok, _ := utils.FileExists(file)
+	ok, _ := files.FileExists(file)
 	if ok && !force {
 		return fmt.Errorf("%s already exists, use --force to overwrite", file)
 	}

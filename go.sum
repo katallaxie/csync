@@ -1,5 +1,11 @@
 github.com/andersnormal/pkg v0.0.0-20220715145430-119c43b2a60d h1:J8PsRzJUKEfEManVh26S9XAK1CAgvH06uZqD1C0nuVs=
 github.com/andersnormal/pkg v0.0.0-20220715145430-119c43b2a60d/go.mod h1:5X1vLfbOn1egbCcOjJyikyV13xgNmEj5Bn3rd8SCr9c=
+github.com/andersnormal/pkg v0.0.0-20220721180709-e3a04948d5c5 h1:fPPSeQhwZH/TZT0cNMYdimfeb4oKrQhKwFNp/YNn9Gs=
+github.com/andersnormal/pkg v0.0.0-20220721180709-e3a04948d5c5/go.mod h1:5X1vLfbOn1egbCcOjJyikyV13xgNmEj5Bn3rd8SCr9c=
+github.com/andersnormal/pkg v0.0.0-20220722071544-1441e23f9835 h1:na5WwyvhaBbQsEtsoSS2Xojy2sNEQuJyJzpoWUP8dog=
+github.com/andersnormal/pkg v0.0.0-20220722071544-1441e23f9835/go.mod h1:5X1vLfbOn1egbCcOjJyikyV13xgNmEj5Bn3rd8SCr9c=
+github.com/andersnormal/pkg v0.0.0-20220722072133-6b376c5716a8 h1:OoS67vk6YBd3WCT/RD8Ks9JGPVcubVafv63uuDiDRfQ=
+github.com/andersnormal/pkg v0.0.0-20220722072133-6b376c5716a8/go.mod h1:5X1vLfbOn1egbCcOjJyikyV13xgNmEj5Bn3rd8SCr9c=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
