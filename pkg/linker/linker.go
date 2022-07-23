@@ -99,7 +99,7 @@ func (l *linker) Backup(ctx context.Context, app *spec.App, force bool, dry bool
 // Restore ...
 func (l *linker) Restore(ctx context.Context, app *spec.App, force bool, dry bool) error {
 	for _, dst := range app.Files {
-		dst = spec.FilePathFromProvider(l.opts.Provider, dst)
+		_ = spec.FilePathFromProvider(l.opts.Provider, dst)
 	}
 
 	return nil
