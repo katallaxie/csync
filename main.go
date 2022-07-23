@@ -21,7 +21,7 @@ var (
 	version = ""
 )
 
-const usage = `Usage: csync [-cflvsdpw] [--config] [--force] [--verbose] [--dry] [--validate] [--var] [--version]
+const usage = `Usage: csync [-crflvsdpw] [--config] [--restore] [--force] [--verbose] [--dry] [--validate] [--var] [--version]
 
 '''
 version: 1
@@ -86,7 +86,7 @@ func main() {
 	}
 
 	if cfg.Flags.Validate {
-		err = s.Validate()
+		err = spec.Validate(s)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -108,11 +108,24 @@ func main() {
 
 	l := linker.New()
 
+	if cfg.Flags.Restore {
+		s.Lock()
+		defer s.Unlock()
+
+		for _, a := range s.Apps {
+			if err := l.Restore(ctx, &a, cfg.Flags.Force, cfg.Flags.Dry); err != nil {
+				log.Fatal(err)
+			}
+		}
+
+		os.Exit(0)
+	}
+
 	for _, a := range s.Apps {
 		s.Lock()
 		defer s.Unlock()
 
-		if err := l.Link(ctx, &a); err != nil {
+		if err := l.Backup(ctx, &a, cfg.Flags.Force, cfg.Flags.Dry); err != nil {
 			log.Fatal(err)
 		}
 	}

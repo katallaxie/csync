@@ -4,13 +4,19 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"reflect"
 	"strings"
 	"sync"
 
 	"github.com/andersnormal/pkg/utils/files"
+	s "github.com/andersnormal/pkg/utils/strings"
 	"github.com/go-playground/validator/v10"
 	"gopkg.in/yaml.v3"
+)
+
+var (
+	allowedExt = []string{"yml", "yaml"}
 )
 
 // Spec ...
@@ -63,7 +69,7 @@ type Includes []string
 type Excludes []string
 
 // Validate ..
-func (s *Spec) Validate() error {
+func Validate(s *Spec) error {
 	v := validator.New()
 
 	v.RegisterTagNameFunc(func(fld reflect.StructField) string {
@@ -119,6 +125,28 @@ func Load(file string) (*Spec, error) {
 	err = yaml.Unmarshal(f, &spec)
 	if err != nil {
 		return nil, err
+	}
+
+	for _, in := range spec.Includes {
+		ext := filepath.Ext(in)
+		ok := s.Contains(allowedExt, ext)
+
+		if !ok {
+			continue
+		}
+
+		a, err := ioutil.ReadFile(in)
+		if err != nil {
+			return nil, err
+		}
+
+		var app App
+		err = yaml.Unmarshal(a, &app)
+		if err != nil {
+			return nil, err
+		}
+
+		spec.Apps = append(spec.Apps, app)
 	}
 
 	return &spec, nil

@@ -10,11 +10,13 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestLink(t *testing.T) {
+func TestBackup(t *testing.T) {
 	var tests = []struct {
 		desc        string
 		app         *spec.App
 		opts        []linker.Opt
+		force       bool
+		dry         bool
 		expectedErr error
 	}{
 		{
@@ -32,7 +34,7 @@ func TestLink(t *testing.T) {
 			defer cancel()
 
 			l := linker.New(tc.opts...)
-			err := l.Link(ctx, tc.app)
+			err := l.Backup(ctx, tc.app, tc.force, tc.dry)
 
 			assert.Equal(t, tc.expectedErr, err)
 		})

@@ -15,7 +15,8 @@ type linker struct {
 
 // Linker ...
 type Linker interface {
-	Link(context.Context, *spec.App) error
+	Backup(context.Context, *spec.App, bool, bool) error
+	Restore(context.Context, *spec.App, bool, bool) error
 }
 
 // Opt ...
@@ -50,8 +51,8 @@ func New(opts ...Opt) Linker {
 	}
 }
 
-// Link ...
-func (l *linker) Link(ctx context.Context, app *spec.App) error {
+// Backup ...
+func (l *linker) Backup(ctx context.Context, app *spec.App, force bool, dry bool) error {
 	for _, src := range app.Files {
 		dst := spec.FilePathFromProvider(l.opts.Provider, src)
 
@@ -90,6 +91,15 @@ func (l *linker) Link(ctx context.Context, app *spec.App) error {
 		if err != nil {
 			return err
 		}
+	}
+
+	return nil
+}
+
+// Restore ...
+func (l *linker) Restore(ctx context.Context, app *spec.App, force bool, dry bool) error {
+	for _, dst := range app.Files {
+		dst = spec.FilePathFromProvider(l.opts.Provider, dst)
 	}
 
 	return nil
