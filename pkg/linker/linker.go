@@ -3,7 +3,10 @@ package linker
 import (
 	"context"
 	"errors"
+	"fmt"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/andersnormal/pkg/utils/files"
 	"github.com/katallaxie/csync/pkg/spec"
@@ -54,7 +57,10 @@ func New(opts ...Opt) Linker {
 // Backup ...
 func (l *linker) Backup(ctx context.Context, app *spec.App, force bool, dry bool) error {
 	for _, src := range app.Files {
-		dst := spec.FilePathFromProvider(l.opts.Provider, src)
+		dst, err := l.FilePath(src)
+		if err != nil {
+			return err
+		}
 
 		dstfi, err := os.Lstat(dst)
 		if err != nil && !errors.Is(err, os.ErrNotExist) {
@@ -103,4 +109,28 @@ func (l *linker) Restore(ctx context.Context, app *spec.App, force bool, dry boo
 	}
 
 	return nil
+}
+
+// FilePath ...
+func (l *linker) FilePath(src string) (string, error) {
+	name := strings.ToLower(l.opts.Provider.Name)
+	path := "csync"
+
+	if l.opts.Provider.Path != "" {
+		path = l.opts.Provider.Path
+	}
+
+	var home string
+	var err error
+	switch name {
+	case "icloud":
+		home, err = ICloudFolder()
+		if err != nil {
+			return "", err
+		}
+	default:
+		return "", fmt.Errorf("unknown provider")
+	}
+
+	return filepath.Join(home, path, src), nil
 }
