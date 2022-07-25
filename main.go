@@ -9,6 +9,7 @@ import (
 	"runtime/debug"
 	"time"
 
+	"github.com/katallaxie/csync/pkg/checker"
 	"github.com/katallaxie/csync/pkg/config"
 	"github.com/katallaxie/csync/pkg/linker"
 	"github.com/katallaxie/csync/pkg/spec"
@@ -60,6 +61,7 @@ func main() {
 	pflag.BoolVarP(&cfg.Flags.Validate, "validate", "V", cfg.Flags.Validate, "validate config")
 	pflag.BoolVar(&cfg.Flags.Version, "version", cfg.Flags.Version, "version")
 	pflag.BoolVar(&cfg.Flags.Restore, "restore", cfg.Flags.Version, "restore")
+	pflag.BoolVar(&cfg.Flags.Root, "root", cfg.Flags.Root, "run as root")
 	pflag.Parse()
 
 	if cfg.Flags.Version {
@@ -78,6 +80,14 @@ func main() {
 		}
 
 		os.Exit(0)
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	c := checker.New(checker.WithChecks(checker.UsuableEnv))
+	if err := c.Ready(ctx, cfg); err != nil {
+		log.Fatal(err)
 	}
 
 	s, err := cfg.LoadSpec()
@@ -102,9 +112,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
 
 	l := linker.New()
 

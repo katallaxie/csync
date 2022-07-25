@@ -15,6 +15,7 @@ type Flags struct {
 	Help     bool
 	Init     bool
 	Restore  bool
+	Root     bool
 	Validate bool
 	Verbose  bool
 	Version  bool
