@@ -1,7 +1,13 @@
 package utils
 
 import (
+	b64 "encoding/base64"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"os/user"
+	"path/filepath"
+	"strings"
 
 	"github.com/andersnormal/pkg/utils/files"
 )
@@ -23,4 +29,35 @@ func ICloudFolder() (string, error) {
 	}
 
 	return path, err
+}
+
+// DropboxFolder ...
+func DropboxFodler() (string, error) {
+	usr, err := user.Current()
+	if err != nil {
+		return "", err
+	}
+
+	path := filepath.Join(usr.HomeDir, ".dropbox/host.db")
+
+	file, err := os.OpenFile(path, os.O_RDWR, 0600)
+	if err != nil {
+		panic(err)
+	}
+
+	defer file.Close()
+
+	bb, err := ioutil.ReadAll(file)
+	if err != nil {
+		panic(err)
+	}
+
+	lines := strings.Split(string(bb), "\n")
+
+	dec, err := b64.URLEncoding.DecodeString(lines[1])
+	if err != nil {
+		return "", err
+	}
+
+	return string(dec), err
 }
