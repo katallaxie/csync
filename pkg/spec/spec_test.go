@@ -11,18 +11,49 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_FilePathFromProvider(t *testing.T) {
+func Test_ProviderFilePath(t *testing.T) {
 	var tests = []struct {
 		desc        string
 		p           *spec.Provider
 		f           string
 		expected    string
 		expectedErr error
-	}{}
+	}{
+		{
+			p:           &spec.Provider{},
+			f:           "foo.txt",
+			expected:    "",
+			expectedErr: fmt.Errorf("unknown provider"),
+		},
+		{
+			p: &spec.Provider{
+				Name: "file",
+				Path: "/root",
+			},
+			f:           "foo.txt",
+			expected:    "/root/csync/foo.txt",
+			expectedErr: nil,
+		},
+		{
+			p: &spec.Provider{
+				Name:      "file",
+				Path:      "/root",
+				Directory: "/foo",
+			},
+			f:           "foo.txt",
+			expected:    "/root/foo/foo.txt",
+			expectedErr: nil,
+		},
+	}
 
 	for _, tc := range tests {
 		t.Run(tc.desc, func(t *testing.T) {
+			path, err := tc.p.GetFilePath(tc.f)
+			assert.Equal(t, path, tc.expected)
 
+			if tc.expectedErr != nil {
+				assert.Error(t, err, tc.expectedErr)
+			}
 		})
 	}
 }

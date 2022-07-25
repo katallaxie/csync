@@ -12,7 +12,12 @@ import (
 	"github.com/andersnormal/pkg/utils/files"
 	s "github.com/andersnormal/pkg/utils/strings"
 	"github.com/go-playground/validator/v10"
+	"github.com/katallaxie/csync/pkg/utils"
 	"gopkg.in/yaml.v3"
+)
+
+const (
+	defaultDirectory = "csync"
 )
 
 var (
@@ -47,8 +52,52 @@ func Default() *Spec {
 
 // Provider ...
 type Provider struct {
+	// Name ...
 	Name string `validate:"required" yaml:"name"`
+	// Pathh ...
 	Path string `yaml:"path"`
+	// Directory ...
+	Directory string `yaml:"directory"`
+}
+
+// GetName ...
+func (p *Provider) GetName() string {
+	return strings.ToLower(p.Name)
+}
+
+// GetPath ...
+func (p *Provider) GetPath() string {
+	return p.Path
+}
+
+// GetDirectory ...
+func (p *Provider) GetDirectory() string {
+	return p.Directory
+}
+
+// GetFilePath ...
+func (p *Provider) GetFilePath(f string) (string, error) {
+	dir := defaultDirectory
+	path := p.GetPath()
+
+	if p.GetDirectory() != "" {
+		dir = p.GetDirectory()
+	}
+
+	var base string
+	var err error
+	switch p.GetName() {
+	case "file":
+	case "icloud":
+		base, err = utils.ICloudFolder()
+		if err != nil {
+			return "", err
+		}
+	default:
+		return "", fmt.Errorf("unknown provider")
+	}
+
+	return filepath.Join(base, path, dir, f), nil
 }
 
 // App ...
@@ -150,9 +199,4 @@ func Load(file string) (*Spec, error) {
 	}
 
 	return &spec, nil
-}
-
-// FilePathFromProvider ...
-func FilePathFromProvider(p *Provider, f string) string {
-	return f
 }
