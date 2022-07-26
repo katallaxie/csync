@@ -17,6 +17,7 @@ type linker struct {
 type Linker interface {
 	Backup(context.Context, *spec.App, bool, bool) error
 	Restore(context.Context, *spec.App, bool, bool) error
+	Unlink(context.Context, *spec.App, bool, bool) error
 }
 
 // Opt ...
@@ -101,6 +102,11 @@ func (l *linker) Backup(ctx context.Context, app *spec.App, force bool, dry bool
 		}
 	}
 
+	return nil
+}
+
+// Unlink ...
+func (l *linker) Unlink(context.Context, *spec.App, bool, bool) error {
 	return nil
 }
 
