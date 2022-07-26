@@ -1,9 +1,10 @@
 version: 1
 provider:
-  name: icloud
+  name: file
+  path: /workspaces/csync/.temp
   # path: override the destination
 apps:
   - 
     name: "nano"
     files:
-      - "/Libary/Preferences/"
+      - "/workspaces/csync/examples/.nanorc"

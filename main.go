@@ -113,7 +113,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	l := linker.New()
+	l := linker.New(linker.WithProvider(s.Provider))
 
 	if cfg.Flags.Restore {
 		s.Lock()

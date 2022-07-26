@@ -24,7 +24,7 @@ type Opt func(*Opts)
 
 // Opts ...
 type Opts struct {
-	Provider *spec.Provider
+	Provider spec.Provider
 }
 
 // Configure ...
@@ -35,7 +35,7 @@ func (o *Opts) Configure(opts ...Opt) {
 }
 
 // WithProvider ...
-func WithProvider(p *spec.Provider) Opt {
+func WithProvider(p spec.Provider) Opt {
 	return func(o *Opts) {
 		o.Provider = p
 	}
@@ -61,6 +61,11 @@ func (l *linker) Backup(ctx context.Context, app *spec.App, force bool, dry bool
 
 		dstfi, err := os.Lstat(dst)
 		if err != nil && !errors.Is(err, os.ErrNotExist) {
+			return err
+		}
+
+		src, err := files.ExpandHomeFolder(src)
+		if err != nil {
 			return err
 		}
 

@@ -61,22 +61,22 @@ type Provider struct {
 }
 
 // GetName ...
-func (p *Provider) GetName() string {
+func (p Provider) GetName() string {
 	return strings.ToLower(p.Name)
 }
 
 // GetPath ...
-func (p *Provider) GetPath() string {
+func (p Provider) GetPath() string {
 	return p.Path
 }
 
 // GetDirectory ...
-func (p *Provider) GetDirectory() string {
+func (p Provider) GetDirectory() string {
 	return p.Directory
 }
 
 // GetFilePath ...
-func (p *Provider) GetFilePath(f string) (string, error) {
+func (p Provider) GetFilePath(f string) (string, error) {
 	dir := defaultDirectory
 	path := p.GetPath()
 
