@@ -1,4 +1,4 @@
-# :art: Run
+# :bank: `csync`
 
 [![Test & Build](https://github.com/katallaxie/csync/actions/workflows/main.yml/badge.svg)](https://github.com/katallaxie/csync/actions/workflows/main.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/katallaxie/csync)](https://goreportcard.com/report/github.com/katallaxie/csync)
