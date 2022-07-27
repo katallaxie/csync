@@ -5,6 +5,6 @@ provider:
   # path: override the destination
 apps:
   - 
-    name: "nano"
+    name: "example"
     files:
-      - "/workspaces/csync/examples/.nanorc"
+      - "/workspaces/csync/examples/example.txt"

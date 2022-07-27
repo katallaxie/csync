@@ -114,13 +114,26 @@ func main() {
 		log.Fatal(err)
 	}
 
-	l := linker.New(linker.WithProvider(s.Provider))
+	opts := []linker.Opt{linker.WithProvider(s.Provider)}
+	if cfg.Flags.Verbose {
+		opts = append(opts, linker.WithVerbose())
+	}
+
+	l := linker.New(opts...)
 
 	if cfg.Flags.Restore {
 		s.Lock()
 		defer s.Unlock()
 
+		if cfg.Flags.Verbose {
+			log.Print("Restore files...")
+		}
+
 		for _, a := range s.Apps {
+			if cfg.Flags.Verbose {
+				log.Printf("Restoring %s", a.Name)
+			}
+
 			if err := l.Restore(ctx, &a, cfg.Flags.Force, cfg.Flags.Dry); err != nil {
 				log.Fatal(err)
 			}
@@ -133,7 +146,15 @@ func main() {
 		s.Lock()
 		defer s.Unlock()
 
+		if cfg.Flags.Verbose {
+			log.Printf("Unlink apps ...")
+		}
+
 		for _, a := range s.Apps {
+			if cfg.Flags.Verbose {
+				log.Printf("Unlink '%s'", a.Name)
+			}
+
 			if err := l.Unlink(ctx, &a, cfg.Flags.Force, cfg.Flags.Dry); err != nil {
 				log.Fatal(err)
 			}
@@ -142,9 +163,17 @@ func main() {
 		os.Exit(0)
 	}
 
+	if cfg.Flags.Verbose {
+		log.Printf("Backup apps ....")
+	}
+
 	for _, a := range s.Apps {
 		s.Lock()
 		defer s.Unlock()
+
+		if cfg.Flags.Verbose {
+			log.Printf("Backup '%s'", a.Name)
+		}
 
 		if err := l.Backup(ctx, &a, cfg.Flags.Force, cfg.Flags.Dry); err != nil {
 			log.Fatal(err)

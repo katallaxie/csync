@@ -3,6 +3,7 @@ package linker
 import (
 	"context"
 	"errors"
+	"log"
 	"os"
 
 	"github.com/andersnormal/pkg/utils/files"
@@ -26,6 +27,7 @@ type Opt func(*Opts)
 // Opts ...
 type Opts struct {
 	Provider spec.Provider
+	Verbose  bool
 }
 
 // Configure ...
@@ -39,6 +41,13 @@ func (o *Opts) Configure(opts ...Opt) {
 func WithProvider(p spec.Provider) Opt {
 	return func(o *Opts) {
 		o.Provider = p
+	}
+}
+
+// WithVerbose ...
+func WithVerbose() Opt {
+	return func(o *Opts) {
+		o.Verbose = true
 	}
 }
 
@@ -83,6 +92,10 @@ func (l *linker) Backup(ctx context.Context, app *spec.App, force bool, dry bool
 			continue // already is a symlink, needs force
 		}
 
+		if l.opts.Verbose {
+			log.Printf("Link '%s' => '%s'", src, dst)
+		}
+
 		// Copy file ...
 		_, err = files.CopyFile(src, dst, true)
 		if err != nil {
@@ -125,6 +138,10 @@ func (l *linker) Unlink(ctx context.Context, app *spec.App, force bool, dry bool
 
 		if not {
 			continue
+		}
+
+		if l.opts.Verbose {
+			log.Printf("Unlink %s from %s", dst, src)
 		}
 
 		// try to delete and ignore any error
