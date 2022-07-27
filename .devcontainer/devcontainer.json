@@ -1,5 +1,5 @@
 {
-    "name": "katallaxie/run",
+    "name": "katallaxie/csync",
     "image": "mcr.microsoft.com/vscode/devcontainers/universal:latest",
     "postCreateCommand": "bash scripts/postCreateCommand.sh",
     "forwardPorts": [3000],
