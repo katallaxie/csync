@@ -79,7 +79,7 @@ func (l *linker) Backup(ctx context.Context, app *spec.App, force bool, dry bool
 			continue
 		}
 
-		if fi.Mode()&os.ModeSymlink == os.ModeSymlink {
+		if fi.Mode()&os.ModeSymlink == os.ModeSymlink && !force {
 			continue // already is a symlink, needs force
 		}
 
@@ -106,11 +106,41 @@ func (l *linker) Backup(ctx context.Context, app *spec.App, force bool, dry bool
 }
 
 // Unlink ...
-func (l *linker) Unlink(context.Context, *spec.App, bool, bool) error {
+func (l *linker) Unlink(ctx context.Context, app *spec.App, force bool, dry bool) error {
+	for _, dst := range app.Files {
+		dst, err := files.ExpandHomeFolder(dst)
+		if err != nil {
+			return err
+		}
+
+		src, err := l.opts.Provider.GetFilePath(dst)
+		if err != nil {
+			return err
+		}
+
+		not, err := files.FileNotExists(src)
+		if err != nil {
+			return err
+		}
+
+		if not {
+			continue
+		}
+
+		// try to delete and ignore any error
+		_ = os.Remove(dst)
+
+		_, err = files.CopyFile(src, dst, true)
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
 // Restore ...
 func (l *linker) Restore(ctx context.Context, app *spec.App, force bool, dry bool) error {
+
 	return nil
 }

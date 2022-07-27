@@ -22,7 +22,7 @@ var (
 	version = ""
 )
 
-const usage = `Usage: csync [-crflvsdpw] [--config] [--restore] [--force] [--verbose] [--dry] [--validate] [--var] [--version]
+const usage = `Usage: csync [-crflvsdpw] [--config] [--restore] [--force] [--verbose] [--unlink] [--dry] [--validate] [--var] [--version]
 
 '''
 version: 1
@@ -59,6 +59,7 @@ func main() {
 	pflag.BoolVarP(&cfg.Flags.Dry, "dry", "d", cfg.Flags.Dry, "dry run")
 	pflag.StringVarP(&cfg.File, "config", "c", cfg.File, "config file")
 	pflag.BoolVarP(&cfg.Flags.Validate, "validate", "V", cfg.Flags.Validate, "validate config")
+	pflag.BoolVar(&cfg.Flags.Unlink, "unlink", cfg.Flags.Unlink, "unlink")
 	pflag.BoolVar(&cfg.Flags.Version, "version", cfg.Flags.Version, "version")
 	pflag.BoolVar(&cfg.Flags.Restore, "restore", cfg.Flags.Version, "restore")
 	pflag.BoolVar(&cfg.Flags.Root, "root", cfg.Flags.Root, "run as root")
@@ -121,6 +122,19 @@ func main() {
 
 		for _, a := range s.Apps {
 			if err := l.Restore(ctx, &a, cfg.Flags.Force, cfg.Flags.Dry); err != nil {
+				log.Fatal(err)
+			}
+		}
+
+		os.Exit(0)
+	}
+
+	if cfg.Flags.Unlink {
+		s.Lock()
+		defer s.Unlock()
+
+		for _, a := range s.Apps {
+			if err := l.Unlink(ctx, &a, cfg.Flags.Force, cfg.Flags.Dry); err != nil {
 				log.Fatal(err)
 			}
 		}

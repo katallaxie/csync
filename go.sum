@@ -8,6 +8,8 @@ github.com/andersnormal/pkg v0.0.0-20220722072133-6b376c5716a8 h1:OoS67vk6YBd3WC
 github.com/andersnormal/pkg v0.0.0-20220722072133-6b376c5716a8/go.mod h1:5X1vLfbOn1egbCcOjJyikyV13xgNmEj5Bn3rd8SCr9c=
 github.com/andersnormal/pkg v0.0.0-20220723165822-a954c48b33da h1:2yFJGazsssHaI8pe274RheLiEeAFyZzUArmbPpF0zBc=
 github.com/andersnormal/pkg v0.0.0-20220723165822-a954c48b33da/go.mod h1:5X1vLfbOn1egbCcOjJyikyV13xgNmEj5Bn3rd8SCr9c=
+github.com/andersnormal/pkg v0.0.0-20220727061029-1a6bac46e603 h1:2uT+z1+Dt5HZHt7kMHYcHO4iURbjAqAqiTUGkhtDezU=
+github.com/andersnormal/pkg v0.0.0-20220727061029-1a6bac46e603/go.mod h1:Lkiqngqiei8SshuhAW6w6kVub9ZMmttrDWOKl0fdA/0=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
