@@ -23,6 +23,8 @@ jobs:
       with:
         node-version: 16
     - 
+      env:
+        NODE_ENV: production
       run: |
         npm i --legacy-peer-deps
         npm run build
