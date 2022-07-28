@@ -21,3 +21,8 @@ func UsuableEnv(ctx context.Context, cfg *config.Config) error {
 
 	return nil
 }
+
+// HomeFolder ...
+func HomeFolder(ctx context.Context, cfg *config.Config) error {
+	return nil
+}
