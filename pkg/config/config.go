@@ -39,6 +39,8 @@ type Config struct {
 	KillSignal syscall.Signal
 	// File...
 	File string
+	// Path ...
+	Path string
 	// FileMode ...
 	FileMode os.FileMode
 	// Flags ...
@@ -76,7 +78,7 @@ func (c *Config) InitDefaultConfig() error {
 
 	usr, err := user.Current()
 	if err == nil {
-		c.File = filepath.Join(usr.HomeDir, spec.DefaultFilename)
+		c.Path = filepath.Join(usr.HomeDir, spec.DefaultPath)
 	}
 
 	return nil

@@ -18,6 +18,7 @@ import (
 
 const (
 	DefaultDirectory = "csync"
+	DefaultPath      = ".csync"
 	DefaultFilename  = ".csync.yml"
 )
 
@@ -30,7 +31,7 @@ type Spec struct {
 	// Version ...
 	Version int `validate:"required" yaml:"version"`
 	// Path ...
-	Path string `yaml:"path"`
+	Path string `yaml:"path,omitempty"`
 	// Provider ...
 	Provider Provider `validate:"required" yaml:"provider"`
 	// Apps ...

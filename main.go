@@ -9,6 +9,7 @@ import (
 	"runtime/debug"
 	"time"
 
+	"github.com/andersnormal/pkg/utils/files"
 	"github.com/katallaxie/csync/pkg/checker"
 	"github.com/katallaxie/csync/pkg/config"
 	"github.com/katallaxie/csync/pkg/linker"
@@ -76,12 +77,20 @@ func main() {
 	}
 
 	if cfg.Flags.Init {
-
 		if cfg.Flags.Verbose {
 			log.Printf("initializing config (%s)", cfg.File)
 		}
 
 		if err := spec.Write(spec.Default(), cfg.File, cfg.Flags.Force); err != nil {
+			log.Fatal(err)
+		}
+
+		if cfg.Flags.Verbose {
+			log.Printf("creating config folder (%s)", cfg.Path)
+		}
+
+		err = files.MkdirAll(cfg.Path, os.ModePerm)
+		if err != nil {
 			log.Fatal(err)
 		}
 
@@ -91,7 +100,10 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	c := checker.New(checker.WithChecks(checker.UsuableEnv))
+	c := checker.New(
+		checker.WithChecks(checker.UseableEnv),
+		checker.WithChecks(checker.UseSetup),
+	)
 	if err := c.Ready(ctx, cfg); err != nil {
 		log.Fatal(err)
 	}

@@ -4,12 +4,14 @@ import (
 	"context"
 	"fmt"
 	"os/user"
+	"path/filepath"
 
+	"github.com/andersnormal/pkg/utils/files"
 	"github.com/katallaxie/csync/pkg/config"
 )
 
-// UsuableEnv ...
-func UsuableEnv(ctx context.Context, cfg *config.Config) error {
+// UseableEnv ...
+func UseableEnv(ctx context.Context, cfg *config.Config) error {
 	user, err := user.Current()
 	if err != nil {
 		return err
@@ -22,7 +24,20 @@ func UsuableEnv(ctx context.Context, cfg *config.Config) error {
 	return nil
 }
 
-// HomeFolder ...
-func HomeFolder(ctx context.Context, cfg *config.Config) error {
+// UseSetup ...
+func UseSetup(ctx context.Context, cfg *config.Config) error {
+	ok, _ := files.FileExists(cfg.File)
+
+	if !ok {
+		return fmt.Errorf("%s does not exists. You can create a new config with '--init'", cfg.File)
+	}
+
+	path := filepath.Join(filepath.Dir(cfg.File), ".csync")
+	ok, _ = files.FileExists(path)
+
+	if !ok {
+		return fmt.Errorf("%s does not exists to store config files. You can create a new config with '--init'", path)
+	}
+
 	return nil
 }
