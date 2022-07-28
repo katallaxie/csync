@@ -17,7 +17,8 @@ import (
 )
 
 const (
-	defaultDirectory = "csync"
+	DefaultDirectory = "csync"
+	DefaultFilename  = ".csync.yml"
 )
 
 var (
@@ -79,7 +80,7 @@ func (p Provider) GetDirectory() string {
 
 // GetFilePath ...
 func (p Provider) GetFilePath(f string) (string, error) {
-	dir := defaultDirectory
+	dir := DefaultDirectory
 	path := p.GetPath()
 
 	if p.GetDirectory() != "" {

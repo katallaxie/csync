@@ -67,7 +67,7 @@ func main() {
 
 	if cfg.Flags.Version {
 		fmt.Printf("%s\n", getVersion())
-		return
+		os.Exit(0)
 	}
 
 	if cfg.Flags.Help {
@@ -76,6 +76,11 @@ func main() {
 	}
 
 	if cfg.Flags.Init {
+
+		if cfg.Flags.Verbose {
+			log.Printf("initializing config (%s)", cfg.File)
+		}
+
 		if err := spec.Write(spec.Default(), cfg.File, cfg.Flags.Force); err != nil {
 			log.Fatal(err)
 		}

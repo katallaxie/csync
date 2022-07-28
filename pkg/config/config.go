@@ -2,6 +2,7 @@ package config
 
 import (
 	"os"
+	"os/user"
 	"path/filepath"
 	"syscall"
 
@@ -72,6 +73,11 @@ func (c *Config) InitDefaultConfig() error {
 		return err
 	}
 	c.File = filepath.Join(cwd, c.File)
+
+	usr, err := user.Current()
+	if err == nil {
+		c.File = filepath.Join(usr.HomeDir, spec.DefaultFilename)
+	}
 
 	return nil
 }
