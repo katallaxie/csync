@@ -32,19 +32,6 @@ archives:
       - csync
     name_template: "csync_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
 
-release:
-  draft: false
-  ids:
-    - cysnc
-  header: |
-    ## {{.Version}} Release ({{ .Date }})
-
-    Welcome to this new release :rocket:!
-  footer: |
-    ## Thanks!
-
-    Those were the changes on {{ .Tag }}!
-
 brews:
   -
     name: csync
@@ -62,11 +49,20 @@ brews:
     install: |-
       bin.install "csync"
 
+release:
+  ids:
+    - cysnc
+  header: |
+    ## {{.Version}} Release ({{ .Date }})
+
+    Welcome to this new release :rocket:!
+  footer: |
+    ## Thanks!
+
+    Those were the changes on {{ .Tag }}!
+
 gomod:
   proxy: true
-
-release:
-  draft: true
 
 snapshot:
   name_template: "{{.Tag}}"
