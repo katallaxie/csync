@@ -33,6 +33,7 @@ archives:
     name_template: "csync_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
 
 release:
+  draft: false
   ids:
     - cysnc
   header: |
