@@ -1,6 +1,7 @@
 before:
   hooks:
     - go mod tidy
+
 builds:
   - 
     id: csync
@@ -30,6 +31,18 @@ archives:
     builds:
       - csync
     name_template: "csync_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+release:
+  ids:
+    - cysnc
+  header: |
+    ## {{.Version}} Release ({{ .Date }})
+
+    Welcome to this new release :rocket:!
+  footer: |
+    ## Thanks!
+
+    Those were the changes on {{ .Tag }}!
 
 brews:
   -
