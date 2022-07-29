@@ -28,6 +28,18 @@ archives:
       - csync
     name_template: "csync_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
 
+dockers:
+  -
+    id: csync
+    ids:
+      - csync
+    image_templates:
+      - "katallaxie/csync:latest"
+      - "katallaxie/csync:{{ .Tag }}"
+      - "katallaxie/csync:{{ .Tag }}-{{ .Env.GO_VERSION }}"
+      - "katallaxie/csync:v{{ .Major }}"
+      - "gcr.io/katallaxie/csync:latest"
+
 brews:
   -
     name: csync
