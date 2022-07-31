@@ -3,7 +3,7 @@ module github.com/katallaxie/csync
 go 1.13
 
 require (
-	github.com/andersnormal/pkg v0.0.0-20220727061029-1a6bac46e603
+	github.com/andersnormal/pkg v0.0.0-20220731072119-865d78838eee
 	github.com/go-playground/validator/v10 v10.11.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.8.0

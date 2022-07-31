@@ -158,6 +158,30 @@ func (l *linker) Unlink(ctx context.Context, app *spec.App, force bool, dry bool
 
 // Restore ...
 func (l *linker) Restore(ctx context.Context, app *spec.App, force bool, dry bool) error {
+	for _, src := range app.Files {
+		dst, err := files.PathTransform(src, files.ExpandHomeFolder, files.ExpandHomeFolder)
+		if err != nil {
+			return err
+		}
+
+		ok, err := files.FileNotExists(dst)
+		if err != nil {
+			return err
+		}
+
+		if !ok {
+			continue
+		}
+		if l.opts.Verbose {
+			log.Printf("restore %s from %s", src, dst)
+		}
+
+		// Create symlink ...
+		err = os.Symlink(src, dst)
+		if err != nil {
+			return err
+		}
+	}
 
 	return nil
 }

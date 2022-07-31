@@ -84,6 +84,16 @@ func (c *Config) InitDefaultConfig() error {
 	return nil
 }
 
+// HomeDir ...
+func (c *Config) HomeDir() (string, error) {
+	usr, err := user.Current()
+	if err != nil {
+		return "", err
+	}
+
+	return usr.HomeDir, err
+}
+
 // Cwd ...
 func (c *Config) Cwd() (string, error) {
 	return os.Getwd()
