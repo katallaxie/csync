@@ -26,6 +26,7 @@ type Opt func(*Opts)
 
 // Opts ...
 type Opts struct {
+	HomeDir  string
 	Provider spec.Provider
 	Verbose  bool
 }
@@ -41,6 +42,13 @@ func (o *Opts) Configure(opts ...Opt) {
 func WithProvider(p spec.Provider) Opt {
 	return func(o *Opts) {
 		o.Provider = p
+	}
+}
+
+// WithHomedir ...
+func WithHomedir(dir string) Opt {
+	return func(o *Opts) {
+		o.HomeDir = dir
 	}
 }
 
@@ -172,6 +180,7 @@ func (l *linker) Restore(ctx context.Context, app *spec.App, force bool, dry boo
 		if !ok {
 			continue
 		}
+
 		if l.opts.Verbose {
 			log.Printf("restore %s from %s", src, dst)
 		}
