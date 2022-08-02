@@ -23,7 +23,7 @@ var (
 	version = ""
 )
 
-const usage = `Usage: csync [-crflvsdpw] [--config] [--restore] [--force] [--verbose] [--unlink] [--dry] [--validate] [--var] [--version]
+const usage = `Usage: csync [-crflvsdpw] [--config] [--restore] [--force] [--verbose] [--unlink] [--dry] [--validate] [--version]
 
 '''
 version: 1
