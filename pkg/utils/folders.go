@@ -3,7 +3,7 @@ package utils
 import (
 	b64 "encoding/base64"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"os/user"
 	"path/filepath"
@@ -40,14 +40,14 @@ func DropboxFodler() (string, error) {
 
 	path := filepath.Join(usr.HomeDir, ".dropbox/host.db")
 
-	file, err := os.OpenFile(path, os.O_RDWR, 0600)
+	file, err := os.OpenFile(filepath.Clean(path), os.O_RDWR, 0o600)
 	if err != nil {
 		panic(err)
 	}
 
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 
-	bb, err := ioutil.ReadAll(file)
+	bb, err := io.ReadAll(file)
 	if err != nil {
 		panic(err)
 	}

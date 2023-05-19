@@ -2,7 +2,6 @@ package spec
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -22,9 +21,7 @@ const (
 	DefaultFilename  = ".csync.yml"
 )
 
-var (
-	allowedExt = []string{"yml", "yaml"}
-)
+var allowedExt = []string{"yml", "yaml"}
 
 // Spec ...
 type Spec struct {
@@ -153,16 +150,16 @@ func Write(s *Spec, file string, force bool) error {
 		return err
 	}
 
-	ok, _ := files.FileExists(file)
+	ok, _ := files.FileExists(filepath.Clean(file))
 	if ok && !force {
 		return fmt.Errorf("%s already exists, use --force to overwrite", file)
 	}
 
-	f, err := os.Create(file)
+	f, err := os.Create(filepath.Clean(file))
 	if err != nil {
 		return err
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	_, err = f.Write(b)
 	if err != nil {
@@ -174,7 +171,7 @@ func Write(s *Spec, file string, force bool) error {
 
 // Load ...
 func Load(file string) (*Spec, error) {
-	f, err := ioutil.ReadFile(file)
+	f, err := os.ReadFile(filepath.Clean(file))
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +190,7 @@ func Load(file string) (*Spec, error) {
 			continue
 		}
 
-		a, err := ioutil.ReadFile(in)
+		a, err := os.ReadFile(filepath.Clean(in))
 		if err != nil {
 			return nil, err
 		}

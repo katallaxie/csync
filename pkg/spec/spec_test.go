@@ -12,7 +12,7 @@ import (
 )
 
 func Test_ProviderFilePath(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		desc        string
 		p           *spec.Provider
 		f           string
@@ -59,7 +59,7 @@ func Test_ProviderFilePath(t *testing.T) {
 }
 
 func Test_LoadSpec(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		desc        string
 		spec        string
 		expected    *spec.Spec
@@ -74,7 +74,7 @@ apps:
   - 
     name: "nano"
     files:
-    - "/Libary/Preferences/"`,
+    - "/Library/Preferences/"`,
 			expected: &spec.Spec{
 				Version: 1,
 				Provider: spec.Provider{
@@ -83,7 +83,7 @@ apps:
 				Apps: []spec.App{
 					{
 						Name:  "nano",
-						Files: []string{"/Libary/Preferences/"},
+						Files: []string{"/Library/Preferences/"},
 					},
 				},
 			},
@@ -101,7 +101,7 @@ apps:
 
 			fmt.Println(content)
 
-			err = os.WriteFile(filepath.Join([]string{tempDir, "spec.yml"}...), content, 0644)
+			err = os.WriteFile(filepath.Join([]string{tempDir, "spec.yml"}...), content, 0o644)
 			assert.NoError(t, err)
 
 			s, err := spec.Load(filepath.Join([]string{tempDir, "spec.yml"}...))

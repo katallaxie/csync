@@ -11,7 +11,7 @@ import (
 )
 
 func TestBackup(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		desc        string
 		app         *spec.App
 		opts        []linker.Opt

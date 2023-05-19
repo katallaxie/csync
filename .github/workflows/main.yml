@@ -1,7 +1,8 @@
+# .github/workflows/main.yml
+
 name: Test & Build
 
 on:
-  workflow_call:
   push:
     branches:
     - main
@@ -13,26 +14,33 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        go: [ 1.18 ]
+    permissions:
+      checks: write
     steps:
-    - 
-      name: Check out code into the Go module directory
-      uses: actions/checkout@v3
-    - 
-      name: Setup go
-      uses: actions/setup-go@v3
+    - uses: actions/checkout@v3
+    - uses: actions/setup-go@v4
       with:
-        go-version: ${{ matrix.go }}
-    - 
-      name: Check code
-      uses: golangci/golangci-lint-action@v3
+        go-version-file: ./go.mod
+    - run: make test
+    - uses: dorny/test-reporter@v1
+      if: success() || failure()
       with:
-        version: latest
-        # skip cache because of flaky behaviors
-        skip-build-cache: true
-        skip-pkg-cache: true
-    -
-      name: Run Tests
-      run: go test -cover -p 1 -race -v ./...
+        name: Go ${{ matrix.go-version }} Test Results
+        path: .test/reports/**-test.xml
+        reporter: java-junit
+        fail-on-error: 'true'
+    - uses: actions/upload-artifact@v3
+      if: success() || failure()
+      with:
+        name: Test Reports
+        path: .test/reports/**
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version-file: ./go.mod
+          check-latest: true
+      - run: make lint

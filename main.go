@@ -4,10 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"math/rand"
 	"os"
 	"runtime/debug"
-	"time"
 
 	"github.com/andersnormal/pkg/utils/files"
 	"github.com/katallaxie/csync/pkg/checker"
@@ -19,9 +17,7 @@ import (
 	"github.com/spf13/pflag"
 )
 
-var (
-	version = ""
-)
+var version = ""
 
 const usage = `Usage: csync [-crflvsdpw] [--config] [--restore] [--force] [--verbose] [--unlink] [--dry] [--validate] [--version]
 
@@ -33,10 +29,7 @@ storage: icloud
 Options:
 `
 
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
-
+// nolint:gocyclo
 func main() {
 	log.SetFlags(0)
 	log.SetOutput(os.Stderr)
@@ -45,7 +38,7 @@ func main() {
 
 	err := cfg.InitDefaultConfig()
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	pflag.Usage = func() {
@@ -94,7 +87,7 @@ func main() {
 			log.Fatal(err)
 		}
 
-		os.Exit(0)
+		return
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
@@ -104,32 +97,30 @@ func main() {
 		checker.WithChecks(checker.UseableEnv),
 		checker.WithChecks(checker.UseSetup),
 	)
+
 	if err := c.Ready(ctx, cfg); err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	s, err := cfg.LoadSpec()
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	if cfg.Flags.Validate {
 		err = spec.Validate(s)
 		if err != nil {
-			log.Fatal(err)
+			log.Panic(err)
 		}
 
 		if cfg.Flags.Verbose {
 			log.Print("OK")
 		}
 
-		os.Exit(0)
+		return
 	}
 
-	_, _, err = parseArgs()
-	if err != nil {
-		log.Fatal(err)
-	}
+	_, _ = parseArgs()
 
 	opts := []linker.Opt{linker.WithProvider(s.Provider)}
 	if cfg.Flags.Verbose {
@@ -147,16 +138,17 @@ func main() {
 		}
 
 		for _, a := range s.Apps {
+			a := a
 			if cfg.Flags.Verbose {
 				log.Printf("Restoring %s", a.Name)
 			}
 
 			if err := l.Restore(ctx, &a, cfg.Flags.Force, cfg.Flags.Dry); err != nil {
-				log.Fatal(err)
+				log.Panic(err)
 			}
 		}
 
-		os.Exit(0)
+		return
 	}
 
 	if cfg.Flags.Unlink {
@@ -168,16 +160,17 @@ func main() {
 		}
 
 		for _, a := range s.Apps {
+			a := a
 			if cfg.Flags.Verbose {
 				log.Printf("Unlink '%s'", a.Name)
 			}
 
 			if err := l.Unlink(ctx, &a, cfg.Flags.Force, cfg.Flags.Dry); err != nil {
-				log.Fatal(err)
+				log.Panic(err)
 			}
 		}
 
-		os.Exit(0)
+		return
 	}
 
 	if cfg.Flags.Verbose {
@@ -185,6 +178,7 @@ func main() {
 	}
 
 	for _, a := range s.Apps {
+		a := a
 		s.Lock()
 		defer s.Unlock()
 
@@ -193,19 +187,17 @@ func main() {
 		}
 
 		if err := l.Backup(ctx, &a, cfg.Flags.Force, cfg.Flags.Dry); err != nil {
-			log.Fatal(err)
+			log.Panic(err)
 		}
 	}
-
-	os.Exit(0)
 }
 
-func parseArgs() ([]string, []string, error) {
+func parseArgs() ([]string, []string) {
 	args := pflag.Args()
 	dashPos := pflag.CommandLine.ArgsLenAtDash()
 
 	if dashPos == -1 {
-		return args, []string{}, nil
+		return args, []string{}
 	}
 
 	cliArgs := make([]string, 0)
@@ -214,7 +206,7 @@ func parseArgs() ([]string, []string, error) {
 		cliArgs = append(cliArgs, arg)
 	}
 
-	return args[:dashPos], cliArgs, nil
+	return args[:dashPos], cliArgs
 }
 
 func getVersion() string {
