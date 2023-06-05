@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/andersnormal/pkg v0.0.0-20220731072119-865d78838eee
-	github.com/go-playground/validator/v10 v10.14.0
+	github.com/go-playground/validator/v10 v10.14.1
 	github.com/golang/mock v1.6.0
 	github.com/golangci/golangci-lint v1.52.2
 	github.com/spf13/pflag v1.0.5
