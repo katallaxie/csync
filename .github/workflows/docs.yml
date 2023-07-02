@@ -23,11 +23,9 @@ jobs:
       - uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: 'latest'
-          extended: true
-          buildDrafts: true
-          buildFuture: true
-          minify: true
-        run: hugo --minify
+          extended: true 
+      - run: | 
+            hugo --minify
       - uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/main'
         with:
