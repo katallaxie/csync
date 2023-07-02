@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/go,node,webstorm,macos
-# Edit at https://www.toptal.com/developers/gitignore?templates=go,node,webstorm,macos
+# Created by https://www.toptal.com/developers/gitignore/api/go,node,macos,webstorm,hugo
+# Edit at https://www.toptal.com/developers/gitignore?templates=go,node,macos,webstorm,hugo
 
 ### Go ###
 # If you prefer the allow list template instead of the deny list, see community template:
@@ -24,9 +24,20 @@
 # Go workspace file
 go.work
 
-### Go Patch ###
-/vendor/
-/Godeps/
+### Hugo ###
+# Generated files by hugo
+/docs/public/
+/docs/resources/_gen/
+/docs/assets/jsconfig.json
+hugo_stats.json
+
+# Executable may be added to repository
+hugo.exe
+hugo.darwin
+hugo.linux
+
+# Temporary lock file while building
+/.hugo_build.lock
 
 ### macOS ###
 # General
@@ -314,4 +325,4 @@ fabric.properties
 # https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij
 .idea/**/azureSettings.xml
 
-# End of https://www.toptal.com/developers/gitignore/api/go,node,webstorm,macos
+# End of https://www.toptal.com/developers/gitignore/api/go,node,macos,webstorm,hugo
