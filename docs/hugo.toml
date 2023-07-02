@@ -1,6 +1,6 @@
 baseURL = ''
 languageCode = 'en-us'
-title = 'csync'
+title = 'csync | The Cloud Sync Tool'
 theme = 'hugo-whisper-theme'
 
 [[menu.main]]
