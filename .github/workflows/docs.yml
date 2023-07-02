@@ -16,21 +16,20 @@ jobs:
       run:
         working-directory: docs
     steps:
-    - 
-      uses: actions/checkout@v3
-    - 
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
-    - 
-      env:
-        NODE_ENV: production
-      run: |
-        npm i --legacy-peer-deps
-        npm run build
-        npm run export
-    - 
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/out 
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: true
+      - uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+          buildDrafts: true
+          buildFuture: true
+          minify: true
+        run: hugo --minify
+      - uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
