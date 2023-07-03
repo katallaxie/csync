@@ -38,7 +38,7 @@ type Spec struct {
 	// Excludes ...
 	Excludes []string `yaml:"excludes,omitempty"`
 
-	sync.Mutex
+	sync.Mutex `yaml:"-"`
 }
 
 // Default ...

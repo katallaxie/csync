@@ -24,6 +24,8 @@ func init() {
 	RootCmd.PersistentFlags().BoolVarP(&cfg.Flags.Dry, "dry", "d", cfg.Flags.Dry, "dry run")
 	RootCmd.PersistentFlags().BoolVarP(&cfg.Flags.Root, "root", "r", cfg.Flags.Root, "run as root")
 	RootCmd.PersistentFlags().BoolVarP(&cfg.Flags.Force, "force", "f", cfg.Flags.Force, "force init")
+
+	RootCmd.SilenceErrors = true
 }
 
 var RootCmd = &cobra.Command{
@@ -60,7 +62,7 @@ func runRoot(ctx context.Context) error {
 	defer s.Unlock()
 
 	if cfg.Flags.Verbose {
-		log.Printf("Backup apps ....")
+		log.Printf("Backup apps ...")
 	}
 
 	opts := []linker.Opt{linker.WithProvider(s.Provider)}
@@ -80,7 +82,7 @@ func runRoot(ctx context.Context) error {
 		}
 
 		if err := l.Backup(ctx, &a, cfg.Flags.Force, cfg.Flags.Dry); err != nil {
-			log.Panic(err)
+			return err
 		}
 	}
 
