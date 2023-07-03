@@ -29,7 +29,7 @@ func UseSetup(ctx context.Context, cfg *config.Config) error {
 	ok, _ := files.FileExists(cfg.File)
 
 	if !ok {
-		return fmt.Errorf("%s does not exists. You can create a new config with '--init'", cfg.File)
+		return fmt.Errorf("%s does not exists. You can create a new config with 'init'", cfg.File)
 	}
 
 	path := filepath.Join(filepath.Dir(cfg.File), ".csync")
