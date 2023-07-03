@@ -36,7 +36,7 @@ func UseSetup(ctx context.Context, cfg *config.Config) error {
 	ok, _ = files.FileExists(path)
 
 	if !ok {
-		return fmt.Errorf("%s does not exists to store config files. You can create a new config with '--init'", path)
+		return fmt.Errorf("%s does not exists to store config files. You can create a new config with 'init'", path)
 	}
 
 	return nil

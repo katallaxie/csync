@@ -4,39 +4,23 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
-	"syscall"
 
 	"github.com/katallaxie/csync/pkg/spec"
 )
 
 // Flags ...
 type Flags struct {
-	Dry      bool
-	Force    bool
-	Help     bool
-	Init     bool
-	Restore  bool
-	Root     bool
-	Unlink   bool
-	Validate bool
-	Verbose  bool
-	Version  bool
+	Dry     bool
+	Force   bool
+	Root    bool
+	Verbose bool
+	Version bool
 }
 
 // Config ...
 type Config struct {
 	// Verbose toggles the verbosity
 	Verbose bool
-	// LogLevel is the level with with to log for this config
-	LogLevel string `mapstructure:"log_level"`
-	// LogFormat is the format that is used for logging
-	LogFormat string `mapstructure:"log_format"`
-	// ReloadSignal ...
-	ReloadSignal syscall.Signal
-	// TermSignal ...
-	TermSignal syscall.Signal
-	// KillSignal ...
-	KillSignal syscall.Signal
 	// File...
 	File string
 	// Path ...
@@ -56,15 +40,10 @@ type Config struct {
 // New ...
 func New() *Config {
 	return &Config{
-		File:         ".csync.yml",
-		KillSignal:   syscall.SIGINT,
-		LogFormat:    "text",
-		LogLevel:     "warn",
-		ReloadSignal: syscall.SIGHUP,
-		TermSignal:   syscall.SIGTERM,
-		Stdin:        os.Stdin,
-		Stdout:       os.Stdout,
-		Stderr:       os.Stderr,
+		File:   ".csync.yml",
+		Stdin:  os.Stdin,
+		Stdout: os.Stdout,
+		Stderr: os.Stderr,
 	}
 }
 
