@@ -90,7 +90,7 @@ func (p Provider) GetFilePath(f string) (string, error) {
 	switch p.GetName() {
 	case "file":
 	case "dropbox":
-		base, err = utils.DropboxFodler()
+		base, err = utils.DropboxFolder()
 		if err != nil {
 			return "", err
 		}

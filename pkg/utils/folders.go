@@ -32,7 +32,7 @@ func ICloudFolder() (string, error) {
 }
 
 // DropboxFolder ...
-func DropboxFodler() (string, error) {
+func DropboxFolder() (string, error) {
 	usr, err := user.Current()
 	if err != nil {
 		return "", err
