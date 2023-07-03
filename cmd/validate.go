@@ -9,8 +9,8 @@ import (
 )
 
 var ValidateCmd = &cobra.Command{
-	Use:  "validate",
-	Long: "validate",
+	Use:   "validate",
+	Short: "Validating the config",
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		return checkEnv(cmd.Context())
 	},

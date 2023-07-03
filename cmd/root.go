@@ -17,7 +17,9 @@ func init() {
 	RootCmd.AddCommand(RestoreCmd)
 	RootCmd.AddCommand(UnlinkCmd)
 	RootCmd.AddCommand(ValidateCmd)
+	RootCmd.AddCommand(BackupCmd)
 
+	RootCmd.PersistentFlags().StringVarP(&cfg.File, "config", "c", cfg.File, "config file (default is $HOME/.csync.yaml)")
 	RootCmd.PersistentFlags().BoolVarP(&cfg.Flags.Verbose, "verbose", "v", cfg.Flags.Verbose, "verbose output")
 	RootCmd.PersistentFlags().BoolVarP(&cfg.Flags.Dry, "dry", "d", cfg.Flags.Dry, "dry run")
 	RootCmd.PersistentFlags().BoolVarP(&cfg.Flags.Root, "root", "r", cfg.Flags.Root, "run as root")

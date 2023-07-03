@@ -12,7 +12,7 @@ import (
 
 var InitCmd = &cobra.Command{
 	Use:   "init",
-	Short: "init config",
+	Short: "Initialize a new config",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return runInit(cmd.Context())
 	},

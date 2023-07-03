@@ -9,8 +9,8 @@ import (
 )
 
 var UnlinkCmd = &cobra.Command{
-	Use:  "unlink",
-	Long: "unlink",
+	Use:   "unlink",
+	Short: "Unlink the local files from the cloud",
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		return checkEnv(cmd.Context())
 	},

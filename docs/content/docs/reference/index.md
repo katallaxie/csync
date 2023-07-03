@@ -11,17 +11,26 @@ summary: Reference for `csync` configuration and usage.
 csync [--flags] [-- ARGS...]
 ```
 
+Default is executing a `backup` from the local machine to the cloud.
+
+| Subcommand | Description |
+| - | - |
+| `Backup` | Backup files from the local machine to the cloud
+| `completion` | Generate the autocompletion script for the specified shell
+| `help`       | Help about any command
+| `init`       | Initialize a new config
+| `restore`    | Restore files from the cloud to the local machine
+| `unlink`     | Unlink the local files from the cloud
+| `validate`   | Validating the config
+
 | Short | Flag | Type | Default | Description |
 | - | - | - | - | - |
 | `-c` | `--config` | `string` | `.csync.yml` | Config file. Enabled by default. Set to `$HOME/.csync.yml` or change to the location of your config |
-| `-r` | `--restore` | `bool` | `false` | Restores files from the cloud storage and creates the symbolic links for syncing |
 | `-f` | `--force` | `bool` | `false` | Forces the execution of operations. |
 | `-v` | `--verbose` | `bool` | `false` | Enables verbose logging of runtime information. |
 | `-d` | `--dry` | `bool` | `false` | Does not apply destructive operations. |
-|  | `--unlink` | `bool` | `false` | Restores files from the cloud storage without creating symbolic links |
-|  | `--validate` | `bool` | `false` | Validates the specification file provided via `.run.yml`. |
-|  | `--init` | `bool` | `false` | Creates a new `.csync.yml` file at the provided location of `--config` (default: `$CWD/.csync.yml`) |
-|  | `--version` | `bool` | `false` | Prints the current version. |
+| `-h` | `--help` | `bool` | `false` | Prints the help message. |
+| | `--root` | `bool` | `false` | Run as `root` |
 
 ## Schema
 
