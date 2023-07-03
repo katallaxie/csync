@@ -13,6 +13,8 @@ import (
 var cfg = config.New()
 
 func init() {
+	cobra.OnInitialize(initConfig)
+
 	RootCmd.AddCommand(InitCmd)
 	RootCmd.AddCommand(RestoreCmd)
 	RootCmd.AddCommand(UnlinkCmd)
@@ -26,6 +28,13 @@ func init() {
 	RootCmd.PersistentFlags().BoolVarP(&cfg.Flags.Force, "force", "f", cfg.Flags.Force, "force init")
 
 	RootCmd.SilenceErrors = true
+}
+
+func initConfig() {
+	err := cfg.InitDefaultConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 var RootCmd = &cobra.Command{
