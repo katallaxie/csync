@@ -30,7 +30,7 @@ archives:
     id: csync
     builds:
       - csync
-    name_template: "csync_{{ .Os }}_{{ .Arch }}"
+    name_template: "csync_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
 
 brews:
   -
@@ -51,7 +51,7 @@ brews:
 
 release:
   ids:
-    - cysnc
+    - csync
   header: |
     ## {{.Version}} Release ({{ .Date }})
 
