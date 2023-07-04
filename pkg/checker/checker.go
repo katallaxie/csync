@@ -12,7 +12,7 @@ type checker struct {
 
 // Checker ...
 type Checker interface {
-	Ready(context.Context, *config.Config) error
+	Check(context.Context, *config.Config) error
 }
 
 // Opt ...
@@ -51,7 +51,7 @@ func New(opts ...Opt) Checker {
 }
 
 // Ready ...
-func (c *checker) Ready(ctx context.Context, cfg *config.Config) error {
+func (c *checker) Check(ctx context.Context, cfg *config.Config) error {
 	for _, fn := range c.opts.funcs {
 		if err := fn(ctx, cfg); err != nil {
 			return err

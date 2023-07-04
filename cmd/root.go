@@ -54,7 +54,7 @@ func checkEnv(ctx context.Context) error {
 		checker.WithChecks(checker.UseSetup),
 	)
 
-	if err := c.Ready(ctx, cfg); err != nil {
+	if err := c.Check(ctx, cfg); err != nil {
 		return err
 	}
 
