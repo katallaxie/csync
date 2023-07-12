@@ -8,7 +8,7 @@ import (
 
 	"github.com/katallaxie/csync/internal/spec"
 
-	"github.com/andersnormal/pkg/utils/files"
+	"github.com/katallaxie/pkg/utils/files"
 )
 
 type linker struct {

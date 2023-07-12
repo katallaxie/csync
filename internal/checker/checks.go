@@ -6,8 +6,8 @@ import (
 	"os/user"
 	"path/filepath"
 
-	"github.com/andersnormal/pkg/utils/files"
 	"github.com/katallaxie/csync/internal/config"
+	"github.com/katallaxie/pkg/utils/files"
 )
 
 // UseableEnv ...
