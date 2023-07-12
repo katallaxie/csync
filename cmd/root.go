@@ -83,8 +83,6 @@ func runRoot(ctx context.Context) error {
 
 	for _, a := range s.Apps {
 		a := a
-		s.Lock()
-		defer s.Unlock()
 
 		if cfg.Flags.Verbose {
 			log.Printf("Backup '%s'", a.Name)

@@ -17,8 +17,11 @@ type linker struct {
 
 // Linker ...
 type Linker interface {
+	// Backup creates a backup of the files in the app spec.
 	Backup(context.Context, *spec.App, bool, bool) error
+	// Restore restores the files in the app spec.
 	Restore(context.Context, *spec.App, bool, bool) error
+	// Unlink unlinks the files in the app spec.
 	Unlink(context.Context, *spec.App, bool, bool) error
 }
 
@@ -70,10 +73,12 @@ func New(opts ...Opt) Linker {
 	}
 }
 
-// Backup ...
+// Backup is copying the files from the app spec to the backup directory
+// and then linking the files from the app spec to the original location.
 //
 //nolint:gocyclo
 func (l *linker) Backup(ctx context.Context, app *spec.App, force bool, dry bool) error {
+
 	for _, src := range app.Files {
 		dst, err := l.opts.Provider.GetFilePath(src)
 		if err != nil {
@@ -107,19 +112,19 @@ func (l *linker) Backup(ctx context.Context, app *spec.App, force bool, dry bool
 			log.Printf("Link '%s' => '%s'", src, dst)
 		}
 
-		// Copy file ...
+		// Copy file to backup directory ...
 		_, err = files.CopyFile(src, dst, true)
 		if err != nil {
 			return err
 		}
 
-		// Delete source file ...
+		// Delete source file
 		err = os.Remove(src)
 		if err != nil {
 			return err
 		}
 
-		// Create symlink ...
+		// Create symlink from destination to source
 		err = os.Symlink(dst, src)
 		if err != nil {
 			return err
