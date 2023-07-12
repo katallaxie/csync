@@ -3,7 +3,7 @@ package checker
 import (
 	"context"
 
-	"github.com/katallaxie/csync/pkg/config"
+	"github.com/katallaxie/csync/internal/config"
 )
 
 type checker struct {

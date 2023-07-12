@@ -4,9 +4,9 @@ import (
 	"context"
 	"log"
 
-	"github.com/katallaxie/csync/pkg/checker"
-	"github.com/katallaxie/csync/pkg/config"
-	"github.com/katallaxie/csync/pkg/linker"
+	"github.com/katallaxie/csync/internal/checker"
+	"github.com/katallaxie/csync/internal/config"
+	"github.com/katallaxie/csync/internal/linker"
 	"github.com/spf13/cobra"
 )
 

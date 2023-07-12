@@ -5,7 +5,7 @@ import (
 	"os/user"
 	"path/filepath"
 
-	"github.com/katallaxie/csync/pkg/spec"
+	"github.com/katallaxie/csync/internal/spec"
 )
 
 // Flags ...

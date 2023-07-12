@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/katallaxie/csync/pkg/spec"
+	"github.com/katallaxie/csync/internal/spec"
 
 	"github.com/stretchr/testify/assert"
 )

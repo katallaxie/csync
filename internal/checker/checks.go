@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/andersnormal/pkg/utils/files"
-	"github.com/katallaxie/csync/pkg/config"
+	"github.com/katallaxie/csync/internal/config"
 )
 
 // UseableEnv ...

@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/katallaxie/csync/pkg/config"
+	"github.com/katallaxie/csync/internal/config"
 
 	"github.com/stretchr/testify/assert"
 )

@@ -11,7 +11,7 @@ import (
 	"github.com/andersnormal/pkg/utils/files"
 	s "github.com/andersnormal/pkg/utils/strings"
 	"github.com/go-playground/validator/v10"
-	"github.com/katallaxie/csync/pkg/utils"
+	"github.com/katallaxie/csync/internal/utils"
 	"gopkg.in/yaml.v3"
 )
 

@@ -4,8 +4,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/katallaxie/csync/pkg/checker"
-	"github.com/katallaxie/csync/pkg/config"
+	"github.com/katallaxie/csync/internal/checker"
+	"github.com/katallaxie/csync/internal/config"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -18,7 +19,7 @@ func TestNew(t *testing.T) {
 }
 
 func TestCheck(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		desc string
 		fn   checker.Func
 		cfg  *config.Config

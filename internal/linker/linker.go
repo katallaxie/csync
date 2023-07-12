@@ -6,8 +6,9 @@ import (
 	"log"
 	"os"
 
+	"github.com/katallaxie/csync/internal/spec"
+
 	"github.com/andersnormal/pkg/utils/files"
-	"github.com/katallaxie/csync/pkg/spec"
 )
 
 type linker struct {

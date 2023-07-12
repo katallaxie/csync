@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/katallaxie/csync/pkg/linker"
+	"github.com/katallaxie/csync/internal/linker"
 	"github.com/spf13/cobra"
 )
 
