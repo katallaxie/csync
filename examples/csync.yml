@@ -10,4 +10,4 @@ apps:
       - "/workspaces/csync/examples/example.txt"
   - name: "example2"
     files:
-      - "/workspaces/csync/examples/.example2"
+      - "/workspaces/csync/examples/example2"

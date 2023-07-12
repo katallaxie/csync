@@ -9,6 +9,7 @@ import (
 	"github.com/katallaxie/csync/internal/spec"
 
 	"github.com/katallaxie/pkg/utils/files"
+	cp "github.com/otiai10/copy"
 )
 
 type linker struct {
@@ -112,16 +113,28 @@ func (l *linker) Backup(ctx context.Context, app *spec.App, force bool, dry bool
 			log.Printf("Link '%s' => '%s'", src, dst)
 		}
 
-		// Copy file to backup directory ...
-		_, err = files.CopyFile(src, dst, true)
-		if err != nil {
-			return err
-		}
+		if fi.Mode().IsDir() {
+			err := cp.Copy(src, dst)
+			if err != nil {
+				return err
+			}
 
-		// Delete source file
-		err = os.Remove(src)
-		if err != nil {
-			return err
+			err = os.RemoveAll(src)
+			if err != nil {
+				return err
+			}
+		} else {
+			// Copy file to backup directory ...
+			_, err = files.CopyFile(src, dst, true)
+			if err != nil {
+				return err
+			}
+
+			// Delete source file
+			err = os.Remove(src)
+			if err != nil {
+				return err
+			}
 		}
 
 		// Create symlink from destination to source
@@ -134,7 +147,10 @@ func (l *linker) Backup(ctx context.Context, app *spec.App, force bool, dry bool
 	return nil
 }
 
-// Unlink ...
+// Unlink is copying the files from the app spec to the original location
+// and then unlinking the files from the backup directory.
+//
+// nolint:gocyclo
 func (l *linker) Unlink(ctx context.Context, app *spec.App, force bool, dry bool) error {
 	for _, dst := range app.Files {
 		dst, err := files.ExpandHomeFolder(dst)
@@ -160,12 +176,24 @@ func (l *linker) Unlink(ctx context.Context, app *spec.App, force bool, dry bool
 			log.Printf("Unlink %s from %s", dst, src)
 		}
 
+		fi, err := os.Lstat(src)
+		if err != nil {
+			return err
+		}
+
 		// try to delete and ignore any error
 		_ = os.Remove(dst)
 
-		_, err = files.CopyFile(src, dst, true)
-		if err != nil {
-			return err
+		if fi.Mode().IsDir() {
+			err := cp.Copy(src, dst)
+			if err != nil {
+				return err
+			}
+		} else {
+			_, err = files.CopyFile(src, dst, true)
+			if err != nil {
+				return err
+			}
 		}
 	}
 
