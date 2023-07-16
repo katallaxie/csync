@@ -39,7 +39,7 @@ brews:
       - csync
     repository: 
       owner: katallaxie
-      name: csync-tap
+      name: homebrew-csync-tap
     folder: Formula
     goarm: "7"
     homepage: https://katallaxie.github.io/csync/
