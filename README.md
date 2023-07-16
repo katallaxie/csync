@@ -17,7 +17,7 @@
 ### Homebrew
 
 ```bash
-brew install katallaxie/csync/csync
+brew install katallaxie/csync-tap/csync
 ```
 
 ## Example
