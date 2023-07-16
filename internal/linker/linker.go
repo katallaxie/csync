@@ -79,7 +79,6 @@ func New(opts ...Opt) Linker {
 //
 //nolint:gocyclo
 func (l *linker) Backup(ctx context.Context, app *spec.App, force bool, dry bool) error {
-
 	for _, src := range app.Files {
 		dst, err := l.opts.Provider.GetFilePath(src)
 		if err != nil {
