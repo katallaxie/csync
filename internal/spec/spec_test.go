@@ -74,7 +74,7 @@ apps:
   - 
     name: "nano"
     files:
-    - "/Libary/Preferences/"`,
+    - "/Library/Preferences/"`,
 			expected: &spec.Spec{
 				Version: 1,
 				Provider: spec.Provider{
@@ -83,7 +83,7 @@ apps:
 				Apps: []spec.App{
 					{
 						Name:  "nano",
-						Files: []string{"/Libary/Preferences/"},
+						Files: []string{"/Library/Preferences/"},
 					},
 				},
 			},
