@@ -3,9 +3,9 @@ before:
     - go mod tidy
 
 builds:
-  - 
-    id: csync
-    binary: csync-{{.Os}}-{{ .Arch }}
+   -
+    id: main
+    binary: '{{ .ProjectName }}'
     main: main.go
     goos:
       - windows
@@ -22,8 +22,7 @@ builds:
     env:
       - CGO_ENABLED=0
     ldflags:
-        - -s -w
-    no_unique_dist_dir: true
+      - -s -w
 
 archives:
   -
