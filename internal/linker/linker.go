@@ -16,7 +16,7 @@ type linker struct {
 	opts *Opts
 }
 
-// Linker ...
+// Linker is the interface for linking, backing up and restoring files.
 type Linker interface {
 	// Backup creates a backup of the files in the app spec.
 	Backup(context.Context, *spec.App, bool, bool) error
@@ -26,7 +26,7 @@ type Linker interface {
 	Unlink(context.Context, *spec.App, bool, bool) error
 }
 
-// Opt ...
+// Opt is the functional option for the linker.
 type Opt func(*Opts)
 
 // Opts ...
@@ -36,14 +36,14 @@ type Opts struct {
 	Verbose  bool
 }
 
-// Configure ...
+// Configure is configuring the linker.
 func (o *Opts) Configure(opts ...Opt) {
 	for _, opt := range opts {
 		opt(o)
 	}
 }
 
-// WithProvider ...
+// WithProvider is setting the storage provider.
 func WithProvider(p spec.Provider) Opt {
 	return func(o *Opts) {
 		o.Provider = p

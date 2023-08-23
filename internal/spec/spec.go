@@ -23,7 +23,7 @@ const (
 
 var allowedExt = []string{"yml", "yaml"}
 
-// Spec ...
+// Spec is the configuration file for `csync`.
 type Spec struct {
 	// Version ...
 	Version int `validate:"required" yaml:"version"`
@@ -41,7 +41,7 @@ type Spec struct {
 	sync.Mutex `yaml:"-"`
 }
 
-// Default ...
+// Default is the default configuration.
 func Default() *Spec {
 	return &Spec{
 		Version: 1,
@@ -51,7 +51,7 @@ func Default() *Spec {
 	}
 }
 
-// Provider ...
+// Provider is the configuration for the provider.
 type Provider struct {
 	// Name ...
 	Name string `validate:"required" yaml:"name"`
