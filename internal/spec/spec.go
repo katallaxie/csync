@@ -106,7 +106,7 @@ func (p Provider) GetFilePath(f string) (string, error) {
 	return filepath.Join(base, path, dir, f), nil
 }
 
-// App ...
+// App is the configuration for the app.
 type App struct {
 	// Name ...
 	Name string `yaml:"name"`
@@ -114,13 +114,13 @@ type App struct {
 	Files Files `yaml:"files"`
 }
 
-// Files ...
+// Files is the list of files to sync.
 type Files []string
 
-// Includes ...
+// Includes is the list of files to include.
 type Includes []string
 
-// Excludes ...
+// Excludes is the list of files to exclude.
 type Excludes []string
 
 // Validate ..
