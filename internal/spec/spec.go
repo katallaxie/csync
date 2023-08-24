@@ -8,8 +8,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/go-playground/validator/v10"
 	"github.com/katallaxie/csync/internal/utils"
+
+	"github.com/go-playground/validator/v10"
 	"github.com/katallaxie/pkg/utils/files"
 	s "github.com/katallaxie/pkg/utils/strings"
 	"gopkg.in/yaml.v3"
@@ -25,17 +26,17 @@ var allowedExt = []string{"yml", "yaml"}
 
 // Spec is the configuration file for `csync`.
 type Spec struct {
-	// Version ...
+	// Version is the version of the configuration file.
 	Version int `validate:"required" yaml:"version"`
-	// Path ...
+	// Path is the path to the configuration file.
 	Path string `yaml:"path,omitempty"`
-	// Provider ...
+	// Provider is the configuration for the provider.
 	Provider Provider `validate:"required" yaml:"provider"`
-	// Apps ...
+	// Apps is a list of apps to sync.
 	Apps []App `yaml:"apps,omitempty"`
-	// Includes ...
+	// Includes is a list of apps to include.
 	Includes []string `yaml:"includes,omitempty"`
-	// Excludes ...
+	// Excludes is a list of apps to exclude.
 	Excludes []string `yaml:"excludes,omitempty"`
 
 	sync.Mutex `yaml:"-"`

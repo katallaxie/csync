@@ -99,8 +99,6 @@ apps:
 
 			content := []byte(tc.spec)
 
-			fmt.Println(content)
-
 			err = os.WriteFile(filepath.Join([]string{tempDir, "spec.yml"}...), content, 0o644)
 			assert.NoError(t, err)
 
