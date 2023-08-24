@@ -49,6 +49,7 @@ func Default() *Spec {
 		Provider: Provider{
 			Name: "icloud",
 		},
+		Apps: List(),
 	}
 }
 
