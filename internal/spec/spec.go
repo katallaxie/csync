@@ -62,6 +62,38 @@ type Provider struct {
 	Directory string `yaml:"directory"`
 }
 
+// GetVersion returns the version of the configuration file.
+func (s *Spec) GetVersion() int {
+	return s.Version
+}
+
+// GetApps reutrns the list of apps to sync.
+func (s *Spec) GetApps(defaults ...App) []App {
+	apps := make([]App, 0)
+
+	if len(s.Includes) == 0 {
+		apps = append(apps, defaults...)
+	}
+
+	for _, in := range s.Includes {
+		for _, app := range defaults {
+			if app.Name == in {
+				apps = append(apps, app)
+			}
+		}
+	}
+
+	for _, ex := range s.Excludes {
+		for i, app := range apps {
+			if app.Name == ex {
+				apps = append(apps[:i], apps[i+1:]...)
+			}
+		}
+	}
+
+	return s.Apps
+}
+
 // GetName ...
 func (p Provider) GetName() string {
 	return strings.ToLower(p.Name)
