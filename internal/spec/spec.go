@@ -27,7 +27,7 @@ var allowedExt = []string{"yml", "yaml"}
 // Spec is the configuration file for `csync`.
 type Spec struct {
 	// Version is the version of the configuration file.
-	Version int `validate:"required" yaml:"version"`
+	Version int `yaml:"version" validate:"required"`
 	// Path is the path to the configuration file.
 	Path string `yaml:"path,omitempty"`
 	// Provider is the configuration for the provider.
@@ -35,9 +35,9 @@ type Spec struct {
 	// Apps is a list of apps to sync.
 	Apps []App `yaml:"apps,omitempty"`
 	// Includes is a list of apps to include.
-	Includes []string `yaml:"includes,omitempty"`
+	Includes []string `yaml:"includes,omitempty" validate:"required_with=Excludes"`
 	// Excludes is a list of apps to exclude.
-	Excludes []string `yaml:"excludes,omitempty"`
+	Excludes []string `yaml:"excludes,omitempty" validate:"required_with=Includes"`
 
 	sync.Mutex `yaml:"-"`
 }

@@ -109,3 +109,31 @@ apps:
 		})
 	}
 }
+
+func TestValidate(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		desc        string
+		spec        string
+		expected    bool
+		expectedErr error
+	}{
+		{
+			desc: "valid",
+			spec: `version: 1
+path: /foo
+`,
+			expected:    true,
+			expectedErr: nil,
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.desc, func(t *testing.T) {
+			_, err := spec.Load(tc.spec)
+			assert.Error(t, err, tc.expectedErr)
+		})
+	}
+
+}
