@@ -13,6 +13,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/katallaxie/pkg/utils/files"
 	s "github.com/katallaxie/pkg/utils/strings"
+	"github.com/pkg/errors"
 	"gopkg.in/yaml.v3"
 )
 
@@ -40,6 +41,31 @@ type Spec struct {
 	Excludes []string `yaml:"excludes,omitempty" validate:"required_with=Includes"`
 
 	sync.Mutex `yaml:"-"`
+}
+
+// UnmarshalYAML overrides the default unmarshaler for the spec.
+func (s *Spec) UnmarshalYAML(data []byte) error {
+	spec := struct {
+		Version  int      `yaml:"version" validate:"required"`
+		Path     string   `yaml:"path,omitempty"`
+		Provider Provider `yaml:"provider" validate:"required"`
+		Apps     []App    `yaml:"apps,omitempty"`
+		Includes []string `yaml:"includes,omitempty" validate:"required_with=Excludes"`
+		Excludes []string `yaml:"excludes,omitempty" validate:"required_with=Includes"`
+	}{}
+
+	if err := yaml.Unmarshal(data, &spec); err != nil {
+		return errors.WithStack(err)
+	}
+
+	s.Version = spec.Version
+	s.Path = spec.Path
+	s.Provider = spec.Provider
+	s.Apps = spec.Apps
+	s.Includes = spec.Includes
+	s.Excludes = spec.Excludes
+
+	return nil
 }
 
 // Default is the default configuration.
@@ -212,6 +238,11 @@ func Load(file string) (*Spec, error) {
 
 	var spec Spec
 	err = yaml.Unmarshal(f, &spec)
+	if err != nil {
+		return nil, err
+	}
+
+	err = Validate(&spec)
 	if err != nil {
 		return nil, err
 	}
