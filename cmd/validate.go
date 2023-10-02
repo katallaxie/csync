@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 
-	"github.com/katallaxie/csync/internal/spec"
 	"github.com/spf13/cobra"
 )
 
@@ -20,12 +19,12 @@ var ValidateCmd = &cobra.Command{
 }
 
 func runValidate(_ context.Context) error {
-	s, err := cfg.LoadSpec()
+	err := cfg.LoadSpec()
 	if err != nil {
 		return err
 	}
 
-	err = spec.Validate(s)
+	err = cfg.Spec.Validate()
 	if err != nil {
 		return err
 	}

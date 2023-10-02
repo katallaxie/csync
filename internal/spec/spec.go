@@ -12,7 +12,6 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/katallaxie/pkg/utils/files"
-	s "github.com/katallaxie/pkg/utils/strings"
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v3"
 )
@@ -22,8 +21,6 @@ const (
 	DefaultPath      = ".csync"
 	DefaultFilename  = ".csync.yml"
 )
-
-var allowedExt = []string{"yml", "yaml"}
 
 // Spec is the configuration file for `csync`.
 type Spec struct {
@@ -121,7 +118,7 @@ func (s *Spec) GetApps(defaults ...App) []App {
 	return s.Apps
 }
 
-// GetName ...
+// GetName is the name of the provider.
 func (p Provider) GetName() string {
 	return strings.ToLower(p.Name)
 }
@@ -184,7 +181,7 @@ type Includes []string
 type Excludes []string
 
 // Validate ..
-func Validate(s *Spec) error {
+func (s *Spec) Validate() error {
 	v := validator.New()
 
 	v.RegisterTagNameFunc(func(fld reflect.StructField) string {
@@ -227,47 +224,4 @@ func Write(s *Spec, file string, force bool) error {
 	}
 
 	return nil
-}
-
-// Load ...
-func Load(file string) (*Spec, error) {
-	f, err := os.ReadFile(filepath.Clean(file))
-	if err != nil {
-		return nil, err
-	}
-
-	var spec Spec
-	err = yaml.Unmarshal(f, &spec)
-	if err != nil {
-		return nil, err
-	}
-
-	err = Validate(&spec)
-	if err != nil {
-		return nil, err
-	}
-
-	for _, in := range spec.Includes {
-		ext := filepath.Ext(in)
-		ok := s.Contains(allowedExt, ext)
-
-		if !ok {
-			continue
-		}
-
-		a, err := os.ReadFile(filepath.Clean(in))
-		if err != nil {
-			return nil, err
-		}
-
-		var app App
-		err = yaml.Unmarshal(a, &app)
-		if err != nil {
-			return nil, err
-		}
-
-		spec.Apps = append(spec.Apps, app)
-	}
-
-	return &spec, nil
 }

@@ -2,8 +2,6 @@ package spec_test
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
 	"testing"
 
 	"github.com/katallaxie/csync/internal/spec"
@@ -78,89 +76,6 @@ func Test_ProviderFilePath(t *testing.T) {
 			if tc.expectedErr != nil {
 				assert.Error(t, err, tc.expectedErr)
 			}
-		})
-	}
-}
-
-func Test_LoadSpec(t *testing.T) {
-	tests := []struct {
-		desc        string
-		spec        string
-		expected    *spec.Spec
-		expectedErr error
-	}{
-		{
-			spec: `version: 1
-provider:
-  name: icloud
-# path: override the destination
-apps:
-  - 
-    name: "nano"
-    files:
-    - "/Library/Preferences/"`,
-			expected: &spec.Spec{
-				Version: 1,
-				Provider: spec.Provider{
-					Name: "icloud",
-				},
-				Apps: []spec.App{
-					{
-						Name:  "nano",
-						Files: []string{"/Library/Preferences/"},
-					},
-				},
-			},
-		},
-	}
-
-	for _, tc := range tests {
-		t.Run(tc.desc, func(t *testing.T) {
-			tempDir, err := os.MkdirTemp(os.TempDir(), "empty_test")
-			assert.NoError(t, err)
-
-			defer func() { _ = os.RemoveAll(tempDir) }()
-
-			content := []byte(tc.spec)
-
-			err = os.WriteFile(filepath.Join([]string{tempDir, "spec.yml"}...), content, 0o644)
-			assert.NoError(t, err)
-
-			s, err := spec.Load(filepath.Join([]string{tempDir, "spec.yml"}...))
-			assert.NoError(t, err)
-
-			assert.Equal(t, tc.expected, s)
-		})
-	}
-}
-
-func Test_Validate(t *testing.T) {
-	t.Parallel()
-
-	tests := []struct {
-		desc        string
-		spec        string
-		expectedErr error
-	}{
-		{
-			desc: "valid",
-			spec: `version: 1
-path: /foo
-`,
-			expectedErr: nil,
-		},
-		{
-			desc: "return error if version is not set",
-			spec: `path: /foo
-`,
-			expectedErr: fmt.Errorf("version is not set"),
-		},
-	}
-
-	for _, tc := range tests {
-		t.Run(tc.desc, func(t *testing.T) {
-			_, err := spec.Load(tc.spec)
-			assert.Error(t, err, tc.expectedErr)
 		})
 	}
 }

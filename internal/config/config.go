@@ -4,6 +4,7 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
+	"sync"
 
 	"github.com/katallaxie/csync/internal/spec"
 )
@@ -35,6 +36,10 @@ type Config struct {
 	Stdout *os.File
 	// Stderr ...
 	Stderr *os.File
+	// Spec ...
+	Spec *spec.Spec
+
+	sync.RWMutex
 }
 
 // New ...
@@ -44,10 +49,11 @@ func New() *Config {
 		Stdin:  os.Stdin,
 		Stdout: os.Stdout,
 		Stderr: os.Stderr,
+		Spec:   spec.Default(),
 	}
 }
 
-// InitDefaultConfig() ...
+// InitDefaultConfig initializes the default configuration.
 func (c *Config) InitDefaultConfig() error {
 	cwd, err := c.Cwd()
 	if err != nil {
@@ -63,7 +69,7 @@ func (c *Config) InitDefaultConfig() error {
 	return nil
 }
 
-// HomeDir ...
+// HomeDir returns the home directory.
 func (c *Config) HomeDir() (string, error) {
 	usr, err := user.Current()
 	if err != nil {
@@ -73,17 +79,17 @@ func (c *Config) HomeDir() (string, error) {
 	return usr.HomeDir, err
 }
 
-// Cwd ...
+// Cwd returns the current working directory.
 func (c *Config) Cwd() (string, error) {
 	return os.Getwd()
 }
 
-// SpecFile ...
-func (c *Config) LoadSpec() (*spec.Spec, error) {
-	s, err := spec.Load(c.File)
+// LoadSpec is a helper to load the spec from the config file.
+func (c *Config) LoadSpec() error {
+	f, err := os.ReadFile(filepath.Clean(c.File))
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return s, nil
+	return c.Spec.UnmarshalYAML(f)
 }

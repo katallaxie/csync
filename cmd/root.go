@@ -62,26 +62,26 @@ func checkEnv(ctx context.Context) error {
 }
 
 func runRoot(ctx context.Context) error {
-	s, err := cfg.LoadSpec()
+	err := cfg.LoadSpec()
 	if err != nil {
 		return err
 	}
 
-	s.Lock()
-	defer s.Unlock()
+	cfg.Lock()
+	defer cfg.Unlock()
 
 	if cfg.Flags.Verbose {
 		log.Printf("Backup apps ...")
 	}
 
-	opts := []linker.Opt{linker.WithProvider(s.Provider)}
+	opts := []linker.Opt{linker.WithProvider(cfg.Spec.Provider)}
 	if cfg.Flags.Verbose {
 		opts = append(opts, linker.WithVerbose())
 	}
 
 	l := linker.New(opts...)
 
-	for _, a := range s.Apps {
+	for _, a := range cfg.Spec.Apps {
 		a := a
 
 		if cfg.Flags.Verbose {
