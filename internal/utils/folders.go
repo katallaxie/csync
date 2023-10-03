@@ -12,7 +12,7 @@ import (
 	"github.com/katallaxie/pkg/utils/files"
 )
 
-// ICloudFolder ...
+// ICloudFolder is the path to the iCloud Drive folder
 func ICloudFolder() (string, error) {
 	path, err := files.ExpandHomeFolder("~/Library/Mobile Documents/com~apple~CloudDocs/")
 	if err != nil {
@@ -42,14 +42,14 @@ func DropboxFolder() (string, error) {
 
 	file, err := os.OpenFile(filepath.Clean(path), os.O_RDWR, 0o600)
 	if err != nil {
-		panic(err)
+		return "", err
 	}
 
 	defer func() { _ = file.Close() }()
 
 	bb, err := io.ReadAll(file)
 	if err != nil {
-		panic(err)
+		return "", err
 	}
 
 	lines := strings.Split(string(bb), "\n")

@@ -22,6 +22,7 @@ func TestNew(t *testing.T) {
 	assert.Equal(t, c.Stderr, os.Stderr)
 	assert.Equal(t, c.Stdout, os.Stdout)
 	assert.Equal(t, c.Stderr, os.Stderr)
+	assert.NotNil(t, c.Spec)
 
 	h, err := c.HomeDir()
 	assert.NoError(t, err)

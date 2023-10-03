@@ -9,16 +9,21 @@ import (
 	"github.com/katallaxie/csync/internal/spec"
 )
 
-// Flags ...
+// Flags contains the command line flags.
 type Flags struct {
-	Dry     bool
-	Force   bool
-	Root    bool
+	// Dry toggles the dry run mode.
+	Dry bool
+	// Force toggles the force mode.
+	Force bool
+	// Root runs the command as root.
+	Root bool
+	// Verbose toggles the verbosity.
 	Verbose bool
+	// Version toggles the version.
 	Version bool
 }
 
-// Config ...
+// Config contains the configuration.
 type Config struct {
 	// Verbose toggles the verbosity
 	Verbose bool
@@ -29,7 +34,7 @@ type Config struct {
 	// FileMode ...
 	FileMode os.FileMode
 	// Flags ...
-	Flags Flags
+	Flags *Flags
 	// Stdin ...
 	Stdin *os.File
 	// Stdout ...
@@ -42,13 +47,14 @@ type Config struct {
 	sync.RWMutex
 }
 
-// New ...
+// New returns a new config.
 func New() *Config {
 	return &Config{
 		File:   ".csync.yml",
 		Stdin:  os.Stdin,
 		Stdout: os.Stdout,
 		Stderr: os.Stderr,
+		Flags:  &Flags{},
 		Spec:   spec.Default(),
 	}
 }
