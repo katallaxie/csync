@@ -29,7 +29,7 @@ type Linker interface {
 // Opt is the functional option for the linker.
 type Opt func(*Opts)
 
-// Opts ...
+// Opts are the options for the linker.
 type Opts struct {
 	HomeDir  string
 	Provider *spec.Provider
@@ -199,7 +199,8 @@ func (l *linker) Unlink(ctx context.Context, app *spec.App, force bool, dry bool
 	return nil
 }
 
-// Restore ...
+// Restore is copying the files from the backup directory to the original location and
+// create a symlink from the original location to the backup directory.
 func (l *linker) Restore(ctx context.Context, app *spec.App, force bool, dry bool) error {
 	for _, src := range app.Files {
 		dst, err := files.PathTransform(src, files.ExpandHomeFolder, files.ExpandHomeFolder)
@@ -217,7 +218,7 @@ func (l *linker) Restore(ctx context.Context, app *spec.App, force bool, dry boo
 		}
 
 		if l.opts.Verbose {
-			log.Printf("restore %s from %s", src, dst)
+			log.Printf("Restore %s from %s", src, dst)
 		}
 
 		// Create symlink ...
