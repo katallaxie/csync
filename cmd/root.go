@@ -70,6 +70,11 @@ func runRoot(ctx context.Context) error {
 	cfg.Lock()
 	defer cfg.Unlock()
 
+	err = cfg.Spec.Validate()
+	if err != nil {
+		return err
+	}
+
 	if cfg.Flags.Verbose {
 		log.Printf("Backup apps ...")
 	}

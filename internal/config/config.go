@@ -23,6 +23,11 @@ type Flags struct {
 	Version bool
 }
 
+// NewFlags returns a new flags.
+func NewFlags() *Flags {
+	return &Flags{}
+}
+
 // Config contains the configuration.
 type Config struct {
 	// Verbose toggles the verbosity
