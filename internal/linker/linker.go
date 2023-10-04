@@ -32,7 +32,7 @@ type Opt func(*Opts)
 // Opts ...
 type Opts struct {
 	HomeDir  string
-	Provider spec.Provider
+	Provider *spec.Provider
 	Verbose  bool
 }
 
@@ -44,7 +44,7 @@ func (o *Opts) Configure(opts ...Opt) {
 }
 
 // WithProvider is setting the storage provider.
-func WithProvider(p spec.Provider) Opt {
+func WithProvider(p *spec.Provider) Opt {
 	return func(o *Opts) {
 		o.Provider = p
 	}

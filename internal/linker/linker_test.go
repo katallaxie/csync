@@ -22,7 +22,7 @@ func TestBackup(t *testing.T) {
 		{
 			app: &spec.App{},
 			opts: []linker.Opt{
-				linker.WithProvider(spec.Provider{}),
+				linker.WithProvider(&spec.Provider{}),
 			},
 			expectedErr: nil,
 		},

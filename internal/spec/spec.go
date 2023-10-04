@@ -29,7 +29,7 @@ type Spec struct {
 	// Path is the path to the configuration file.
 	Path string `yaml:"path,omitempty"`
 	// Provider is the configuration for the provider.
-	Provider Provider `validate:"required" yaml:"provider"`
+	Provider *Provider `validate:"required" yaml:"provider"`
 	// Apps is a list of apps to sync.
 	Apps []App `yaml:"apps,omitempty"`
 	// Includes is a list of apps to include.
@@ -43,12 +43,12 @@ type Spec struct {
 // UnmarshalYAML overrides the default unmarshaler for the spec.
 func (s *Spec) UnmarshalYAML(data []byte) error {
 	spec := struct {
-		Version  int      `yaml:"version" validate:"required"`
-		Path     string   `yaml:"path,omitempty"`
-		Provider Provider `yaml:"provider" validate:"required"`
-		Apps     []App    `yaml:"apps,omitempty"`
-		Includes []string `yaml:"includes,omitempty" validate:"required_with=Excludes"`
-		Excludes []string `yaml:"excludes,omitempty" validate:"required_with=Includes"`
+		Version  int       `yaml:"version" validate:"required"`
+		Path     string    `yaml:"path,omitempty"`
+		Provider *Provider `yaml:"provider" validate:"required"`
+		Apps     []App     `yaml:"apps,omitempty"`
+		Includes []string  `yaml:"includes,omitempty" validate:"required_with=Excludes"`
+		Excludes []string  `yaml:"excludes,omitempty" validate:"required_with=Includes"`
 	}{}
 
 	if err := yaml.Unmarshal(data, &spec); err != nil {
@@ -69,7 +69,7 @@ func (s *Spec) UnmarshalYAML(data []byte) error {
 func Default() *Spec {
 	return &Spec{
 		Version: 1,
-		Provider: Provider{
+		Provider: &Provider{
 			Name: "icloud",
 		},
 		Apps: List(),
