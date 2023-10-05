@@ -8,7 +8,11 @@ import (
 	"os/user"
 	"path/filepath"
 	"strings"
+
+	p "github.com/katallaxie/csync/internal/provider"
 )
+
+var _ p.Backup = (*provider)(nil)
 
 // ErrNoDropbox is returned when the Dropbox folder cannot be found.
 var ErrNoDropbox = fmt.Errorf("unable to find Dropbox")
@@ -21,7 +25,7 @@ func New() *provider {
 }
 
 // Folder ...
-func (p *provider) Folder() (string, error) {
+func (p *provider) Folder(f string) (string, error) {
 	usr, err := user.Current()
 	if err != nil {
 		return "", err

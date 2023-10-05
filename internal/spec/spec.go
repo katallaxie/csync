@@ -65,6 +65,11 @@ func (s *Spec) UnmarshalYAML(data []byte) error {
 	return nil
 }
 
+// GetVersion returns the version of the configuration file.
+func (s *Spec) GetVersion() int {
+	return s.Version
+}
+
 // Default is the default configuration.
 func Default() *Spec {
 	return &Spec{
@@ -86,9 +91,19 @@ type Provider struct {
 	Directory string `yaml:"directory"`
 }
 
-// GetVersion returns the version of the configuration file.
-func (s *Spec) GetVersion() int {
-	return s.Version
+// GetPath ...
+func (s *Provider) GetPath() string {
+	return s.Path
+}
+
+// GetDirectory ...
+func (s *Provider) GetDirectory() string {
+	return s.Directory
+}
+
+// GetName ...
+func (s *Provider) GetName() string {
+	return strings.ToLower(s.Name)
 }
 
 // GetApps reutrns the list of apps to sync.
@@ -118,23 +133,8 @@ func (s *Spec) GetApps(defaults ...App) []App {
 	return s.Apps
 }
 
-// GetName is the name of the provider.
-func (p Provider) GetName() string {
-	return strings.ToLower(p.Name)
-}
-
-// GetPath ...
-func (p Provider) GetPath() string {
-	return p.Path
-}
-
-// GetDirectory ...
-func (p Provider) GetDirectory() string {
-	return p.Directory
-}
-
 // GetFilePath ...
-func (p Provider) GetFilePath(f string) (string, error) {
+func (p *Provider) GetFilePath(f string) (string, error) {
 	dir := DefaultDirectory
 	path := p.GetPath()
 
