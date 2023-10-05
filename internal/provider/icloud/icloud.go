@@ -11,8 +11,8 @@ var ErrNoICloudDrive = fmt.Errorf("unable to find iCloud Drive")
 
 type provider struct{}
 
-// NewProvider ...
-func NewProvider() *provider {
+// New ...
+func New() *provider {
 	return &provider{}
 }
 
