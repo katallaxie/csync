@@ -6,7 +6,7 @@ require (
 	github.com/go-playground/validator/v10 v10.15.5
 	github.com/golang/mock v1.7.0-rc.1
 	github.com/golangci/golangci-lint v1.54.2
-	github.com/katallaxie/pkg v0.5.9
+	github.com/katallaxie/pkg v0.5.10
 	github.com/otiai10/copy v1.14.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.7.0
