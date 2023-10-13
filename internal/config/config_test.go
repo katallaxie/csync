@@ -37,10 +37,10 @@ func TestUsePlugin(t *testing.T) {
 	t.Parallel()
 
 	c := config.New()
-	c.Plugin = "dummy"
+	c.Flags.Plugin = "dummy"
 
 	assert.NotNil(t, c)
-	assert.Equal(t, c.Plugin, "dummy")
+	assert.Equal(t, c.Flags.Plugin, "dummy")
 	assert.True(t, c.UsePlugin())
 }
 
