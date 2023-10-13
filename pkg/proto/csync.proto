@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "github.com/katallaxie/csync/pkg/proto";
+
+/// Provider ...
+service Plugin {
+    /// Backup ...
+    rpc Backup(Backup.Request) returns (Backup.Response);
+    /// Restore ...
+    rpc Restore(Restore.Request) returns (Restore.Response);
+}
+
+/// Backup ...
+message Backup {
+    enum Status {
+        UNKNOWN = 0;
+        SUCCESS = 1;
+        FAILURE = 2;
+    }
+
+    // Request ...
+    message Request {
+        string version           = 1;
+        map<string, string> vars = 2;
+        repeated string args     = 3;
+        string path              = 4;
+    }
+
+    // Response ...
+    message Response {
+        Status status           = 1;
+        repeated Diagnostic diagnostic   = 2;
+    }
+}
+
+/// Restore ...
+message Restore {
+    /// Status ...
+    enum Status {
+        UNKNOWN     = 0;
+        SUCCESS     = 1;
+        FAILURE     = 3;
+    }
+
+    /// Request ...
+    message Request {
+        string version              = 1;
+        map<string, string> vars    = 2;
+        repeated string args        = 3;
+        string path                 = 4;
+    }
+
+    /// Response ...
+    message Response {
+        Status status           = 1;
+        repeated Diagnostic diagnostic = 2;
+    }
+}
+
+// Diagnostic ...
+message Diagnostic {
+    enum Severity {
+        INVALID     = 0;
+        ERROR       = 1;
+        WARNING     = 2;
+    }
+
+    Severity severity                = 1;
+    string summary                   = 2;
+    string detail                    = 3;
+    repeated string FilePaths        = 4;
+}
+
