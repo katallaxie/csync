@@ -21,6 +21,10 @@ type Flags struct {
 	Verbose bool
 	// Version toggles the version.
 	Version bool
+	// Plugin uses a plugin as storage provider.
+	Plugin string
+	// Vars captures the variables.
+	Vars []string
 }
 
 // NewFlags returns a new flags.
@@ -48,6 +52,8 @@ type Config struct {
 	Stderr *os.File
 	// Spec ...
 	Spec *spec.Spec
+	// Plugin ...
+	Plugin string
 
 	sync.RWMutex
 }
@@ -90,9 +96,19 @@ func (c *Config) HomeDir() (string, error) {
 	return usr.HomeDir, err
 }
 
+// UsePlugin returns true if the plugin is set.
+func (c *Config) UsePlugin() bool {
+	return c.Flags.Plugin != ""
+}
+
 // Cwd returns the current working directory.
 func (c *Config) Cwd() (string, error) {
 	return os.Getwd()
+}
+
+// Vars returns the variables.
+func (c *Config) Vars() []string {
+	return c.Flags.Vars
 }
 
 // LoadSpec is a helper to load the spec from the config file.

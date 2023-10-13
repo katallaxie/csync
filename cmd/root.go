@@ -26,6 +26,8 @@ func init() {
 	RootCmd.PersistentFlags().BoolVarP(&cfg.Flags.Dry, "dry", "d", cfg.Flags.Dry, "dry run")
 	RootCmd.PersistentFlags().BoolVarP(&cfg.Flags.Root, "root", "r", cfg.Flags.Root, "run as root")
 	RootCmd.PersistentFlags().BoolVarP(&cfg.Flags.Force, "force", "f", cfg.Flags.Force, "force init")
+	RootCmd.PersistentFlags().StringVarP(&cfg.Flags.Plugin, "plugin", "p", cfg.Flags.Plugin, "plugin")
+	RootCmd.PersistentFlags().StringSliceVar(&cfg.Flags.Vars, "var", cfg.Flags.Vars, "variables")
 
 	RootCmd.SilenceErrors = true
 }

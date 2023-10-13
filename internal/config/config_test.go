@@ -32,3 +32,24 @@ func TestNew(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotEmpty(t, cwd)
 }
+
+func TestUsePlugin(t *testing.T) {
+	t.Parallel()
+
+	c := config.New()
+	c.Plugin = "dummy"
+
+	assert.NotNil(t, c)
+	assert.Equal(t, c.Plugin, "dummy")
+	assert.True(t, c.UsePlugin())
+}
+
+func TestVars(t *testing.T) {
+	t.Parallel()
+
+	c := config.New()
+	c.Flags.Vars = []string{"foo=bar"}
+
+	assert.NotNil(t, c)
+	assert.Equal(t, c.Flags.Vars, []string{"foo=bar"})
+}
