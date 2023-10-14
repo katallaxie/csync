@@ -25,7 +25,11 @@ message Backup {
         string version           = 1;
         map<string, string> vars = 2;
         repeated string args     = 3;
-        string path              = 4;
+        string file              = 4;
+
+        bool dry                 = 10;
+        bool force               = 11;
+        bool root                = 12;
     }
 
     // Response ...
@@ -49,7 +53,11 @@ message Restore {
         string version              = 1;
         map<string, string> vars    = 2;
         repeated string args        = 3;
-        string path                 = 4;
+        string file                 = 4;
+
+        bool dry                    = 10;
+        bool force                  = 11;
+        bool root                   = 12;
     }
 
     /// Response ...
