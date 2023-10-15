@@ -5,7 +5,9 @@ import (
 	"os"
 	"os/exec"
 
+	"github.com/katallaxie/csync/internal/spec"
 	"github.com/katallaxie/csync/pkg/proto"
+	"github.com/katallaxie/csync/pkg/provider"
 
 	"github.com/hashicorp/go-hclog"
 	p "github.com/hashicorp/go-plugin"
@@ -70,44 +72,44 @@ func (p *GRPCPlugin) Close() error {
 }
 
 // Backup ...
-func (p *GRPCPlugin) Backup(req BackupRequest) (BackupResponse, error) {
+func (p *GRPCPlugin) Backup(app *spec.App, opts *provider.Opts) error {
 	r := new(proto.Backup_Request)
-	r.Vars = req.Vars
-	r.Args = req.Arguments
 
 	_, err := p.client.Backup(p.ctx, r)
 	if err != nil {
-		return BackupResponse{}, err
+		return err
 	}
 
-	return BackupResponse{}, nil
+	return nil
 }
 
 // Restore ...
-func (p *GRPCPlugin) Restore(req RestoreRequest) (RestoreResponse, error) {
+func (p *GRPCPlugin) Restore(app *spec.App, opts *provider.Opts) error {
 	r := new(proto.Restore_Request)
-	r.Vars = req.Vars
-	r.Args = req.Arguments
 
 	_, err := p.client.Restore(p.ctx, r)
 	if err != nil {
-		return RestoreResponse{}, err
+		return err
 	}
 
-	return RestoreResponse{}, nil
+	return nil
 }
 
 // Factory ...
 type Factory func() (Plugin, error)
 
+var _ provider.Provider = (*GRPCPlugin)(nil)
+
 // Plugin ...
 type Plugin interface {
-	// Backup ...
-	Backup(BackupRequest) (BackupResponse, error)
-	// Restore ...
-	Restore(RestoreRequest) (RestoreResponse, error)
+	// Backup a file.
+	Backup(app *spec.App, opts *provider.Opts) error
+	// Restore a file.
+	Restore(app *spec.App, opts *provider.Opts) error
 	// Close ...
 	Close() error
+
+	provider.Provider
 }
 
 // BackupRequest ...
