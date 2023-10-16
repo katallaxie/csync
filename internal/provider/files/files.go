@@ -1,16 +1,37 @@
 package files
 
 import (
-	p "github.com/katallaxie/csync/internal/provider"
+	p "github.com/katallaxie/csync/pkg/provider"
 	"github.com/katallaxie/pkg/utils/files"
 )
 
-type provider struct{}
+type provider struct {
+	folder string
 
-var _ p.Backup = (*provider)(nil)
+	p.Provider
+}
+
+var _ p.Provider = (*provider)(nil)
+
+// Opt is the functional option for the provider.
+type Opt func(*provider)
+
+// WithFolder is configuring a specific folder for the provider.
+func WithFolder(folder string) Opt {
+	return func(p *provider) {
+		p.folder = folder
+	}
+}
+
+// Configure is configuring a set of options of the provider.
+func (p *provider) Configure(opts ...Opt) {
+	for _, o := range opts {
+		o(p)
+	}
+}
 
 // New ...
-func New() *provider {
+func New(opts ...Opt) *provider {
 	return &provider{}
 }
 
