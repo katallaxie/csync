@@ -16,7 +16,8 @@ import (
 
 var enablePluginAutoMTLS = os.Getenv("RUN_DISABLE_PLUGIN_TLS") == ""
 
-// Meta ...
+// Meta are the meta information provided for the plugin.
+// These are the arguments and the path to the plugin.
 type Meta struct {
 	// Path ...
 	Path string
@@ -53,27 +54,37 @@ func (p *GRPCProviderPlugin) GRPCServer(broker *p.GRPCBroker, s *grpc.Server) er
 	return nil
 }
 
-// GRPCPlugin ...
+// GRPCPlugin contains the configuration and the client connection
+// for the provider Plugin.
 type GRPCPlugin struct {
 	PluginClient *p.Client
+	Meta         *Meta
 
 	ctx    context.Context
 	client proto.PluginClient
 }
 
-// Start ...
+// Close is closing the gRPC connection if a plugin is configured.
 func (p *GRPCPlugin) Close() error {
 	if p.PluginClient != nil {
 		return nil
 	}
 
 	p.PluginClient.Kill()
+
 	return nil
 }
 
-// Backup ...
+// Backup is sending a request to the plugin to backup the app.
 func (p *GRPCPlugin) Backup(app *spec.App, opts *provider.Opts) error {
 	r := new(proto.Backup_Request)
+	r.Force = opts.Force
+	r.Dry = opts.Dry
+	r.Root = opts.Root
+
+	r.Args = p.Meta.Arguments
+
+	r.App = app.ToProto()
 
 	_, err := p.client.Backup(p.ctx, r)
 	if err != nil {
@@ -83,9 +94,16 @@ func (p *GRPCPlugin) Backup(app *spec.App, opts *provider.Opts) error {
 	return nil
 }
 
-// Restore ...
+// Restore is sending a request to the plugin to restore the app.
 func (p *GRPCPlugin) Restore(app *spec.App, opts *provider.Opts) error {
 	r := new(proto.Restore_Request)
+	r.Force = opts.Force
+	r.Dry = opts.Dry
+	r.Root = opts.Root
+
+	r.Args = p.Meta.Arguments
+
+	r.App = app.ToProto()
 
 	_, err := p.client.Restore(p.ctx, r)
 	if err != nil {
@@ -95,40 +113,19 @@ func (p *GRPCPlugin) Restore(app *spec.App, opts *provider.Opts) error {
 	return nil
 }
 
-// Factory ...
+// Factory is creatig a new instance of the plugin
 type Factory func() (Plugin, error)
 
 var _ provider.Provider = (*GRPCPlugin)(nil)
 
-// Plugin ...
+// Plugin is defining the interface for a plugin.
+// Which essentially implements the provider interface.
 type Plugin interface {
-	// Backup a file.
-	Backup(app *spec.App, opts *provider.Opts) error
-	// Restore a file.
-	Restore(app *spec.App, opts *provider.Opts) error
 	// Close ...
 	Close() error
 
 	provider.Provider
 }
-
-// BackupRequest ...
-type BackupRequest struct {
-	Vars      map[string]string
-	Arguments []string
-}
-
-// RestoreRequest ...
-type RestoreRequest struct {
-	Vars      map[string]string
-	Arguments []string
-}
-
-// BackupResponse ...
-type BackupResponse struct{}
-
-// RestoreResponse ...
-type RestoreResponse struct{}
 
 func pluginFactory(ctx context.Context, meta *Meta) Factory {
 	return func() (Plugin, error) {
@@ -167,6 +164,7 @@ func pluginFactory(ctx context.Context, meta *Meta) Factory {
 
 		p := raw.(*GRPCPlugin)
 		p.PluginClient = client
+		p.Meta = meta
 
 		return p, nil
 	}

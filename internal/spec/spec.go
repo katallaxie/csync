@@ -9,6 +9,7 @@ import (
 	"sync"
 
 	"github.com/katallaxie/csync/internal/utils"
+	"github.com/katallaxie/csync/pkg/proto"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/katallaxie/pkg/utils/files"
@@ -169,6 +170,14 @@ type App struct {
 	Name string `yaml:"name"`
 	// Files ...
 	Files Files `yaml:"files"`
+}
+
+// ToProto ...
+func (a *App) ToProto() *proto.Application {
+	return &proto.Application{
+		Name:  a.Name,
+		Files: a.Files,
+	}
 }
 
 // Files is the list of files to sync.
