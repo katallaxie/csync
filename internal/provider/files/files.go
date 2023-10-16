@@ -1,6 +1,7 @@
 package files
 
 import (
+	"github.com/katallaxie/csync/internal/spec"
 	p "github.com/katallaxie/csync/pkg/provider"
 	"github.com/katallaxie/pkg/utils/files"
 )
@@ -38,4 +39,14 @@ func New(opts ...Opt) *provider {
 // Folder ...
 func (p *provider) Folder(f string) (string, error) {
 	return files.ExpandHomeFolder(f)
+}
+
+// Backup a file.
+func (p *provider) Backup(app *spec.App, opts *p.Opts) error {
+	return nil
+}
+
+// Restore a file.
+func (p *provider) Restore(app *spec.App, opts *p.Opts) error {
+	return nil
 }
