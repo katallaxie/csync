@@ -6,7 +6,9 @@ import (
 
 	"github.com/katallaxie/csync/internal/checker"
 	"github.com/katallaxie/csync/internal/config"
-	"github.com/katallaxie/csync/internal/linker"
+	"github.com/katallaxie/csync/internal/provider/files"
+	"github.com/katallaxie/csync/pkg/plugin"
+	"github.com/katallaxie/csync/pkg/provider"
 	"github.com/spf13/cobra"
 )
 
@@ -81,21 +83,31 @@ func runRoot(ctx context.Context) error {
 		log.Printf("Backup apps ...")
 	}
 
-	opts := []linker.Opt{linker.WithProvider(cfg.Spec.Provider)}
-	if cfg.Flags.Verbose {
-		opts = append(opts, linker.WithVerbose())
+	var p provider.Provider
+	p = files.New()
+
+	opts := &provider.Opts{
+		Force: cfg.Flags.Force,
+		Dry:   cfg.Flags.Dry,
+		Root:  cfg.Flags.Root,
 	}
 
-	l := linker.New(opts...)
+	if cfg.Flags.Plugin != "" {
+		m := plugin.Meta{Path: cfg.Flags.Plugin}
+		f := m.Factory(ctx)
 
-	for _, a := range cfg.Spec.Apps {
-		a := a
-
-		if cfg.Flags.Verbose {
-			log.Printf("Backup '%s'", a.Name)
+		p, err = f()
+		if err != nil {
+			return err
 		}
+	}
 
-		if err := l.Backup(ctx, &a, cfg.Flags.Force, cfg.Flags.Dry); err != nil {
+	defer p.Close()
+
+	for _, app := range cfg.Spec.GetApps() {
+		log.Printf("Backup '%s", app.Name)
+
+		if err := p.Backup(&app, opts); err != nil {
 			return err
 		}
 	}

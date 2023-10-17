@@ -17,7 +17,7 @@ var VersionedPlugins = map[int]p.PluginSet{
 	},
 }
 
-// Handshake ...
+// Handshake is configuring the handshake for the gRPC client.
 var Handshake = p.HandshakeConfig{
 	ProtocolVersion: DefaultProtocolVersion,
 
