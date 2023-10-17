@@ -104,10 +104,11 @@ func runRoot(ctx context.Context) error {
 
 	defer p.Close()
 
-	for _, app := range cfg.Spec.GetApps() {
-		log.Printf("Backup '%s", app.Name)
+	apps := cfg.Spec.GetApps()
+	for i := range apps {
+		log.Printf("Backup '%s", apps[i].Name)
 
-		if err := p.Backup(&app, opts); err != nil {
+		if err := p.Restore(&apps[i], opts); err != nil {
 			return err
 		}
 	}

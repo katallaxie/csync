@@ -4,7 +4,9 @@ import (
 	"context"
 	"log"
 
-	"github.com/katallaxie/csync/internal/linker"
+	"github.com/katallaxie/csync/internal/provider/files"
+	"github.com/katallaxie/csync/pkg/plugin"
+	"github.com/katallaxie/csync/pkg/provider"
 	"github.com/spf13/cobra"
 )
 
@@ -34,24 +36,36 @@ func runRestore(ctx context.Context) error {
 	}
 
 	if cfg.Flags.Verbose {
-		log.Print("Restore files...")
+		log.Printf("Restoring apps ...")
 	}
 
-	opts := []linker.Opt{linker.WithProvider(cfg.Spec.Provider)}
-	if cfg.Flags.Verbose {
-		opts = append(opts, linker.WithVerbose())
+	var p provider.Provider
+	p = files.New()
+
+	opts := &provider.Opts{
+		Force: cfg.Flags.Force,
+		Dry:   cfg.Flags.Dry,
+		Root:  cfg.Flags.Root,
 	}
 
-	l := linker.New(opts...)
+	if cfg.Flags.Plugin != "" {
+		m := plugin.Meta{Path: cfg.Flags.Plugin}
+		f := m.Factory(ctx)
 
-	for _, a := range cfg.Spec.Apps {
-		a := a
-		if cfg.Flags.Verbose {
-			log.Printf("Restoring %s", a.Name)
+		p, err = f()
+		if err != nil {
+			return err
 		}
+	}
 
-		if err := l.Restore(ctx, &a, cfg.Flags.Force, cfg.Flags.Dry); err != nil {
-			log.Panic(err)
+	defer p.Close()
+
+	apps := cfg.Spec.GetApps()
+	for i := range apps {
+		log.Printf("Restore '%s", apps[i].Name)
+
+		if err := p.Restore(&apps[i], opts); err != nil {
+			return err
 		}
 	}
 
