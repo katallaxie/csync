@@ -30,22 +30,27 @@ type Provider interface {
 // Unimplemented is the default implementation.
 type Unimplemented struct{}
 
-// Backup ...
+// Backup is the backup function.
 func (p *Unimplemented) Backup(app *spec.App, opts *Opts) error {
 	return nil
 }
 
-// Restore ...
+// Restore is the restore function.
 func (p *Unimplemented) Restore(app *spec.App, opts *Opts) error {
 	return nil
 }
 
-// Unlink ...
+// Unlink is the unlink function.
 func (p *Unimplemented) Unlink(app *spec.App, opts *Opts) error {
 	return nil
 }
 
-// Link ...
+// Link is the link function.
 func (p *Unimplemented) Link(app *spec.App, opts *Opts) error {
+	return nil
+}
+
+// Close implements the closer interface.
+func (p *Unimplemented) Close() error {
 	return nil
 }

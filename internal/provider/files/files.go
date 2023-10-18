@@ -16,7 +16,7 @@ import (
 type provider struct {
 	folder string
 
-	p.Provider
+	p.Unimplemented
 }
 
 var _ p.Provider = (*provider)(nil)
@@ -40,7 +40,10 @@ func (p *provider) Configure(opts ...Opt) {
 
 // New ...
 func New(opts ...Opt) *provider {
-	return &provider{}
+	p := new(provider)
+	p.Configure(opts...)
+
+	return p
 }
 
 // Backup a file.

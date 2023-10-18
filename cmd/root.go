@@ -80,9 +80,7 @@ func runRoot(ctx context.Context) error {
 		return err
 	}
 
-	if cfg.Flags.Verbose {
-		log.Printf("Backup apps ...")
-	}
+	log.Printf("Backup apps ...")
 
 	var p provider.Provider
 
@@ -114,9 +112,9 @@ func runRoot(ctx context.Context) error {
 
 	apps := cfg.Spec.GetApps()
 	for i := range apps {
-		log.Printf("Backup '%s", apps[i].Name)
+		log.Printf("Backup '%s'", apps[i].Name)
 
-		if err := p.Restore(&apps[i], opts); err != nil {
+		if err := p.Backup(&apps[i], opts); err != nil {
 			return err
 		}
 	}

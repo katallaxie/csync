@@ -38,7 +38,14 @@ func runRestore(ctx context.Context) error {
 	log.Printf("Restoring apps ...")
 
 	var p provider.Provider
-	p = files.New()
+
+	f, err := cfg.Spec.Provider.GetFolder()
+	if err != nil {
+		return err
+	}
+
+	// configuring the default file provider as fallback
+	p = files.New(files.WithFolder(f))
 
 	opts := &provider.Opts{
 		Force: cfg.Flags.Force,
@@ -60,7 +67,7 @@ func runRestore(ctx context.Context) error {
 
 	apps := cfg.Spec.GetApps()
 	for i := range apps {
-		log.Printf("Restore '%s", apps[i].Name)
+		log.Printf("Restore '%s'", apps[i].Name)
 
 		if err := p.Restore(&apps[i], opts); err != nil {
 			return err
