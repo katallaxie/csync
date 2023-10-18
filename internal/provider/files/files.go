@@ -44,6 +44,7 @@ func New(opts ...Opt) *provider {
 }
 
 // Backup a file.
+// nolint:gocyclo
 func (p *provider) Backup(app *spec.App, opts *p.Opts) error {
 	for _, src := range app.Files {
 		dst, err := p.getFilePath(src)
@@ -194,6 +195,7 @@ func (p *provider) Link(app *spec.App, opts *p.Opts) error {
 	return nil
 }
 
+// nolint:unparam
 func (p *provider) getFilePath(f string) (string, error) {
 	return filepath.Join(p.folder, f), nil
 }
