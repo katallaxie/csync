@@ -3,7 +3,8 @@ package files
 import (
 	"testing"
 
-	p "github.com/katallaxie/csync/internal/provider"
+	p "github.com/katallaxie/csync/pkg/provider"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -13,5 +14,5 @@ func TestNew(t *testing.T) {
 	f := New()
 
 	assert.NotNil(t, f)
-	assert.Implements(t, (*p.Backup)(nil), f)
+	assert.Implements(t, (*p.Provider)(nil), f)
 }

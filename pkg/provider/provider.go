@@ -26,3 +26,26 @@ type Provider interface {
 	// It returns an error if the process fails to gracefully finish.
 	Close() error
 }
+
+// Unimplemented is the default implementation.
+type Unimplemented struct{}
+
+// Backup ...
+func (p *Unimplemented) Backup(app *spec.App, opts *Opts) error {
+	return nil
+}
+
+// Restore ...
+func (p *Unimplemented) Restore(app *spec.App, opts *Opts) error {
+	return nil
+}
+
+// Unlink ...
+func (p *Unimplemented) Unlink(app *spec.App, opts *Opts) error {
+	return nil
+}
+
+// Link ...
+func (p *Unimplemented) Link(app *spec.App, opts *Opts) error {
+	return nil
+}
