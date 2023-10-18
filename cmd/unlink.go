@@ -4,7 +4,9 @@ import (
 	"context"
 	"log"
 
-	"github.com/katallaxie/csync/internal/linker"
+	"github.com/katallaxie/csync/internal/provider/files"
+	"github.com/katallaxie/csync/pkg/plugin"
+	"github.com/katallaxie/csync/pkg/provider"
 	"github.com/spf13/cobra"
 )
 
@@ -33,25 +35,35 @@ func runUnlink(ctx context.Context) error {
 		return err
 	}
 
-	if cfg.Flags.Verbose {
-		log.Printf("Unlink apps ...")
+	log.Printf("Unlinking apps ...")
+
+	var p provider.Provider
+	p = files.New()
+
+	opts := &provider.Opts{
+		Force: cfg.Flags.Force,
+		Dry:   cfg.Flags.Dry,
+		Root:  cfg.Flags.Root,
 	}
 
-	opts := []linker.Opt{linker.WithProvider(cfg.Spec.Provider)}
-	if cfg.Flags.Verbose {
-		opts = append(opts, linker.WithVerbose())
-	}
+	if cfg.Flags.Plugin != "" {
+		m := plugin.Meta{Path: cfg.Flags.Plugin}
+		f := m.Factory(ctx)
 
-	l := linker.New(opts...)
-
-	for _, a := range cfg.Spec.Apps {
-		a := a
-		if cfg.Flags.Verbose {
-			log.Printf("Unlink '%s'", a.Name)
+		p, err = f()
+		if err != nil {
+			return err
 		}
+	}
 
-		if err := l.Unlink(ctx, &a, cfg.Flags.Force, cfg.Flags.Dry); err != nil {
-			log.Panic(err)
+	defer p.Close()
+
+	apps := cfg.Spec.GetApps()
+	for i := range apps {
+		log.Printf("Restore '%s", apps[i].Name)
+
+		if err := p.Restore(&apps[i], opts); err != nil {
+			return err
 		}
 	}
 

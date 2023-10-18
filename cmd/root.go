@@ -84,7 +84,14 @@ func runRoot(ctx context.Context) error {
 	}
 
 	var p provider.Provider
-	p = files.New()
+
+	f, err := cfg.Spec.Provider.GetFolder()
+	if err != nil {
+		return err
+	}
+
+	// configuring the default file provider as fallback
+	p = files.New(files.WithFolder(f))
 
 	opts := &provider.Opts{
 		Force: cfg.Flags.Force,

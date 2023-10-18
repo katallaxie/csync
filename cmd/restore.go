@@ -35,9 +35,7 @@ func runRestore(ctx context.Context) error {
 		return err
 	}
 
-	if cfg.Flags.Verbose {
-		log.Printf("Restoring apps ...")
-	}
+	log.Printf("Restoring apps ...")
 
 	var p provider.Provider
 	p = files.New()

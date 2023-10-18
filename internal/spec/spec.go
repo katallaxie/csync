@@ -82,7 +82,8 @@ func Default() *Spec {
 	}
 }
 
-// Provider is the configuration for the provider.
+// Provider is the configuration for the file provider.
+// This provider does support local, file-based storages.
 type Provider struct {
 	// Name ...
 	Name string `validate:"required" yaml:"name"`
