@@ -28,6 +28,12 @@ provider:
   name: icloud
 ```
 
+## Plugins
+
+`csync` supports plugins for `backup`, `restore`, `link` and `unlink` commands. These plugins use [go-plugin](https://github.com/hashicorp/go-plugin) to plug in new features.
+
+:warning: The support is still under development and the APIs may change in the future.
+
 ## Development
 
 The development is intended to be run with [Codespaces](https://github.com/features/codespaces) the blazing fast cloud developer environment.
