@@ -166,36 +166,6 @@ func (p *Provider) GetFolder() (string, error) {
 	return filepath.Join(base, path, dir), nil
 }
 
-// GetFilePath ...
-func (p *Provider) GetFilePath(f string) (string, error) {
-	dir := DefaultDirectory
-	path := p.GetPath()
-
-	if p.GetDirectory() != "" {
-		dir = p.GetDirectory()
-	}
-
-	var base string
-	var err error
-	switch p.GetName() {
-	case "file":
-	case "dropbox":
-		base, err = utils.DropboxFolder()
-		if err != nil {
-			return "", err
-		}
-	case "icloud":
-		base, err = utils.ICloudFolder()
-		if err != nil {
-			return "", err
-		}
-	default:
-		return "", fmt.Errorf("unknown provider")
-	}
-
-	return filepath.Join(base, path, dir, f), nil
-}
-
 // App is the configuration for the app.
 type App struct {
 	// Name ...

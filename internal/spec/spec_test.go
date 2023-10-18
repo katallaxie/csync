@@ -33,17 +33,15 @@ func Test_UnmarshalYAML(t *testing.T) {
 	}
 }
 
-func Test_ProviderFilePath(t *testing.T) {
+func Test_ProviderFolder(t *testing.T) {
 	tests := []struct {
 		desc        string
 		p           *spec.Provider
-		f           string
 		expected    string
 		expectedErr error
 	}{
 		{
 			p:           &spec.Provider{},
-			f:           "foo.txt",
 			expected:    "",
 			expectedErr: fmt.Errorf("unknown provider"),
 		},
@@ -52,8 +50,7 @@ func Test_ProviderFilePath(t *testing.T) {
 				Name: "file",
 				Path: "/root",
 			},
-			f:           "foo.txt",
-			expected:    "/root/csync/foo.txt",
+			expected:    "/root/csync",
 			expectedErr: nil,
 		},
 		{
@@ -62,15 +59,14 @@ func Test_ProviderFilePath(t *testing.T) {
 				Path:      "/root",
 				Directory: "/foo",
 			},
-			f:           "foo.txt",
-			expected:    "/root/foo/foo.txt",
+			expected:    "/root/foo",
 			expectedErr: nil,
 		},
 	}
 
 	for _, tc := range tests {
 		t.Run(tc.desc, func(t *testing.T) {
-			path, err := tc.p.GetFilePath(tc.f)
+			path, err := tc.p.GetFolder()
 			assert.Equal(t, path, tc.expected)
 
 			if tc.expectedErr != nil {

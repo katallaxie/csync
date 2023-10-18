@@ -9,6 +9,7 @@ import (
 	"github.com/katallaxie/csync/internal/provider/files"
 	"github.com/katallaxie/csync/pkg/plugin"
 	"github.com/katallaxie/csync/pkg/provider"
+
 	"github.com/spf13/cobra"
 )
 
