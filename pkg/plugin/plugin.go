@@ -113,6 +113,45 @@ func (p *GRPCPlugin) Restore(app *spec.App, opts *provider.Opts) error {
 	return nil
 }
 
+// Link is sending a request to link an app with the plugin provided.
+func (p *GRPCPlugin) Link(app *spec.App, opts *provider.Opts) error {
+	r := new(proto.Link_Request)
+	r.Force = opts.Force
+	r.Dry = opts.Dry
+	r.Root = opts.Root
+
+	r.Args = p.Meta.Arguments
+
+	r.App = app.ToProto()
+
+	_, err := p.client.Link(p.ctx, r)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// Unlink is unlinking an app with the plugin provided.
+// Restore is sending a request to the plugin to restore the app.
+func (p *GRPCPlugin) Unlink(app *spec.App, opts *provider.Opts) error {
+	r := new(proto.Unlink_Request)
+	r.Force = opts.Force
+	r.Dry = opts.Dry
+	r.Root = opts.Root
+
+	r.Args = p.Meta.Arguments
+
+	r.App = app.ToProto()
+
+	_, err := p.client.Unlink(p.ctx, r)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // Factory is creatig a new instance of the plugin
 type Factory func() (Plugin, error)
 

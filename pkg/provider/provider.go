@@ -14,10 +14,14 @@ type Opts struct {
 
 // Provider is the provider interface.
 type Provider interface {
-	// Backup a file.
+	// Backup an app.
 	Backup(app *spec.App, opts *Opts) error
-	// Restore a file.
+	// Restore an app.
 	Restore(app *spec.App, opts *Opts) error
+	// Link an app.
+	Link(app *spec.App, opts *Opts) error
+	// Unlink an app.
+	Unlink(app *spec.App, opts *Opts) error
 	// Close is a function to call before finalizing any action.
 	// It returns an error if the process fails to gracefully finish.
 	Close() error
