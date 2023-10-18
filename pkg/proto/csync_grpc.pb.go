@@ -26,6 +26,10 @@ type PluginClient interface {
 	Backup(ctx context.Context, in *Backup_Request, opts ...grpc.CallOption) (*Backup_Response, error)
 	// / Restore ...
 	Restore(ctx context.Context, in *Restore_Request, opts ...grpc.CallOption) (*Restore_Response, error)
+	// / Link ....
+	Link(ctx context.Context, in *Link_Request, opts ...grpc.CallOption) (*Link_Response, error)
+	// / Unlink ...
+	Unlink(ctx context.Context, in *Unlink_Request, opts ...grpc.CallOption) (*Unlink_Response, error)
 }
 
 type pluginClient struct {
@@ -54,6 +58,24 @@ func (c *pluginClient) Restore(ctx context.Context, in *Restore_Request, opts ..
 	return out, nil
 }
 
+func (c *pluginClient) Link(ctx context.Context, in *Link_Request, opts ...grpc.CallOption) (*Link_Response, error) {
+	out := new(Link_Response)
+	err := c.cc.Invoke(ctx, "/proto.Plugin/Link", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *pluginClient) Unlink(ctx context.Context, in *Unlink_Request, opts ...grpc.CallOption) (*Unlink_Response, error) {
+	out := new(Unlink_Response)
+	err := c.cc.Invoke(ctx, "/proto.Plugin/Unlink", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PluginServer is the server API for Plugin service.
 // All implementations must embed UnimplementedPluginServer
 // for forward compatibility
@@ -62,6 +84,10 @@ type PluginServer interface {
 	Backup(context.Context, *Backup_Request) (*Backup_Response, error)
 	// / Restore ...
 	Restore(context.Context, *Restore_Request) (*Restore_Response, error)
+	// / Link ....
+	Link(context.Context, *Link_Request) (*Link_Response, error)
+	// / Unlink ...
+	Unlink(context.Context, *Unlink_Request) (*Unlink_Response, error)
 	mustEmbedUnimplementedPluginServer()
 }
 
@@ -74,6 +100,12 @@ func (UnimplementedPluginServer) Backup(context.Context, *Backup_Request) (*Back
 }
 func (UnimplementedPluginServer) Restore(context.Context, *Restore_Request) (*Restore_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Restore not implemented")
+}
+func (UnimplementedPluginServer) Link(context.Context, *Link_Request) (*Link_Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Link not implemented")
+}
+func (UnimplementedPluginServer) Unlink(context.Context, *Unlink_Request) (*Unlink_Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Unlink not implemented")
 }
 func (UnimplementedPluginServer) mustEmbedUnimplementedPluginServer() {}
 
@@ -124,6 +156,42 @@ func _Plugin_Restore_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Plugin_Link_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Link_Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PluginServer).Link(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Plugin/Link",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PluginServer).Link(ctx, req.(*Link_Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Plugin_Unlink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Unlink_Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PluginServer).Unlink(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Plugin/Unlink",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PluginServer).Unlink(ctx, req.(*Unlink_Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Plugin_ServiceDesc is the grpc.ServiceDesc for Plugin service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -138,6 +206,14 @@ var Plugin_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Restore",
 			Handler:    _Plugin_Restore_Handler,
+		},
+		{
+			MethodName: "Link",
+			Handler:    _Plugin_Link_Handler,
+		},
+		{
+			MethodName: "Unlink",
+			Handler:    _Plugin_Unlink_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

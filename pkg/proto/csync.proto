@@ -10,6 +10,10 @@ service Plugin {
     rpc Backup(Backup.Request) returns (Backup.Response);
     /// Restore ...
     rpc Restore(Restore.Request) returns (Restore.Response);
+    /// Link ....
+    rpc Link(Link.Request) returns (Link.Response);
+    /// Unlink ...
+    rpc Unlink(Unlink.Request) returns (Unlink.Response);
 }
 
 /// Application is a container for the files to backup
@@ -80,7 +84,67 @@ message Restore {
     }
 }
 
-// Diagnostic ...
+/// Link ...
+message Link {
+    /// Status ...
+    enum Status {
+        UNKNOWN     = 0;
+        SUCCESS     = 1;
+        FAILURE     = 3;
+    }
+
+    /// Request ...
+    message Request {
+        string version              = 1;
+        map<string, string> vars    = 2;
+        repeated string args        = 3;
+        string file                 = 4;
+
+        Application app             = 5;
+
+        bool dry                    = 10;
+        bool force                  = 11;
+        bool root                   = 12;
+    }
+
+    /// Response ...
+    message Response {
+        Status status           = 1;
+        repeated Diagnostic diagnostic = 2;
+    }
+}
+
+/// Unlink ...
+message Unlink {
+    /// Status ...
+    enum Status {
+        UNKNOWN     = 0;
+        SUCCESS     = 1;
+        FAILURE     = 3;
+    }
+
+    /// Request ...
+    message Request {
+        string version              = 1;
+        map<string, string> vars    = 2;
+        repeated string args        = 3;
+        string file                 = 4;
+
+        Application app             = 5;
+
+        bool dry                    = 10;
+        bool force                  = 11;
+        bool root                   = 12;
+    }
+
+    /// Response ...
+    message Response {
+        Status status           = 1;
+        repeated Diagnostic diagnostic = 2;
+    }
+}
+
+/// Diagnostic ...
 message Diagnostic {
     enum Severity {
         INVALID     = 0;

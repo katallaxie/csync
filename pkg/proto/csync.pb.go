@@ -119,6 +119,106 @@ func (Restore_Status) EnumDescriptor() ([]byte, []int) {
 	return file_pkg_proto_csync_proto_rawDescGZIP(), []int{2, 0}
 }
 
+// / Status ...
+type Link_Status int32
+
+const (
+	Link_UNKNOWN Link_Status = 0
+	Link_SUCCESS Link_Status = 1
+	Link_FAILURE Link_Status = 3
+)
+
+// Enum value maps for Link_Status.
+var (
+	Link_Status_name = map[int32]string{
+		0: "UNKNOWN",
+		1: "SUCCESS",
+		3: "FAILURE",
+	}
+	Link_Status_value = map[string]int32{
+		"UNKNOWN": 0,
+		"SUCCESS": 1,
+		"FAILURE": 3,
+	}
+)
+
+func (x Link_Status) Enum() *Link_Status {
+	p := new(Link_Status)
+	*p = x
+	return p
+}
+
+func (x Link_Status) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Link_Status) Descriptor() protoreflect.EnumDescriptor {
+	return file_pkg_proto_csync_proto_enumTypes[2].Descriptor()
+}
+
+func (Link_Status) Type() protoreflect.EnumType {
+	return &file_pkg_proto_csync_proto_enumTypes[2]
+}
+
+func (x Link_Status) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Link_Status.Descriptor instead.
+func (Link_Status) EnumDescriptor() ([]byte, []int) {
+	return file_pkg_proto_csync_proto_rawDescGZIP(), []int{3, 0}
+}
+
+// / Status ...
+type Unlink_Status int32
+
+const (
+	Unlink_UNKNOWN Unlink_Status = 0
+	Unlink_SUCCESS Unlink_Status = 1
+	Unlink_FAILURE Unlink_Status = 3
+)
+
+// Enum value maps for Unlink_Status.
+var (
+	Unlink_Status_name = map[int32]string{
+		0: "UNKNOWN",
+		1: "SUCCESS",
+		3: "FAILURE",
+	}
+	Unlink_Status_value = map[string]int32{
+		"UNKNOWN": 0,
+		"SUCCESS": 1,
+		"FAILURE": 3,
+	}
+)
+
+func (x Unlink_Status) Enum() *Unlink_Status {
+	p := new(Unlink_Status)
+	*p = x
+	return p
+}
+
+func (x Unlink_Status) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Unlink_Status) Descriptor() protoreflect.EnumDescriptor {
+	return file_pkg_proto_csync_proto_enumTypes[3].Descriptor()
+}
+
+func (Unlink_Status) Type() protoreflect.EnumType {
+	return &file_pkg_proto_csync_proto_enumTypes[3]
+}
+
+func (x Unlink_Status) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Unlink_Status.Descriptor instead.
+func (Unlink_Status) EnumDescriptor() ([]byte, []int) {
+	return file_pkg_proto_csync_proto_rawDescGZIP(), []int{4, 0}
+}
+
 type Diagnostic_Severity int32
 
 const (
@@ -152,11 +252,11 @@ func (x Diagnostic_Severity) String() string {
 }
 
 func (Diagnostic_Severity) Descriptor() protoreflect.EnumDescriptor {
-	return file_pkg_proto_csync_proto_enumTypes[2].Descriptor()
+	return file_pkg_proto_csync_proto_enumTypes[4].Descriptor()
 }
 
 func (Diagnostic_Severity) Type() protoreflect.EnumType {
-	return &file_pkg_proto_csync_proto_enumTypes[2]
+	return &file_pkg_proto_csync_proto_enumTypes[4]
 }
 
 func (x Diagnostic_Severity) Number() protoreflect.EnumNumber {
@@ -165,7 +265,7 @@ func (x Diagnostic_Severity) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use Diagnostic_Severity.Descriptor instead.
 func (Diagnostic_Severity) EnumDescriptor() ([]byte, []int) {
-	return file_pkg_proto_csync_proto_rawDescGZIP(), []int{3, 0}
+	return file_pkg_proto_csync_proto_rawDescGZIP(), []int{5, 0}
 }
 
 // / Application is a container for the files to backup
@@ -305,7 +405,85 @@ func (*Restore) Descriptor() ([]byte, []int) {
 	return file_pkg_proto_csync_proto_rawDescGZIP(), []int{2}
 }
 
-// Diagnostic ...
+// / Link ...
+type Link struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *Link) Reset() {
+	*x = Link{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_proto_csync_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Link) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Link) ProtoMessage() {}
+
+func (x *Link) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_proto_csync_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Link.ProtoReflect.Descriptor instead.
+func (*Link) Descriptor() ([]byte, []int) {
+	return file_pkg_proto_csync_proto_rawDescGZIP(), []int{3}
+}
+
+// / Unlink ...
+type Unlink struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *Unlink) Reset() {
+	*x = Unlink{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_proto_csync_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Unlink) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Unlink) ProtoMessage() {}
+
+func (x *Unlink) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_proto_csync_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Unlink.ProtoReflect.Descriptor instead.
+func (*Unlink) Descriptor() ([]byte, []int) {
+	return file_pkg_proto_csync_proto_rawDescGZIP(), []int{4}
+}
+
+// / Diagnostic ...
 type Diagnostic struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -320,7 +498,7 @@ type Diagnostic struct {
 func (x *Diagnostic) Reset() {
 	*x = Diagnostic{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pkg_proto_csync_proto_msgTypes[3]
+		mi := &file_pkg_proto_csync_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -333,7 +511,7 @@ func (x *Diagnostic) String() string {
 func (*Diagnostic) ProtoMessage() {}
 
 func (x *Diagnostic) ProtoReflect() protoreflect.Message {
-	mi := &file_pkg_proto_csync_proto_msgTypes[3]
+	mi := &file_pkg_proto_csync_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -346,7 +524,7 @@ func (x *Diagnostic) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Diagnostic.ProtoReflect.Descriptor instead.
 func (*Diagnostic) Descriptor() ([]byte, []int) {
-	return file_pkg_proto_csync_proto_rawDescGZIP(), []int{3}
+	return file_pkg_proto_csync_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *Diagnostic) GetSeverity() Diagnostic_Severity {
@@ -396,7 +574,7 @@ type Backup_Request struct {
 func (x *Backup_Request) Reset() {
 	*x = Backup_Request{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pkg_proto_csync_proto_msgTypes[4]
+		mi := &file_pkg_proto_csync_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -409,7 +587,7 @@ func (x *Backup_Request) String() string {
 func (*Backup_Request) ProtoMessage() {}
 
 func (x *Backup_Request) ProtoReflect() protoreflect.Message {
-	mi := &file_pkg_proto_csync_proto_msgTypes[4]
+	mi := &file_pkg_proto_csync_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -494,7 +672,7 @@ type Backup_Response struct {
 func (x *Backup_Response) Reset() {
 	*x = Backup_Response{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pkg_proto_csync_proto_msgTypes[5]
+		mi := &file_pkg_proto_csync_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -507,7 +685,7 @@ func (x *Backup_Response) String() string {
 func (*Backup_Response) ProtoMessage() {}
 
 func (x *Backup_Response) ProtoReflect() protoreflect.Message {
-	mi := &file_pkg_proto_csync_proto_msgTypes[5]
+	mi := &file_pkg_proto_csync_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -556,7 +734,7 @@ type Restore_Request struct {
 func (x *Restore_Request) Reset() {
 	*x = Restore_Request{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pkg_proto_csync_proto_msgTypes[7]
+		mi := &file_pkg_proto_csync_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -569,7 +747,7 @@ func (x *Restore_Request) String() string {
 func (*Restore_Request) ProtoMessage() {}
 
 func (x *Restore_Request) ProtoReflect() protoreflect.Message {
-	mi := &file_pkg_proto_csync_proto_msgTypes[7]
+	mi := &file_pkg_proto_csync_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -654,7 +832,7 @@ type Restore_Response struct {
 func (x *Restore_Response) Reset() {
 	*x = Restore_Response{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pkg_proto_csync_proto_msgTypes[8]
+		mi := &file_pkg_proto_csync_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -667,7 +845,7 @@ func (x *Restore_Response) String() string {
 func (*Restore_Response) ProtoMessage() {}
 
 func (x *Restore_Response) ProtoReflect() protoreflect.Message {
-	mi := &file_pkg_proto_csync_proto_msgTypes[8]
+	mi := &file_pkg_proto_csync_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -691,6 +869,326 @@ func (x *Restore_Response) GetStatus() Restore_Status {
 }
 
 func (x *Restore_Response) GetDiagnostic() []*Diagnostic {
+	if x != nil {
+		return x.Diagnostic
+	}
+	return nil
+}
+
+// / Request ...
+type Link_Request struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Version string            `protobuf:"bytes,1,opt,name=version,proto3" json:"version,omitempty"`
+	Vars    map[string]string `protobuf:"bytes,2,rep,name=vars,proto3" json:"vars,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Args    []string          `protobuf:"bytes,3,rep,name=args,proto3" json:"args,omitempty"`
+	File    string            `protobuf:"bytes,4,opt,name=file,proto3" json:"file,omitempty"`
+	App     *Application      `protobuf:"bytes,5,opt,name=app,proto3" json:"app,omitempty"`
+	Dry     bool              `protobuf:"varint,10,opt,name=dry,proto3" json:"dry,omitempty"`
+	Force   bool              `protobuf:"varint,11,opt,name=force,proto3" json:"force,omitempty"`
+	Root    bool              `protobuf:"varint,12,opt,name=root,proto3" json:"root,omitempty"`
+}
+
+func (x *Link_Request) Reset() {
+	*x = Link_Request{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_proto_csync_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Link_Request) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Link_Request) ProtoMessage() {}
+
+func (x *Link_Request) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_proto_csync_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Link_Request.ProtoReflect.Descriptor instead.
+func (*Link_Request) Descriptor() ([]byte, []int) {
+	return file_pkg_proto_csync_proto_rawDescGZIP(), []int{3, 0}
+}
+
+func (x *Link_Request) GetVersion() string {
+	if x != nil {
+		return x.Version
+	}
+	return ""
+}
+
+func (x *Link_Request) GetVars() map[string]string {
+	if x != nil {
+		return x.Vars
+	}
+	return nil
+}
+
+func (x *Link_Request) GetArgs() []string {
+	if x != nil {
+		return x.Args
+	}
+	return nil
+}
+
+func (x *Link_Request) GetFile() string {
+	if x != nil {
+		return x.File
+	}
+	return ""
+}
+
+func (x *Link_Request) GetApp() *Application {
+	if x != nil {
+		return x.App
+	}
+	return nil
+}
+
+func (x *Link_Request) GetDry() bool {
+	if x != nil {
+		return x.Dry
+	}
+	return false
+}
+
+func (x *Link_Request) GetForce() bool {
+	if x != nil {
+		return x.Force
+	}
+	return false
+}
+
+func (x *Link_Request) GetRoot() bool {
+	if x != nil {
+		return x.Root
+	}
+	return false
+}
+
+// / Response ...
+type Link_Response struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status     Link_Status   `protobuf:"varint,1,opt,name=status,proto3,enum=proto.Link_Status" json:"status,omitempty"`
+	Diagnostic []*Diagnostic `protobuf:"bytes,2,rep,name=diagnostic,proto3" json:"diagnostic,omitempty"`
+}
+
+func (x *Link_Response) Reset() {
+	*x = Link_Response{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_proto_csync_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Link_Response) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Link_Response) ProtoMessage() {}
+
+func (x *Link_Response) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_proto_csync_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Link_Response.ProtoReflect.Descriptor instead.
+func (*Link_Response) Descriptor() ([]byte, []int) {
+	return file_pkg_proto_csync_proto_rawDescGZIP(), []int{3, 1}
+}
+
+func (x *Link_Response) GetStatus() Link_Status {
+	if x != nil {
+		return x.Status
+	}
+	return Link_UNKNOWN
+}
+
+func (x *Link_Response) GetDiagnostic() []*Diagnostic {
+	if x != nil {
+		return x.Diagnostic
+	}
+	return nil
+}
+
+// / Request ...
+type Unlink_Request struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Version string            `protobuf:"bytes,1,opt,name=version,proto3" json:"version,omitempty"`
+	Vars    map[string]string `protobuf:"bytes,2,rep,name=vars,proto3" json:"vars,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Args    []string          `protobuf:"bytes,3,rep,name=args,proto3" json:"args,omitempty"`
+	File    string            `protobuf:"bytes,4,opt,name=file,proto3" json:"file,omitempty"`
+	App     *Application      `protobuf:"bytes,5,opt,name=app,proto3" json:"app,omitempty"`
+	Dry     bool              `protobuf:"varint,10,opt,name=dry,proto3" json:"dry,omitempty"`
+	Force   bool              `protobuf:"varint,11,opt,name=force,proto3" json:"force,omitempty"`
+	Root    bool              `protobuf:"varint,12,opt,name=root,proto3" json:"root,omitempty"`
+}
+
+func (x *Unlink_Request) Reset() {
+	*x = Unlink_Request{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_proto_csync_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Unlink_Request) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Unlink_Request) ProtoMessage() {}
+
+func (x *Unlink_Request) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_proto_csync_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Unlink_Request.ProtoReflect.Descriptor instead.
+func (*Unlink_Request) Descriptor() ([]byte, []int) {
+	return file_pkg_proto_csync_proto_rawDescGZIP(), []int{4, 0}
+}
+
+func (x *Unlink_Request) GetVersion() string {
+	if x != nil {
+		return x.Version
+	}
+	return ""
+}
+
+func (x *Unlink_Request) GetVars() map[string]string {
+	if x != nil {
+		return x.Vars
+	}
+	return nil
+}
+
+func (x *Unlink_Request) GetArgs() []string {
+	if x != nil {
+		return x.Args
+	}
+	return nil
+}
+
+func (x *Unlink_Request) GetFile() string {
+	if x != nil {
+		return x.File
+	}
+	return ""
+}
+
+func (x *Unlink_Request) GetApp() *Application {
+	if x != nil {
+		return x.App
+	}
+	return nil
+}
+
+func (x *Unlink_Request) GetDry() bool {
+	if x != nil {
+		return x.Dry
+	}
+	return false
+}
+
+func (x *Unlink_Request) GetForce() bool {
+	if x != nil {
+		return x.Force
+	}
+	return false
+}
+
+func (x *Unlink_Request) GetRoot() bool {
+	if x != nil {
+		return x.Root
+	}
+	return false
+}
+
+// / Response ...
+type Unlink_Response struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status     Unlink_Status `protobuf:"varint,1,opt,name=status,proto3,enum=proto.Unlink_Status" json:"status,omitempty"`
+	Diagnostic []*Diagnostic `protobuf:"bytes,2,rep,name=diagnostic,proto3" json:"diagnostic,omitempty"`
+}
+
+func (x *Unlink_Response) Reset() {
+	*x = Unlink_Response{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_proto_csync_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Unlink_Response) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Unlink_Response) ProtoMessage() {}
+
+func (x *Unlink_Response) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_proto_csync_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Unlink_Response.ProtoReflect.Descriptor instead.
+func (*Unlink_Response) Descriptor() ([]byte, []int) {
+	return file_pkg_proto_csync_proto_rawDescGZIP(), []int{4, 1}
+}
+
+func (x *Unlink_Response) GetStatus() Unlink_Status {
+	if x != nil {
+		return x.Status
+	}
+	return Unlink_UNKNOWN
+}
+
+func (x *Unlink_Response) GetDiagnostic() []*Diagnostic {
 	if x != nil {
 		return x.Diagnostic
 	}
@@ -762,30 +1260,94 @@ var file_pkg_proto_csync_proto_rawDesc = []byte{
 	0x67, 0x6e, 0x6f, 0x73, 0x74, 0x69, 0x63, 0x22, 0x2f, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75,
 	0x73, 0x12, 0x0b, 0x0a, 0x07, 0x55, 0x4e, 0x4b, 0x4e, 0x4f, 0x57, 0x4e, 0x10, 0x00, 0x12, 0x0b,
 	0x0a, 0x07, 0x53, 0x55, 0x43, 0x43, 0x45, 0x53, 0x53, 0x10, 0x01, 0x12, 0x0b, 0x0a, 0x07, 0x46,
-	0x41, 0x49, 0x4c, 0x55, 0x52, 0x45, 0x10, 0x03, 0x22, 0xc5, 0x01, 0x0a, 0x0a, 0x44, 0x69, 0x61,
-	0x67, 0x6e, 0x6f, 0x73, 0x74, 0x69, 0x63, 0x12, 0x36, 0x0a, 0x08, 0x73, 0x65, 0x76, 0x65, 0x72,
-	0x69, 0x74, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x2e, 0x44, 0x69, 0x61, 0x67, 0x6e, 0x6f, 0x73, 0x74, 0x69, 0x63, 0x2e, 0x53, 0x65, 0x76,
-	0x65, 0x72, 0x69, 0x74, 0x79, 0x52, 0x08, 0x73, 0x65, 0x76, 0x65, 0x72, 0x69, 0x74, 0x79, 0x12,
-	0x18, 0x0a, 0x07, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x72, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x07, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x72, 0x79, 0x12, 0x16, 0x0a, 0x06, 0x64, 0x65, 0x74,
-	0x61, 0x69, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x64, 0x65, 0x74, 0x61, 0x69,
-	0x6c, 0x12, 0x1c, 0x0a, 0x09, 0x46, 0x69, 0x6c, 0x65, 0x50, 0x61, 0x74, 0x68, 0x73, 0x18, 0x04,
-	0x20, 0x03, 0x28, 0x09, 0x52, 0x09, 0x46, 0x69, 0x6c, 0x65, 0x50, 0x61, 0x74, 0x68, 0x73, 0x22,
-	0x2f, 0x0a, 0x08, 0x53, 0x65, 0x76, 0x65, 0x72, 0x69, 0x74, 0x79, 0x12, 0x0b, 0x0a, 0x07, 0x49,
-	0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x10, 0x00, 0x12, 0x09, 0x0a, 0x05, 0x45, 0x52, 0x52, 0x4f,
-	0x52, 0x10, 0x01, 0x12, 0x0b, 0x0a, 0x07, 0x57, 0x41, 0x52, 0x4e, 0x49, 0x4e, 0x47, 0x10, 0x02,
-	0x32, 0x7d, 0x0a, 0x06, 0x50, 0x6c, 0x75, 0x67, 0x69, 0x6e, 0x12, 0x37, 0x0a, 0x06, 0x42, 0x61,
-	0x63, 0x6b, 0x75, 0x70, 0x12, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x42, 0x61, 0x63,
-	0x6b, 0x75, 0x70, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x2e, 0x42, 0x61, 0x63, 0x6b, 0x75, 0x70, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x3a, 0x0a, 0x07, 0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x12, 0x16,
-	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x2e, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x52,
-	0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42,
-	0x27, 0x5a, 0x25, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6b, 0x61,
-	0x74, 0x61, 0x6c, 0x6c, 0x61, 0x78, 0x69, 0x65, 0x2f, 0x63, 0x73, 0x79, 0x6e, 0x63, 0x2f, 0x70,
-	0x6b, 0x67, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x41, 0x49, 0x4c, 0x55, 0x52, 0x45, 0x10, 0x03, 0x22, 0xbe, 0x03, 0x0a, 0x04, 0x4c, 0x69, 0x6e,
+	0x6b, 0x1a, 0x99, 0x02, 0x0a, 0x07, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x18, 0x0a,
+	0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07,
+	0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x31, 0x0a, 0x04, 0x76, 0x61, 0x72, 0x73, 0x18,
+	0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4c, 0x69,
+	0x6e, 0x6b, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x56, 0x61, 0x72, 0x73, 0x45,
+	0x6e, 0x74, 0x72, 0x79, 0x52, 0x04, 0x76, 0x61, 0x72, 0x73, 0x12, 0x12, 0x0a, 0x04, 0x61, 0x72,
+	0x67, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09, 0x52, 0x04, 0x61, 0x72, 0x67, 0x73, 0x12, 0x12,
+	0x0a, 0x04, 0x66, 0x69, 0x6c, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x66, 0x69,
+	0x6c, 0x65, 0x12, 0x24, 0x0a, 0x03, 0x61, 0x70, 0x70, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x12, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x52, 0x03, 0x61, 0x70, 0x70, 0x12, 0x10, 0x0a, 0x03, 0x64, 0x72, 0x79, 0x18,
+	0x0a, 0x20, 0x01, 0x28, 0x08, 0x52, 0x03, 0x64, 0x72, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x66, 0x6f,
+	0x72, 0x63, 0x65, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x08, 0x52, 0x05, 0x66, 0x6f, 0x72, 0x63, 0x65,
+	0x12, 0x12, 0x0a, 0x04, 0x72, 0x6f, 0x6f, 0x74, 0x18, 0x0c, 0x20, 0x01, 0x28, 0x08, 0x52, 0x04,
+	0x72, 0x6f, 0x6f, 0x74, 0x1a, 0x37, 0x0a, 0x09, 0x56, 0x61, 0x72, 0x73, 0x45, 0x6e, 0x74, 0x72,
+	0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03,
+	0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x1a, 0x69, 0x0a,
+	0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2a, 0x0a, 0x06, 0x73, 0x74, 0x61,
+	0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x12, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73,
+	0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x31, 0x0a, 0x0a, 0x64, 0x69, 0x61, 0x67, 0x6e, 0x6f, 0x73,
+	0x74, 0x69, 0x63, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x11, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x2e, 0x44, 0x69, 0x61, 0x67, 0x6e, 0x6f, 0x73, 0x74, 0x69, 0x63, 0x52, 0x0a, 0x64, 0x69,
+	0x61, 0x67, 0x6e, 0x6f, 0x73, 0x74, 0x69, 0x63, 0x22, 0x2f, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74,
+	0x75, 0x73, 0x12, 0x0b, 0x0a, 0x07, 0x55, 0x4e, 0x4b, 0x4e, 0x4f, 0x57, 0x4e, 0x10, 0x00, 0x12,
+	0x0b, 0x0a, 0x07, 0x53, 0x55, 0x43, 0x43, 0x45, 0x53, 0x53, 0x10, 0x01, 0x12, 0x0b, 0x0a, 0x07,
+	0x46, 0x41, 0x49, 0x4c, 0x55, 0x52, 0x45, 0x10, 0x03, 0x22, 0xc4, 0x03, 0x0a, 0x06, 0x55, 0x6e,
+	0x6c, 0x69, 0x6e, 0x6b, 0x1a, 0x9b, 0x02, 0x0a, 0x07, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x18, 0x0a, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x33, 0x0a, 0x04, 0x76, 0x61,
+	0x72, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x55, 0x6e, 0x6c, 0x69, 0x6e, 0x6b, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e,
+	0x56, 0x61, 0x72, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x04, 0x76, 0x61, 0x72, 0x73, 0x12,
+	0x12, 0x0a, 0x04, 0x61, 0x72, 0x67, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09, 0x52, 0x04, 0x61,
+	0x72, 0x67, 0x73, 0x12, 0x12, 0x0a, 0x04, 0x66, 0x69, 0x6c, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x04, 0x66, 0x69, 0x6c, 0x65, 0x12, 0x24, 0x0a, 0x03, 0x61, 0x70, 0x70, 0x18, 0x05,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x41, 0x70, 0x70,
+	0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x03, 0x61, 0x70, 0x70, 0x12, 0x10, 0x0a,
+	0x03, 0x64, 0x72, 0x79, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x08, 0x52, 0x03, 0x64, 0x72, 0x79, 0x12,
+	0x14, 0x0a, 0x05, 0x66, 0x6f, 0x72, 0x63, 0x65, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x08, 0x52, 0x05,
+	0x66, 0x6f, 0x72, 0x63, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x72, 0x6f, 0x6f, 0x74, 0x18, 0x0c, 0x20,
+	0x01, 0x28, 0x08, 0x52, 0x04, 0x72, 0x6f, 0x6f, 0x74, 0x1a, 0x37, 0x0a, 0x09, 0x56, 0x61, 0x72,
+	0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75,
+	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02,
+	0x38, 0x01, 0x1a, 0x6b, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2c,
+	0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x14,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x6e, 0x6c, 0x69, 0x6e, 0x6b, 0x2e, 0x53, 0x74,
+	0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x31, 0x0a, 0x0a,
+	0x64, 0x69, 0x61, 0x67, 0x6e, 0x6f, 0x73, 0x74, 0x69, 0x63, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x11, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x44, 0x69, 0x61, 0x67, 0x6e, 0x6f, 0x73,
+	0x74, 0x69, 0x63, 0x52, 0x0a, 0x64, 0x69, 0x61, 0x67, 0x6e, 0x6f, 0x73, 0x74, 0x69, 0x63, 0x22,
+	0x2f, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x0b, 0x0a, 0x07, 0x55, 0x4e, 0x4b,
+	0x4e, 0x4f, 0x57, 0x4e, 0x10, 0x00, 0x12, 0x0b, 0x0a, 0x07, 0x53, 0x55, 0x43, 0x43, 0x45, 0x53,
+	0x53, 0x10, 0x01, 0x12, 0x0b, 0x0a, 0x07, 0x46, 0x41, 0x49, 0x4c, 0x55, 0x52, 0x45, 0x10, 0x03,
+	0x22, 0xc5, 0x01, 0x0a, 0x0a, 0x44, 0x69, 0x61, 0x67, 0x6e, 0x6f, 0x73, 0x74, 0x69, 0x63, 0x12,
+	0x36, 0x0a, 0x08, 0x73, 0x65, 0x76, 0x65, 0x72, 0x69, 0x74, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x0e, 0x32, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x44, 0x69, 0x61, 0x67, 0x6e, 0x6f,
+	0x73, 0x74, 0x69, 0x63, 0x2e, 0x53, 0x65, 0x76, 0x65, 0x72, 0x69, 0x74, 0x79, 0x52, 0x08, 0x73,
+	0x65, 0x76, 0x65, 0x72, 0x69, 0x74, 0x79, 0x12, 0x18, 0x0a, 0x07, 0x73, 0x75, 0x6d, 0x6d, 0x61,
+	0x72, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x72,
+	0x79, 0x12, 0x16, 0x0a, 0x06, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x06, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x12, 0x1c, 0x0a, 0x09, 0x46, 0x69, 0x6c,
+	0x65, 0x50, 0x61, 0x74, 0x68, 0x73, 0x18, 0x04, 0x20, 0x03, 0x28, 0x09, 0x52, 0x09, 0x46, 0x69,
+	0x6c, 0x65, 0x50, 0x61, 0x74, 0x68, 0x73, 0x22, 0x2f, 0x0a, 0x08, 0x53, 0x65, 0x76, 0x65, 0x72,
+	0x69, 0x74, 0x79, 0x12, 0x0b, 0x0a, 0x07, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x10, 0x00,
+	0x12, 0x09, 0x0a, 0x05, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x01, 0x12, 0x0b, 0x0a, 0x07, 0x57,
+	0x41, 0x52, 0x4e, 0x49, 0x4e, 0x47, 0x10, 0x02, 0x32, 0xe9, 0x01, 0x0a, 0x06, 0x50, 0x6c, 0x75,
+	0x67, 0x69, 0x6e, 0x12, 0x37, 0x0a, 0x06, 0x42, 0x61, 0x63, 0x6b, 0x75, 0x70, 0x12, 0x15, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x42, 0x61, 0x63, 0x6b, 0x75, 0x70, 0x2e, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x42, 0x61, 0x63,
+	0x6b, 0x75, 0x70, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3a, 0x0a, 0x07,
+	0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x12, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e,
+	0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x2e,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x31, 0x0a, 0x04, 0x4c, 0x69, 0x6e, 0x6b,
+	0x12, 0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x2e, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x14, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4c, 0x69,
+	0x6e, 0x6b, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a, 0x06, 0x55,
+	0x6e, 0x6c, 0x69, 0x6e, 0x6b, 0x12, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x6e,
+	0x6c, 0x69, 0x6e, 0x6b, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x6e, 0x6c, 0x69, 0x6e, 0x6b, 0x2e, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x42, 0x27, 0x5a, 0x25, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
+	0x6f, 0x6d, 0x2f, 0x6b, 0x61, 0x74, 0x61, 0x6c, 0x6c, 0x61, 0x78, 0x69, 0x65, 0x2f, 0x63, 0x73,
+	0x79, 0x6e, 0x63, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -800,42 +1362,64 @@ func file_pkg_proto_csync_proto_rawDescGZIP() []byte {
 	return file_pkg_proto_csync_proto_rawDescData
 }
 
-var file_pkg_proto_csync_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_pkg_proto_csync_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_pkg_proto_csync_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
+var file_pkg_proto_csync_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_pkg_proto_csync_proto_goTypes = []interface{}{
 	(Backup_Status)(0),       // 0: proto.Backup.Status
 	(Restore_Status)(0),      // 1: proto.Restore.Status
-	(Diagnostic_Severity)(0), // 2: proto.Diagnostic.Severity
-	(*Application)(nil),      // 3: proto.Application
-	(*Backup)(nil),           // 4: proto.Backup
-	(*Restore)(nil),          // 5: proto.Restore
-	(*Diagnostic)(nil),       // 6: proto.Diagnostic
-	(*Backup_Request)(nil),   // 7: proto.Backup.Request
-	(*Backup_Response)(nil),  // 8: proto.Backup.Response
-	nil,                      // 9: proto.Backup.Request.VarsEntry
-	(*Restore_Request)(nil),  // 10: proto.Restore.Request
-	(*Restore_Response)(nil), // 11: proto.Restore.Response
-	nil,                      // 12: proto.Restore.Request.VarsEntry
+	(Link_Status)(0),         // 2: proto.Link.Status
+	(Unlink_Status)(0),       // 3: proto.Unlink.Status
+	(Diagnostic_Severity)(0), // 4: proto.Diagnostic.Severity
+	(*Application)(nil),      // 5: proto.Application
+	(*Backup)(nil),           // 6: proto.Backup
+	(*Restore)(nil),          // 7: proto.Restore
+	(*Link)(nil),             // 8: proto.Link
+	(*Unlink)(nil),           // 9: proto.Unlink
+	(*Diagnostic)(nil),       // 10: proto.Diagnostic
+	(*Backup_Request)(nil),   // 11: proto.Backup.Request
+	(*Backup_Response)(nil),  // 12: proto.Backup.Response
+	nil,                      // 13: proto.Backup.Request.VarsEntry
+	(*Restore_Request)(nil),  // 14: proto.Restore.Request
+	(*Restore_Response)(nil), // 15: proto.Restore.Response
+	nil,                      // 16: proto.Restore.Request.VarsEntry
+	(*Link_Request)(nil),     // 17: proto.Link.Request
+	(*Link_Response)(nil),    // 18: proto.Link.Response
+	nil,                      // 19: proto.Link.Request.VarsEntry
+	(*Unlink_Request)(nil),   // 20: proto.Unlink.Request
+	(*Unlink_Response)(nil),  // 21: proto.Unlink.Response
+	nil,                      // 22: proto.Unlink.Request.VarsEntry
 }
 var file_pkg_proto_csync_proto_depIdxs = []int32{
-	2,  // 0: proto.Diagnostic.severity:type_name -> proto.Diagnostic.Severity
-	9,  // 1: proto.Backup.Request.vars:type_name -> proto.Backup.Request.VarsEntry
-	3,  // 2: proto.Backup.Request.app:type_name -> proto.Application
+	4,  // 0: proto.Diagnostic.severity:type_name -> proto.Diagnostic.Severity
+	13, // 1: proto.Backup.Request.vars:type_name -> proto.Backup.Request.VarsEntry
+	5,  // 2: proto.Backup.Request.app:type_name -> proto.Application
 	0,  // 3: proto.Backup.Response.status:type_name -> proto.Backup.Status
-	6,  // 4: proto.Backup.Response.diagnostic:type_name -> proto.Diagnostic
-	12, // 5: proto.Restore.Request.vars:type_name -> proto.Restore.Request.VarsEntry
-	3,  // 6: proto.Restore.Request.app:type_name -> proto.Application
+	10, // 4: proto.Backup.Response.diagnostic:type_name -> proto.Diagnostic
+	16, // 5: proto.Restore.Request.vars:type_name -> proto.Restore.Request.VarsEntry
+	5,  // 6: proto.Restore.Request.app:type_name -> proto.Application
 	1,  // 7: proto.Restore.Response.status:type_name -> proto.Restore.Status
-	6,  // 8: proto.Restore.Response.diagnostic:type_name -> proto.Diagnostic
-	7,  // 9: proto.Plugin.Backup:input_type -> proto.Backup.Request
-	10, // 10: proto.Plugin.Restore:input_type -> proto.Restore.Request
-	8,  // 11: proto.Plugin.Backup:output_type -> proto.Backup.Response
-	11, // 12: proto.Plugin.Restore:output_type -> proto.Restore.Response
-	11, // [11:13] is the sub-list for method output_type
-	9,  // [9:11] is the sub-list for method input_type
-	9,  // [9:9] is the sub-list for extension type_name
-	9,  // [9:9] is the sub-list for extension extendee
-	0,  // [0:9] is the sub-list for field type_name
+	10, // 8: proto.Restore.Response.diagnostic:type_name -> proto.Diagnostic
+	19, // 9: proto.Link.Request.vars:type_name -> proto.Link.Request.VarsEntry
+	5,  // 10: proto.Link.Request.app:type_name -> proto.Application
+	2,  // 11: proto.Link.Response.status:type_name -> proto.Link.Status
+	10, // 12: proto.Link.Response.diagnostic:type_name -> proto.Diagnostic
+	22, // 13: proto.Unlink.Request.vars:type_name -> proto.Unlink.Request.VarsEntry
+	5,  // 14: proto.Unlink.Request.app:type_name -> proto.Application
+	3,  // 15: proto.Unlink.Response.status:type_name -> proto.Unlink.Status
+	10, // 16: proto.Unlink.Response.diagnostic:type_name -> proto.Diagnostic
+	11, // 17: proto.Plugin.Backup:input_type -> proto.Backup.Request
+	14, // 18: proto.Plugin.Restore:input_type -> proto.Restore.Request
+	17, // 19: proto.Plugin.Link:input_type -> proto.Link.Request
+	20, // 20: proto.Plugin.Unlink:input_type -> proto.Unlink.Request
+	12, // 21: proto.Plugin.Backup:output_type -> proto.Backup.Response
+	15, // 22: proto.Plugin.Restore:output_type -> proto.Restore.Response
+	18, // 23: proto.Plugin.Link:output_type -> proto.Link.Response
+	21, // 24: proto.Plugin.Unlink:output_type -> proto.Unlink.Response
+	21, // [21:25] is the sub-list for method output_type
+	17, // [17:21] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_pkg_proto_csync_proto_init() }
@@ -881,7 +1465,7 @@ func file_pkg_proto_csync_proto_init() {
 			}
 		}
 		file_pkg_proto_csync_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Diagnostic); i {
+			switch v := v.(*Link); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -893,7 +1477,7 @@ func file_pkg_proto_csync_proto_init() {
 			}
 		}
 		file_pkg_proto_csync_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Backup_Request); i {
+			switch v := v.(*Unlink); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -905,7 +1489,19 @@ func file_pkg_proto_csync_proto_init() {
 			}
 		}
 		file_pkg_proto_csync_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Backup_Response); i {
+			switch v := v.(*Diagnostic); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pkg_proto_csync_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Backup_Request); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -917,6 +1513,18 @@ func file_pkg_proto_csync_proto_init() {
 			}
 		}
 		file_pkg_proto_csync_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Backup_Response); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pkg_proto_csync_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Restore_Request); i {
 			case 0:
 				return &v.state
@@ -928,8 +1536,56 @@ func file_pkg_proto_csync_proto_init() {
 				return nil
 			}
 		}
-		file_pkg_proto_csync_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_pkg_proto_csync_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Restore_Response); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pkg_proto_csync_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Link_Request); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pkg_proto_csync_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Link_Response); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pkg_proto_csync_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Unlink_Request); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pkg_proto_csync_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Unlink_Response); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -946,8 +1602,8 @@ func file_pkg_proto_csync_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_pkg_proto_csync_proto_rawDesc,
-			NumEnums:      3,
-			NumMessages:   10,
+			NumEnums:      5,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
