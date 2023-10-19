@@ -31,6 +31,7 @@ Default is executing a `backup` from the local machine to the cloud.
 | `-d` | `--dry` | `bool` | `false` | Does not apply destructive operations. |
 | `-h` | `--help` | `bool` | `false` | Prints the help message. |
 | | `--root` | `bool` | `false` | Run as `root` |
+| `-p` | `--plugin` | `string` | Path to a plugin as storage provider. |
 
 ## Schema
 
