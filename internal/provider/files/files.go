@@ -151,7 +151,8 @@ func (p *provider) Restore(app *spec.App, opts *p.Opts) error {
 	return nil
 }
 
-// Unlink ...
+// Unlink is unlinking files from the backup folder.
+// nolint:gocyclo
 func (p *provider) Unlink(app *spec.App, opts *p.Opts) error {
 	for _, dst := range app.Files {
 		dst, err := files.ExpandHomeFolder(dst)
