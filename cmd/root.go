@@ -82,6 +82,10 @@ func runRoot(ctx context.Context) error {
 
 	log.Printf("Backup apps ...")
 
+	if cfg.Flags.Dry {
+		log.Print("Running in Dry-Mode ...")
+	}
+
 	var p provider.Provider
 
 	f, err := cfg.Spec.Provider.GetFolder()

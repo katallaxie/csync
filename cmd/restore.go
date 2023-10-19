@@ -37,6 +37,10 @@ func runRestore(ctx context.Context) error {
 
 	log.Printf("Restoring apps ...")
 
+	if cfg.Flags.Dry {
+		log.Printf("Running in Dry-Mode ...")
+	}
+
 	var p provider.Provider
 
 	f, err := cfg.Spec.Provider.GetFolder()

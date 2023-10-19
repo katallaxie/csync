@@ -29,9 +29,7 @@ func runValidate(_ context.Context) error {
 		return err
 	}
 
-	if cfg.Flags.Verbose {
-		log.Print("OK")
-	}
+	log.Print("OK")
 
 	return nil
 }

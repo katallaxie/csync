@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"os/user"
-	"path/filepath"
 
 	"github.com/katallaxie/csync/internal/config"
 	"github.com/katallaxie/pkg/utils/files"
@@ -32,12 +31,15 @@ func UseSetup(ctx context.Context, cfg *config.Config) error {
 		return fmt.Errorf("%s does not exists. You can create a new config with 'init'", cfg.File)
 	}
 
-	path := filepath.Join(filepath.Dir(cfg.File), ".csync")
-	ok, _ = files.FileExists(path)
+	// TODO (@katallaxie): disable this test, because there is not a clear use case here.
+	// We may need to make this configurable in the spec file.
+	//
+	// path := filepath.Join(filepath.Dir(cfg.File), ".csync")
+	// ok, _ = files.FileExists(path)
 
-	if !ok {
-		return fmt.Errorf("%s does not exists to store config files. You can create a new config with 'init'", path)
-	}
+	// if !ok {
+	// 	return fmt.Errorf("%s does not exists to store config files. You can create a new config with 'init'", path)
+	// }
 
 	return nil
 }

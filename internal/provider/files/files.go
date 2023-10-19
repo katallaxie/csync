@@ -80,6 +80,10 @@ func (p *provider) Backup(app *spec.App, opts *p.Opts) error {
 
 		log.Printf("Link '%s' => '%s'", src, dst)
 
+		if opts.Dry {
+			continue
+		}
+
 		if fi.Mode().IsDir() {
 			err := cp.Copy(src, dst)
 			if err != nil {
@@ -133,6 +137,10 @@ func (p *provider) Restore(app *spec.App, opts *p.Opts) error {
 
 		log.Printf("Restore %s from %s", src, dst)
 
+		if opts.Dry {
+			continue
+		}
+
 		// Create symlink ...
 		err = os.Symlink(src, dst)
 		if err != nil {
@@ -166,6 +174,10 @@ func (p *provider) Unlink(app *spec.App, opts *p.Opts) error {
 		}
 
 		log.Printf("Unlink %s from %s", dst, src)
+
+		if opts.Dry {
+			continue
+		}
 
 		fi, err := os.Lstat(src)
 		if err != nil {

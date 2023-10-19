@@ -37,6 +37,10 @@ func runUnlink(ctx context.Context) error {
 
 	log.Printf("Unlinking apps ...")
 
+	if cfg.Flags.Dry {
+		log.Printf("Running in Dry-Mode ...")
+	}
+
 	var p provider.Provider
 
 	f, err := cfg.Spec.Provider.GetFolder()

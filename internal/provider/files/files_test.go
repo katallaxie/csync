@@ -9,10 +9,38 @@ import (
 )
 
 func TestNew(t *testing.T) {
-	t.Parallel()
+	tests := []struct {
+		name   string
+		opts   []Opt
+		expect *provider
+	}{
+		{
+			name:   "empty",
+			opts:   []Opt{},
+			expect: &provider{},
+		},
+		{
+			name: "with folder",
+			opts: []Opt{
+				WithFolder("foo"),
+			},
+			expect: &provider{
+				folder: "foo",
+			},
+		},
+	}
 
-	f := New()
+	for _, tt := range tests {
+		test := tt
 
-	assert.NotNil(t, f)
-	assert.Implements(t, (*p.Provider)(nil), f)
+		t.Run(test.name, func(t *testing.T) {
+			t.Parallel()
+
+			f := New(test.opts...)
+
+			assert.NotNil(t, f)
+			assert.Implements(t, (*p.Provider)(nil), f)
+			assert.Equal(t, test.expect, f)
+		})
+	}
 }
