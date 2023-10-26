@@ -7,6 +7,7 @@ import (
 	"github.com/katallaxie/csync/internal/config"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestNew(t *testing.T) {
@@ -15,7 +16,7 @@ func TestNew(t *testing.T) {
 	c := config.New()
 
 	assert.NotNil(t, c)
-	assert.Equal(t, c.File, ".csync.yml")
+	assert.Equal(t, ".csync.yml", c.File)
 	assert.NotNil(t, c.Stderr)
 	assert.NotNil(t, c.Stdout)
 	assert.NotNil(t, c.Stdout)
@@ -25,11 +26,11 @@ func TestNew(t *testing.T) {
 	assert.NotNil(t, c.Spec)
 
 	h, err := c.HomeDir()
-	assert.NoError(t, err)
+	require.NoError(t, err)
 	assert.NotEmpty(t, h)
 
 	cwd, err := c.Cwd()
-	assert.NoError(t, err)
+	require.NoError(t, err)
 	assert.NotEmpty(t, cwd)
 }
 
@@ -40,7 +41,7 @@ func TestUsePlugin(t *testing.T) {
 	c.Flags.Plugin = "dummy"
 
 	assert.NotNil(t, c)
-	assert.Equal(t, c.Flags.Plugin, "dummy")
+	assert.Equal(t, "dummy", c.Flags.Plugin)
 	assert.True(t, c.UsePlugin())
 }
 
@@ -51,5 +52,5 @@ func TestVars(t *testing.T) {
 	c.Flags.Vars = []string{"foo=bar"}
 
 	assert.NotNil(t, c)
-	assert.Equal(t, c.Flags.Vars, []string{"foo=bar"})
+	assert.Equal(t, []string{"foo=bar"}, c.Flags.Vars)
 }
