@@ -71,7 +71,7 @@ func Test_ProviderFolder(t *testing.T) {
 			assert.Equal(t, tc.expected, path)
 
 			if tc.expectedErr != nil {
-				require.ErrorIs(t, err, tc.expectedErr)
+				require.ErrorContains(t, err, tc.expectedErr.Error())
 			}
 		})
 	}
