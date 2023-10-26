@@ -8,7 +8,7 @@ require (
 	github.com/golangci/golangci-lint v1.55.1
 	github.com/hashicorp/go-hclog v1.5.0
 	github.com/hashicorp/go-plugin v1.5.2
-	github.com/katallaxie/pkg v0.5.10
+	github.com/katallaxie/pkg v0.5.12
 	github.com/otiai10/copy v1.14.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.7.0
