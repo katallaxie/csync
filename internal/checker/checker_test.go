@@ -8,6 +8,7 @@ import (
 	"github.com/katallaxie/csync/internal/config"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestNew(t *testing.T) {
@@ -15,7 +16,7 @@ func TestNew(t *testing.T) {
 
 	c := checker.New()
 	assert.NotNil(t, c)
-	assert.NoError(t, c.Check(context.Background(), nil))
+	require.NoError(t, c.Check(context.Background(), nil))
 }
 
 func TestCheck(t *testing.T) {
@@ -39,7 +40,7 @@ func TestCheck(t *testing.T) {
 
 			c := checker.New(checker.WithChecks(test.fn))
 			assert.NotNil(t, c)
-			assert.NoError(t, c.Check(context.Background(), test.cfg))
+			require.NoError(t, c.Check(context.Background(), test.cfg))
 		})
 	}
 }

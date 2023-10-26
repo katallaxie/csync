@@ -7,6 +7,7 @@ import (
 	"github.com/katallaxie/csync/internal/spec"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_UnmarshalYAML(t *testing.T) {
@@ -27,7 +28,7 @@ func Test_UnmarshalYAML(t *testing.T) {
 		t.Run(tc.desc, func(t *testing.T) {
 			s := spec.Default()
 			err := s.UnmarshalYAML(tc.in)
-			assert.NoError(t, err)
+			require.NoError(t, err)
 			assert.Equal(t, tc.out, s)
 		})
 	}
@@ -67,10 +68,10 @@ func Test_ProviderFolder(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.desc, func(t *testing.T) {
 			path, err := tc.p.GetFolder()
-			assert.Equal(t, path, tc.expected)
+			assert.Equal(t, tc.expected, path)
 
 			if tc.expectedErr != nil {
-				assert.Error(t, err, tc.expectedErr)
+				require.ErrorIs(t, err, tc.expectedErr)
 			}
 		})
 	}
