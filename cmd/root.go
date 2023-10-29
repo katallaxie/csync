@@ -15,6 +15,12 @@ import (
 
 var cfg = config.New()
 
+var (
+	version = "dev"
+	commit  = "none"
+	date    = "unknown"
+)
+
 func init() {
 	cobra.OnInitialize(initConfig)
 
@@ -51,6 +57,7 @@ var RootCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return runRoot(cmd.Context())
 	},
+	Version: version + " (" + commit + " " + date + ")",
 }
 
 func checkEnv(ctx context.Context) error {
