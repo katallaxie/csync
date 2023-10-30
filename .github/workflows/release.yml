@@ -19,10 +19,6 @@ jobs:
       - uses: actions/setup-go@v4
         with:
           go-version-file: ./go.mod
-      - uses: goreleaser/goreleaser-action@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        with:
-          version: latest
-          args: release
+      - run: |
+          make release
         if: success()

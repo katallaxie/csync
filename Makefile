@@ -8,7 +8,11 @@ GO_MOD ?= $(shell ${GO} list -m)
 
 .PHONY: build
 build: ## Build the binary file.
-	$(GO_RELEASER) build --snapshot --rm-dist
+	$(GO_RELEASER) build --snapshot --clean
+
+.PHONY: release
+release: ## Release the binary file.
+	$(GO_RELEASER) release --snapshot --clean
 
 .PHONY: generate
 generate: ## Generate code.
