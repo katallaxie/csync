@@ -12,7 +12,7 @@ build: ## Build the binary file.
 
 .PHONY: release
 release: ## Release the binary file.
-	$(GO_RELEASER) release --snapshot --clean
+	$(GO_RELEASER) release --clean
 
 .PHONY: generate
 generate: ## Generate code.
