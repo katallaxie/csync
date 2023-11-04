@@ -12,5 +12,6 @@ func List() []App {
 		Bat(),
 		Zsh(),
 		Wget(),
+		Git(),
 	}
 }
