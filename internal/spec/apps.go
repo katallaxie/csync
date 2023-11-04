@@ -8,5 +8,6 @@ func List() []App {
 		Alacritty(),
 		Azure(),
 		Bartender(),
+		Bash(),
 	}
 }
