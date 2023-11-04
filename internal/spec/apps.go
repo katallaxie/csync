@@ -13,5 +13,6 @@ func List() []App {
 		Zsh(),
 		Wget(),
 		Git(),
+		GnuPG(),
 	}
 }
