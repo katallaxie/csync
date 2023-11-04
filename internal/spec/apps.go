@@ -9,5 +9,6 @@ func List() []App {
 		Azure(),
 		Bartender(),
 		Bash(),
+		Bat(),
 	}
 }
