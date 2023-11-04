@@ -6,5 +6,6 @@ func List() []App {
 		Docker(),
 		AWS(),
 		Alacritty(),
+		Azure(),
 	}
 }
