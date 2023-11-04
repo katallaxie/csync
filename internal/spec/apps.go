@@ -10,5 +10,6 @@ func List() []App {
 		Bartender(),
 		Bash(),
 		Bat(),
+		Zsh(),
 	}
 }
