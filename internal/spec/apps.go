@@ -5,5 +5,6 @@ func List() []App {
 	return []App{
 		Docker(),
 		AWS(),
+		Alacritty(),
 	}
 }
