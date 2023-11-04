@@ -7,5 +7,6 @@ func List() []App {
 		AWS(),
 		Alacritty(),
 		Azure(),
+		Bartender(),
 	}
 }
