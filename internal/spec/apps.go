@@ -14,5 +14,6 @@ func List() []App {
 		Wget(),
 		Git(),
 		GnuPG(),
+		Homebrew(),
 	}
 }
