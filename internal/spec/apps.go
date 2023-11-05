@@ -15,5 +15,6 @@ func List() []App {
 		Git(),
 		GnuPG(),
 		Homebrew(),
+		Hyper(),
 	}
 }
