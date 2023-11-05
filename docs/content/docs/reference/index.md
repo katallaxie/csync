@@ -15,13 +15,15 @@ Default is executing a `backup` from the local machine to the cloud.
 
 | Subcommand | Description |
 | - | - |
-| `Backup` | Backup files from the local machine to the cloud
+| `apps`     | Manage apps
+| `backup` | Backup files from the local machine to the cloud
 | `completion` | Generate the autocompletion script for the specified shell
 | `help`       | Help about any command
 | `init`       | Initialize a new config
 | `restore`    | Restore files from the cloud to the local machine
 | `unlink`     | Unlink the local files from the cloud
 | `validate`   | Validating the config
+
 
 | Short | Flag | Type | Default | Description |
 | - | - | - | - | - |
