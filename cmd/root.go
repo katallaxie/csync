@@ -29,6 +29,7 @@ func init() {
 	RootCmd.AddCommand(UnlinkCmd)
 	RootCmd.AddCommand(ValidateCmd)
 	RootCmd.AddCommand(BackupCmd)
+	RootCmd.AddCommand(AppsCmd)
 
 	RootCmd.PersistentFlags().StringVarP(&cfg.File, "config", "c", cfg.File, "config file")
 	RootCmd.PersistentFlags().BoolVarP(&cfg.Flags.Verbose, "verbose", "v", cfg.Flags.Verbose, "verbose output")
