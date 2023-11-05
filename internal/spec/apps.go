@@ -16,5 +16,6 @@ func List() []App {
 		GnuPG(),
 		Homebrew(),
 		Hyper(),
+		Kubectl(),
 	}
 }
