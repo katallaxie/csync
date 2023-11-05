@@ -21,6 +21,7 @@ func List() []App {
 		Npm(),
 		SSH(),
 		Terminal(),
+		Tmux(),
 		Wget(),
 		Zsh(),
 	}
