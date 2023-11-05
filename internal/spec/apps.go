@@ -3,15 +3,13 @@ package spec
 // List of apps.
 func List() []App {
 	return []App{
-		Docker(),
-		AWS(),
 		Alacritty(),
+		AWS(),
 		Azure(),
 		Bartender(),
 		Bash(),
 		Bat(),
-		Zsh(),
-		Wget(),
+		Docker(),
 		Git(),
 		GnuPG(),
 		Homebrew(),
@@ -19,5 +17,8 @@ func List() []App {
 		Kubectl(),
 		MacOS(),
 		Magnet(),
+		Mail(),
+		Wget(),
+		Zsh(),
 	}
 }
