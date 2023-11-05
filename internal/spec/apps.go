@@ -18,6 +18,7 @@ func List() []App {
 		MacOS(),
 		Magnet(),
 		Mail(),
+		Npm(),
 		Wget(),
 		Zsh(),
 	}
