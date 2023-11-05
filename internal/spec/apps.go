@@ -18,5 +18,6 @@ func List() []App {
 		Hyper(),
 		Kubectl(),
 		MacOS(),
+		Magnet(),
 	}
 }
