@@ -27,4 +27,4 @@ theme = 'hugo-whisper-theme'
   google_analytics_id=""
   homepage_button_link = 'docs'
   homepage_button_text = 'Read The Docs'
-  homepage_intro = 'Whisper is a documentation theme built with Hugo. The design and functionality is intentionally minimal.'
+  homepage_intro = 'csync is a command line tool for synchronizing files to and from various cloud storage services.'
