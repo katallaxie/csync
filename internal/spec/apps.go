@@ -17,5 +17,6 @@ func List() []App {
 		Homebrew(),
 		Hyper(),
 		Kubectl(),
+		MacOS(),
 	}
 }
