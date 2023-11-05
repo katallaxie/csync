@@ -19,6 +19,7 @@ func List() []App {
 		Magnet(),
 		Mail(),
 		Npm(),
+		SSH(),
 		Terminal(),
 		Wget(),
 		Zsh(),
