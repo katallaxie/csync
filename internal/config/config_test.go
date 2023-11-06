@@ -16,7 +16,7 @@ func TestNew(t *testing.T) {
 	c := config.New()
 
 	assert.NotNil(t, c)
-	assert.Equal(t, ".csync.yml", c.File)
+	assert.Equal(t, "~/.csync.yml", c.File)
 	assert.NotNil(t, c.Stderr)
 	assert.NotNil(t, c.Stdout)
 	assert.NotNil(t, c.Stdout)
