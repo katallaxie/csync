@@ -5,7 +5,7 @@ func Kubectl() App {
 	return App{
 		Name: "kubectl",
 		Files: Files{
-			".kube/config",
+			"~/.kube/config",
 		},
 	}
 }

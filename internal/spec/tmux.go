@@ -5,7 +5,7 @@ func Tmux() App {
 	return App{
 		Name: "tmux",
 		Files: Files{
-			".tmux.conf",
+			"~/.tmux.conf",
 		},
 	}
 }

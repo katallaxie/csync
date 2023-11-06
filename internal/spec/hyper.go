@@ -5,7 +5,7 @@ func Hyper() App {
 	return App{
 		Name: "hyper",
 		Files: Files{
-			".hyper.js",
+			"~/.hyper.js",
 		},
 	}
 }

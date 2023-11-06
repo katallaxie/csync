@@ -5,11 +5,11 @@ func Zsh() App {
 	return App{
 		Name: "zsh",
 		Files: Files{
-			".zshrc",
-			".zshenv",
-			".zprofile",
-			".zlogin",
-			".zlogout",
+			"~/.zshrc",
+			"~/.zshenv",
+			"~/.zprofile",
+			"~/.zlogin",
+			"~/.zlogout",
 		},
 	}
 }

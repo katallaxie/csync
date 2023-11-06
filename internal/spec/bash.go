@@ -5,15 +5,15 @@ func Bash() App {
 	return App{
 		Name: "bash",
 		Files: Files{
-			".bash_history",
-			".bash_profile",
-			".bashrc",
-			".inputrc",
-			".profile",
-			".bash_logout",
-			".bash_login",
-			".inputrc",
-			".bash_aliases",
+			"~/.bash_history",
+			"~/.bash_profile",
+			"~/.bashrc",
+			"~/.inputrc",
+			"~/.profile",
+			"~/.bash_logout",
+			"~/.bash_login",
+			"~/.inputrc",
+			"~/.bash_aliases",
 		},
 	}
 }

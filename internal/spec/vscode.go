@@ -5,9 +5,9 @@ func VSCode() App {
 	return App{
 		Name: "vscode",
 		Files: Files{
-			"Library/Application Support/Code/User/settings.json",
-			"Library/Application Support/Code/User/keybindings.json",
-			"Library/Application Support/Code/User/snippets",
+			"~/Library/Application Support/Code/User/settings.json",
+			"~/Library/Application Support/Code/User/keybindings.json",
+			"~/Library/Application Support/Code/User/snippets",
 		},
 	}
 }

@@ -5,8 +5,8 @@ func Wget() App {
 	return App{
 		Name: "wget",
 		Files: Files{
-			".wgetrc",
-			".wget-hsts",
+			"~/.wgetrc",
+			"~/.wget-hsts",
 		},
 	}
 }

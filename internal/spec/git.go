@@ -5,7 +5,7 @@ func Git() App {
 	return App{
 		Name: "git",
 		Files: Files{
-			".gitconfig",
+			"~/.gitconfig",
 		},
 	}
 }

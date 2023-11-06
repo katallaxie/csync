@@ -5,8 +5,8 @@ func Alacritty() App {
 	return App{
 		Name: "alacritty",
 		Files: Files{
-			".config/alacritty",
-			".alacritty.yml",
+			"~/.config/alacritty",
+			"~/.alacritty.yml",
 		},
 	}
 }

@@ -5,9 +5,9 @@ func GnuPG() App {
 	return App{
 		Name: "gnupg",
 		Files: Files{
-			".gnupg/gpg.conf",
-			".gnupg/gpg-agent.conf",
-			".gnupg/trustdb.gpg",
+			"~/.gnupg/gpg.conf",
+			"~/.gnupg/gpg-agent.conf",
+			"~/.gnupg/trustdb.gpg",
 		},
 	}
 }

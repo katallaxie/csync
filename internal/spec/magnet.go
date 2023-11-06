@@ -5,7 +5,7 @@ func Magnet() App {
 	return App{
 		Name: "Magnet",
 		Files: Files{
-			"Library/Preferences/com.crowdcafe.windowmagnet.plist",
+			"~/Library/Preferences/com.crowdcafe.windowmagnet.plist",
 		},
 	}
 }

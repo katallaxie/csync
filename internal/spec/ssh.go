@@ -5,8 +5,8 @@ func SSH() App {
 	return App{
 		Name: "ssh",
 		Files: Files{
-			".ssh/config",
-			".ssh/authorized_keys",
+			"~/.ssh/config",
+			"~/.ssh/authorized_keys",
 		},
 	}
 }

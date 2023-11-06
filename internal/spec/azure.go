@@ -5,7 +5,7 @@ func Azure() App {
 	return App{
 		Name: "azure",
 		Files: Files{
-			".azure",
+			"~/.azure",
 		},
 	}
 }

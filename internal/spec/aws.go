@@ -5,7 +5,7 @@ func AWS() App {
 	return App{
 		Name: "aws",
 		Files: Files{
-			".aws",
+			"~/.aws",
 		},
 	}
 }

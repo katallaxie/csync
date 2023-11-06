@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/katallaxie/csync/internal/spec"
 	p "github.com/katallaxie/csync/pkg/provider"
@@ -56,17 +57,17 @@ func (p *provider) Backup(app *spec.App, opts *p.Opts) error {
 		}
 
 		dstfi, err := os.Lstat(dst)
-		if errors.Is(err, os.ErrNotExist) {
-			continue
-		}
-
-		if err != nil {
+		if err != nil && !errors.Is(err, os.ErrNotExist) {
 			return err
 		}
 
 		src, err := files.ExpandHomeFolder(src)
 		if err != nil {
 			return err
+		}
+
+		if ok, _ := files.FileNotExists(src); ok {
+			continue
 		}
 
 		fi, err := os.Lstat(src)
@@ -89,7 +90,14 @@ func (p *provider) Backup(app *spec.App, opts *p.Opts) error {
 		}
 
 		if fi.Mode().IsDir() {
-			err := cp.Copy(src, dst)
+			if ok, _ := files.FileExists(dst); ok && opts.Force {
+				err = os.RemoveAll(dst)
+				if err != nil {
+					return err
+				}
+			}
+
+			err = cp.Copy(src, dst)
 			if err != nil {
 				return err
 			}
@@ -163,7 +171,7 @@ func (p *provider) Restore(app *spec.App, opts *p.Opts) error {
 // nolint:gocyclo
 func (p *provider) Unlink(app *spec.App, opts *p.Opts) error {
 	for _, dst := range app.Files {
-		dst, err := files.ExpandHomeFolder(dst)
+		dstfi, err := files.ExpandHomeFolder(dst)
 		if err != nil {
 			return err
 		}
@@ -182,7 +190,7 @@ func (p *provider) Unlink(app *spec.App, opts *p.Opts) error {
 			continue
 		}
 
-		log.Printf("Unlink %s from %s", dst, src)
+		log.Printf("Unlink %s from %s", dstfi, src)
 
 		if opts.Dry {
 			continue
@@ -194,15 +202,15 @@ func (p *provider) Unlink(app *spec.App, opts *p.Opts) error {
 		}
 
 		// try to delete and ignore any error
-		_ = os.Remove(dst)
+		_ = os.Remove(dstfi)
 
 		if fi.Mode().IsDir() {
-			err := cp.Copy(src, dst)
+			err := cp.Copy(src, dstfi)
 			if err != nil {
 				return err
 			}
 		} else {
-			_, err = files.CopyFile(src, dst, true)
+			_, err = files.CopyFile(src, dstfi, true)
 			if err != nil {
 				return err
 			}
@@ -221,5 +229,11 @@ func (p *provider) Link(app *spec.App, opts *p.Opts) error {
 
 // nolint:unparam
 func (p *provider) getFilePath(f string) (string, error) {
-	return filepath.Join(p.folder, f), nil
+	f = filepath.Clean(f)
+
+	if strings.HasPrefix(f, "~/") {
+		f = filepath.Join(p.folder, f[2:])
+	}
+
+	return f, nil
 }

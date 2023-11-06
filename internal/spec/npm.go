@@ -5,7 +5,7 @@ func Npm() App {
 	return App{
 		Name: "npm",
 		Files: Files{
-			".npmrc",
+			"~/.npmrc",
 		},
 	}
 }

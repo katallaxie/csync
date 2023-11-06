@@ -72,8 +72,6 @@ func runRestore(ctx context.Context) error {
 
 	apps := cfg.Spec.GetApps(spec.List()...)
 	for i := range apps {
-		log.Printf("Restore '%s'", apps[i].Name)
-
 		if err := p.Restore(&apps[i], opts); err != nil {
 			return err
 		}

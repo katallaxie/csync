@@ -5,7 +5,7 @@ func Homebrew() App {
 	return App{
 		Name: "homebrew",
 		Files: Files{
-			".Bewfile",
+			"~/.Bewfile",
 		},
 	}
 }

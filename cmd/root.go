@@ -125,8 +125,6 @@ func runRoot(ctx context.Context) error {
 
 	apps := cfg.Spec.GetApps(spec.List()...)
 	for i := range apps {
-		log.Printf("Backup '%s'", apps[i].Name)
-
 		if err := p.Backup(&apps[i], opts); err != nil {
 			return err
 		}
