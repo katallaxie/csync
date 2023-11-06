@@ -10,6 +10,7 @@ func List() []App {
 		Bash(),
 		Bat(),
 		Docker(),
+		Fig(),
 		Git(),
 		GnuPG(),
 		Homebrew(),
