@@ -20,17 +20,13 @@ var InitCmd = &cobra.Command{
 }
 
 func runInit(_ context.Context) error {
-	if cfg.Flags.Verbose {
-		log.Printf("initializing config (%s)", cfg.File)
-	}
+	log.Printf("initializing config (%s)", cfg.File)
 
 	if err := spec.Write(spec.Default(), cfg.File, cfg.Flags.Force); err != nil {
 		return err
 	}
 
-	if cfg.Flags.Verbose {
-		log.Printf("creating config folder (%s)", cfg.Path)
-	}
+	log.Printf("creating config folder (%s)", cfg.Path)
 
 	err := files.MkdirAll(cfg.Path, os.ModePerm)
 	if err != nil {

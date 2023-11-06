@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 
+	"github.com/katallaxie/csync/internal/spec"
 	"github.com/spf13/cobra"
 )
 
@@ -23,7 +24,7 @@ var AppsCmd = &cobra.Command{
 }
 
 func runAppsList(_ context.Context) error {
-	apps := cfg.Spec.GetApps()
+	apps := cfg.Spec.GetApps(spec.List()...)
 
 	for _, app := range apps {
 		log.Printf("%s", app.Name)

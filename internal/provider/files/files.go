@@ -56,7 +56,11 @@ func (p *provider) Backup(app *spec.App, opts *p.Opts) error {
 		}
 
 		dstfi, err := os.Lstat(dst)
-		if err != nil && !errors.Is(err, os.ErrNotExist) {
+		if errors.Is(err, os.ErrNotExist) {
+			continue
+		}
+
+		if err != nil {
 			return err
 		}
 
@@ -121,6 +125,10 @@ func (p *provider) Backup(app *spec.App, opts *p.Opts) error {
 // Restore a file.
 func (p *provider) Restore(app *spec.App, opts *p.Opts) error {
 	for _, src := range app.Files {
+		if ok, _ := files.FileNotExists(src); !ok {
+			continue
+		}
+
 		dst, err := files.PathTransform(src, files.ExpandHomeFolder, files.ExpandHomeFolder)
 		if err != nil {
 			return err

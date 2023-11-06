@@ -78,7 +78,6 @@ func Default() *Spec {
 		Provider: &Provider{
 			Name: "icloud",
 		},
-		Apps: List(),
 	}
 }
 
@@ -110,16 +109,18 @@ func (s *Provider) GetName() string {
 
 // GetApps reutrns the list of apps to sync.
 func (s *Spec) GetApps(defaults ...App) []App {
-	apps := make([]App, 0)
+	apps := s.Apps
 
 	if len(s.Includes) == 0 {
 		apps = append(apps, defaults...)
 	}
 
-	for _, in := range s.Includes {
-		for _, app := range defaults {
-			if app.Name == in {
-				apps = append(apps, app)
+	if len(s.Includes) > 0 {
+		for _, in := range s.Includes {
+			for _, app := range defaults {
+				if app.Name == in {
+					apps = append(apps, app)
+				}
 			}
 		}
 	}
@@ -132,7 +133,7 @@ func (s *Spec) GetApps(defaults ...App) []App {
 		}
 	}
 
-	return s.Apps
+	return apps
 }
 
 // GetFolder ...

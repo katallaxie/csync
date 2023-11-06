@@ -7,6 +7,7 @@ import (
 	"sync"
 
 	"github.com/katallaxie/csync/internal/spec"
+	"github.com/katallaxie/pkg/utils/files"
 )
 
 // Flags contains the command line flags.
@@ -72,16 +73,12 @@ func New() *Config {
 
 // InitDefaultConfig initializes the default configuration.
 func (c *Config) InitDefaultConfig() error {
-	cwd, err := c.Cwd()
+	folder, err := files.ExpandHomeFolder(c.File)
 	if err != nil {
 		return err
 	}
-	c.File = filepath.Join(cwd, c.File)
 
-	usr, err := user.Current()
-	if err == nil {
-		c.Path = filepath.Join(usr.HomeDir, spec.DefaultPath)
-	}
+	c.File = folder
 
 	return nil
 }
