@@ -1,41 +1,39 @@
+project_name: csync
+
 before:
   hooks:
     - go mod tidy
 
 builds:
    -
-    id: csync
-    binary: '{{ .ProjectName }}'
-    main: main.go
     goos:
-      - windows
       - darwin
       - linux
+      - windows
     goarch:
       - 386
       - amd64
       - arm
       - arm64
+    goarm:
+      - 7
     ignore:
         - goos: darwin
           goarch: 386
+        - goos: windows
+          goarch: arm
     env:
       - CGO_ENABLED=0
     ldflags:
       - -s -w -X github.com/katallaxie/csync/cmd.version={{.Version}} -X github.com/katallaxie/csync/cmd.commit={{.Commit}} -X github.com/katallaxie/csync/cmd.date={{.Date}} -X github.com/katallaxie/csync/cmd.builtBy=goreleaser
 
 archives:
-  -
-    id: csync
-    builds:
+  - builds:
       - csync
     name_template: "csync_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
 
 brews:
   -
-    name: csync
-    ids:
-      - csync
     repository: 
       owner: katallaxie
       name: homebrew-csync-tap
@@ -45,12 +43,12 @@ brews:
     dependencies:
       - name: go
         type: optional
+    license: APACHE-2.0
     install: |-
       bin.install "csync"
 
 release:
-  ids:
-    - csync
+  name_template: "v{{ .Version }}"
   header: |
     ## {{.Version}} Release ({{ .Date }})
 
@@ -59,6 +57,40 @@ release:
     ## Thanks!
 
     Those were the changes on {{ .Tag }}!
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - "^test:"
+      - "^chore"
+      - "merge conflict"
+      - Merge pull request
+      - Merge remote-tracking branch
+      - Merge branch
+      - go mod tidy
+  groups:
+    - title: Dependency updates
+      regexp: '^.*?(feat|fix)\(deps\)!?:.+$'
+      order: 300
+    - title: "New Features"
+      regexp: '^.*?feat(\([[:word:]]+\))??!?:.+$'
+      order: 100
+    - title: "Security updates"
+      regexp: '^.*?sec(\([[:word:]]+\))??!?:.+$'
+      order: 150
+    - title: "Bug fixes"
+      regexp: '^.*?fix(\([[:word:]]+\))??!?:.+$'
+      order: 200
+    - title: "Documentation updates"
+      regexp: ^.*?doc(\([[:word:]]+\))??!?:.+$
+      order: 400
+    - title: "Build process updates"
+      regexp: ^.*?build(\([[:word:]]+\))??!?:.+$
+      order: 400
+    - title: Other work
+      order: 9999
 
 gomod:
   proxy: true
