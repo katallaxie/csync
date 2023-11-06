@@ -5,7 +5,7 @@ func Fig() App {
 	return App{
 		Name: "fig",
 		Files: []string{
-			"~/.fig/settingss.json",
+			"~/.fig/settings.json",
 		},
 	}
 }
