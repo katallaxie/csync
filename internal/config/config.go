@@ -62,7 +62,7 @@ type Config struct {
 // New returns a new config.
 func New() *Config {
 	return &Config{
-		File:   ".csync.yml",
+		File:   "~/.csync.yml",
 		Stdin:  os.Stdin,
 		Stdout: os.Stdout,
 		Stderr: os.Stderr,
