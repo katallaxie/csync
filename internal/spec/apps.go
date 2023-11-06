@@ -20,6 +20,7 @@ func List() []App {
 		Magnet(),
 		Mail(),
 		Npm(),
+		Raycast(),
 		SSH(),
 		Terminal(),
 		Tmux(),
