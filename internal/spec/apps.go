@@ -19,6 +19,7 @@ func List() []App {
 		MacOS(),
 		Magnet(),
 		Mail(),
+		Nano(),
 		Npm(),
 		Raycast(),
 		SSH(),
