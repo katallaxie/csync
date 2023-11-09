@@ -10,7 +10,7 @@ theme = 'hugo-whisper-theme'
 
 [[menu.main]]
     name = "Docs"
-    url = "docs/"
+    url = "/docs"
     weight = 2
 
 [sitemap]
@@ -28,3 +28,7 @@ theme = 'hugo-whisper-theme'
   homepage_button_link = 'docs'
   homepage_button_text = 'Read The Docs'
   homepage_intro = 'csync is a command line tool for synchronizing files to and from various cloud storage services.'
+
+  [params.logo]
+      mobile = ""
+      standard  = ""
