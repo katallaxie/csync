@@ -10,8 +10,6 @@
 
 :point_right: [Documentation](https://katallaxie.github.io/csync/)
 
-:warning: This project is under active development and things may change quickly.
-
 ## Install
 
 ### Homebrew
