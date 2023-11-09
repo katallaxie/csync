@@ -68,4 +68,4 @@ provider:
 | Attribute | Type | Default | Description |
 | - | - | - | - |
 | `name` | `string` | | Name of the application. |
-| `files` | `[]stirng` | | List of files to sync. References to the home directory (`~`) are expanded to absolute paths. |
+| `files` | `[]string` | | List of files to sync. References to the home directory (`~`) are expanded to absolute paths. |
