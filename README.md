@@ -8,8 +8,6 @@
 
 `csync` is a tool to backup your settings using common cloud storage solutions like [iCloud Drive](https://www.icloud.com), [Dropbox](https://dropbox.com), [Google Drive](https://www.google.com/intl/de/drive/) or any other file system based sync solution.
 
-:point_right: [Documentation](https://katallaxie.github.io/csync/)
-
 ## Install
 
 ### Homebrew
@@ -25,6 +23,10 @@ version: 1
 provider:
   name: icloud
 ```
+
+## Documentation 
+
+[Wiki](https://github.com/katallaxie/csync/wiki)
 
 ## Plugins
 
