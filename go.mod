@@ -8,7 +8,7 @@ require (
 	github.com/golangci/golangci-lint v1.58.1
 	github.com/hashicorp/go-hclog v1.6.3
 	github.com/hashicorp/go-plugin v1.6.0
-	github.com/katallaxie/pkg v0.5.12
+	github.com/katallaxie/pkg v0.6.5
 	github.com/otiai10/copy v1.14.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.8.0
@@ -123,7 +123,7 @@ require (
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
-	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
+	github.com/matttproud/golang_protobuf_extensions/v2 v2.0.0 // indirect
 	github.com/mgechev/revive v1.3.7 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/go-testing-interface v0.0.0-20171004221916-a61a99592b77 // indirect
@@ -139,10 +139,10 @@ require (
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/polyfloyd/go-errorlint v1.5.1 // indirect
-	github.com/prometheus/client_golang v1.17.0 // indirect
-	github.com/prometheus/client_model v0.4.1-0.20230718164431-9a2bf3000d16 // indirect
-	github.com/prometheus/common v0.44.0 // indirect
-	github.com/prometheus/procfs v0.11.1 // indirect
+	github.com/prometheus/client_golang v1.18.0 // indirect
+	github.com/prometheus/client_model v0.5.0 // indirect
+	github.com/prometheus/common v0.45.0 // indirect
+	github.com/prometheus/procfs v0.12.0 // indirect
 	github.com/quasilyte/go-ruleguard v0.4.2 // indirect
 	github.com/quasilyte/go-ruleguard/dsl v0.3.22 // indirect
 	github.com/quasilyte/gogrep v0.5.0 // indirect
@@ -190,7 +190,7 @@ require (
 	go-simpler.org/sloglint v0.6.0 // indirect
 	go.uber.org/automaxprocs v1.5.3 // indirect
 	go.uber.org/multierr v1.10.0 // indirect
-	go.uber.org/zap v1.26.0 // indirect
+	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/crypto v0.23.0 // indirect
 	golang.org/x/exp v0.0.0-20240103183307-be819d1f06fc // indirect
 	golang.org/x/exp/typeparams v0.0.0-20240314144324-c7f7c6466f7f // indirect
