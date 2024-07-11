@@ -45,7 +45,6 @@ type GRPCProviderPlugin struct {
 func (p *GRPCProviderPlugin) GRPCClient(ctx context.Context, broker *p.GRPCBroker, c *grpc.ClientConn) (interface{}, error) {
 	return &GRPCPlugin{
 		client: proto.NewPluginClient(c),
-		ctx:    ctx,
 	}, nil
 }
 
@@ -60,7 +59,6 @@ type GRPCPlugin struct {
 	PluginClient *p.Client
 	Meta         *Meta
 
-	ctx    context.Context
 	client proto.PluginClient
 }
 
@@ -86,7 +84,7 @@ func (p *GRPCPlugin) Backup(ctx context.Context, app *spec.App, opts *provider.O
 
 	r.App = app.ToProto()
 
-	_, err := p.client.Backup(p.ctx, r)
+	_, err := p.client.Backup(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -105,7 +103,7 @@ func (p *GRPCPlugin) Restore(ctx context.Context, app *spec.App, opts *provider.
 
 	r.App = app.ToProto()
 
-	_, err := p.client.Restore(p.ctx, r)
+	_, err := p.client.Restore(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -124,7 +122,7 @@ func (p *GRPCPlugin) Link(ctx context.Context, app *spec.App, opts *provider.Opt
 
 	r.App = app.ToProto()
 
-	_, err := p.client.Link(p.ctx, r)
+	_, err := p.client.Link(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -144,7 +142,7 @@ func (p *GRPCPlugin) Unlink(ctx context.Context, app *spec.App, opts *provider.O
 
 	r.App = app.ToProto()
 
-	_, err := p.client.Unlink(p.ctx, r)
+	_, err := p.client.Unlink(ctx, r)
 	if err != nil {
 		return err
 	}
