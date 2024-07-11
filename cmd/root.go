@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"github.com/katallaxie/csync/internal/checker"
@@ -15,6 +16,10 @@ import (
 )
 
 var cfg = config.New()
+
+const (
+	versionFmt = "%s (%s %s)"
+)
 
 var (
 	version = "dev"
@@ -59,7 +64,7 @@ var RootCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return runRoot(cmd.Context())
 	},
-	Version: version + " (" + commit + " " + date + ")",
+	Version: fmt.Sprintf(versionFmt, version, commit, date),
 }
 
 func checkEnv(ctx context.Context) error {
@@ -125,7 +130,7 @@ func runRoot(ctx context.Context) error {
 
 	apps := cfg.Spec.GetApps(spec.List()...)
 	for i := range apps {
-		if err := p.Backup(&apps[i], opts); err != nil {
+		if err := p.Backup(ctx, &apps[i], opts); err != nil {
 			return err
 		}
 	}

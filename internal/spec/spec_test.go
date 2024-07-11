@@ -10,6 +10,46 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func Test_Validate(t *testing.T) {
+	tests := []struct {
+		desc string
+		in   *spec.Spec
+		err  error
+	}{
+		{
+			desc: "valid",
+			in: &spec.Spec{
+				Version: 1,
+				Provider: spec.Provider{
+					Name: "file",
+				},
+			},
+		},
+		{
+			desc: "invalid",
+			in: &spec.Spec{
+				Version: 2,
+				Provider: spec.Provider{
+					Name: "file",
+				},
+			},
+			err: fmt.Errorf("Key: 'Spec.version' Error:Field validation for 'version' failed on the 'eq' tag"),
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.desc, func(t *testing.T) {
+			err := tc.in.Validate()
+			if tc.err != nil {
+				require.Error(t, err)
+				assert.Equal(t, tc.err.Error(), err.Error())
+			} else {
+				require.NoError(t, err)
+			}
+		})
+	}
+}
+
 func Test_UnmarshalYAML(t *testing.T) {
 	tests := []struct {
 		desc string

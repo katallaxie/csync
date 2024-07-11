@@ -9,7 +9,7 @@ import (
 	"github.com/katallaxie/pkg/utils/files"
 )
 
-// UseableEnv ...
+// UseableEnv is a check to see if the environment is useable.
 func UseableEnv(ctx context.Context, cfg *config.Config) error {
 	user, err := user.Current()
 	if err != nil {
@@ -23,7 +23,7 @@ func UseableEnv(ctx context.Context, cfg *config.Config) error {
 	return nil
 }
 
-// UseSetup ...
+// UseSetup is a check to see if the setup is useable.
 func UseSetup(ctx context.Context, cfg *config.Config) error {
 	ok, _ := files.FileExists(cfg.File)
 

@@ -72,7 +72,7 @@ func runUnlink(ctx context.Context) error {
 
 	apps := cfg.Spec.GetApps(spec.List()...)
 	for i := range apps {
-		if err := p.Unlink(&apps[i], opts); err != nil {
+		if err := p.Unlink(ctx, &apps[i], opts); err != nil {
 			return err
 		}
 	}

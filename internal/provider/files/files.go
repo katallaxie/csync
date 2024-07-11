@@ -1,6 +1,7 @@
 package files
 
 import (
+	"context"
 	"errors"
 	"log"
 	"os"
@@ -49,7 +50,7 @@ func New(opts ...Opt) *provider {
 
 // Backup a file.
 // nolint:gocyclo
-func (p *provider) Backup(app *spec.App, opts *p.Opts) error {
+func (p *provider) Backup(ctx context.Context, app *spec.App, opts *p.Opts) error {
 	for _, src := range app.Files {
 		dst, err := p.getFilePath(src)
 		if err != nil {
@@ -131,7 +132,7 @@ func (p *provider) Backup(app *spec.App, opts *p.Opts) error {
 }
 
 // Restore a file.
-func (p *provider) Restore(app *spec.App, opts *p.Opts) error {
+func (p *provider) Restore(ctx context.Context, app *spec.App, opts *p.Opts) error {
 	for _, src := range app.Files {
 		if ok, _ := files.FileNotExists(src); !ok {
 			continue
@@ -169,7 +170,7 @@ func (p *provider) Restore(app *spec.App, opts *p.Opts) error {
 
 // Unlink is unlinking files from the backup folder.
 // nolint:gocyclo
-func (p *provider) Unlink(app *spec.App, opts *p.Opts) error {
+func (p *provider) Unlink(ctx context.Context, app *spec.App, opts *p.Opts) error {
 	for _, dst := range app.Files {
 		dstfi, err := files.ExpandHomeFolder(dst)
 		if err != nil {
@@ -221,7 +222,7 @@ func (p *provider) Unlink(app *spec.App, opts *p.Opts) error {
 }
 
 // Link ...
-func (p *provider) Link(app *spec.App, opts *p.Opts) error {
+func (p *provider) Link(ctx context.Context, app *spec.App, opts *p.Opts) error {
 	// this is not implemented with the file provider right now,
 	// because the file provider does this in the backup phase.
 	return nil

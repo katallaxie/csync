@@ -17,20 +17,25 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+var validate = validator.New()
+
 const (
+	// DefaultDirectory is the default directory for the configuration file.
 	DefaultDirectory = "csync"
-	DefaultPath      = ".csync"
-	DefaultFilename  = ".csync.yml"
+	// DefaultPath is the default path for the configuration file.
+	DefaultPath = ".csync"
+	// DefaultFilename is the default filename for the configuration file.
+	DefaultFilename = ".csync.yml"
 )
 
 // Spec is the configuration file for `csync`.
 type Spec struct {
 	// Version is the version of the configuration file.
-	Version int `yaml:"version" validate:"required"`
+	Version int `yaml:"version" validate:"required,eq=1"`
 	// Path is the path to the configuration file.
 	Path string `yaml:"path,omitempty"`
 	// Provider is the configuration for the provider.
-	Provider *Provider `validate:"required" yaml:"provider"`
+	Provider Provider `validate:"required" yaml:"provider"`
 	// Apps is a list of apps to sync.
 	Apps []App `yaml:"apps,omitempty"`
 	// Includes is a list of apps to include.
@@ -44,12 +49,12 @@ type Spec struct {
 // UnmarshalYAML overrides the default unmarshaler for the spec.
 func (s *Spec) UnmarshalYAML(data []byte) error {
 	spec := struct {
-		Version  int       `yaml:"version" validate:"required"`
-		Path     string    `yaml:"path,omitempty"`
-		Provider *Provider `yaml:"provider" validate:"required"`
-		Apps     []App     `yaml:"apps,omitempty"`
-		Includes []string  `yaml:"includes,omitempty" validate:"required_with=Excludes"`
-		Excludes []string  `yaml:"excludes,omitempty" validate:"required_with=Includes"`
+		Version  int      `yaml:"version" validate:"required,eq=1"`
+		Path     string   `yaml:"path,omitempty"`
+		Provider Provider `yaml:"provider" validate:"required"`
+		Apps     []App    `yaml:"apps,omitempty"`
+		Includes []string `yaml:"includes,omitempty" validate:"required_with=Excludes"`
+		Excludes []string `yaml:"excludes,omitempty" validate:"required_with=Includes"`
 	}{}
 
 	if err := yaml.Unmarshal(data, &spec); err != nil {
@@ -75,7 +80,7 @@ func (s *Spec) GetVersion() int {
 func Default() *Spec {
 	return &Spec{
 		Version: 1,
-		Provider: &Provider{
+		Provider: Provider{
 			Name: "icloud",
 		},
 	}
@@ -192,11 +197,11 @@ type Includes []string
 // Excludes is the list of files to exclude.
 type Excludes []string
 
-// Validate ..
+// Validate is the validation function for the spec.
 func (s *Spec) Validate() error {
-	v := validator.New()
+	validate = validator.New()
 
-	v.RegisterTagNameFunc(func(fld reflect.StructField) string {
+	validate.RegisterTagNameFunc(func(fld reflect.StructField) string {
 		name := strings.SplitN(fld.Tag.Get("yaml"), ",", 2)[0]
 		if name == "-" {
 			return ""
@@ -204,15 +209,15 @@ func (s *Spec) Validate() error {
 		return name
 	})
 
-	err := v.Struct(s)
+	err := validate.Struct(s)
 	if err != nil {
 		return err
 	}
 
-	return v.Struct(s)
+	return validate.Struct(s)
 }
 
-// Write ...
+// Write is the write function for the spec.
 func Write(s *Spec, file string, force bool) error {
 	b, err := yaml.Marshal(s)
 	if err != nil {

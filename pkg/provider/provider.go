@@ -1,6 +1,10 @@
 package provider
 
-import "github.com/katallaxie/csync/internal/spec"
+import (
+	"context"
+
+	"github.com/katallaxie/csync/internal/spec"
+)
 
 // Opts are the options.
 type Opts struct {
@@ -15,38 +19,40 @@ type Opts struct {
 // Provider is the provider interface.
 type Provider interface {
 	// Backup an app.
-	Backup(app *spec.App, opts *Opts) error
+	Backup(ctx context.Context, app *spec.App, opts *Opts) error
 	// Restore an app.
-	Restore(app *spec.App, opts *Opts) error
+	Restore(ctx context.Context, app *spec.App, opts *Opts) error
 	// Link an app.
-	Link(app *spec.App, opts *Opts) error
+	Link(ctx context.Context, app *spec.App, opts *Opts) error
 	// Unlink an app.
-	Unlink(app *spec.App, opts *Opts) error
+	Unlink(ctx context.Context, app *spec.App, opts *Opts) error
 	// Close is a function to call before finalizing any action.
 	// It returns an error if the process fails to gracefully finish.
 	Close() error
 }
 
+var _ Provider = (*Unimplemented)(nil)
+
 // Unimplemented is the default implementation.
 type Unimplemented struct{}
 
 // Backup is the backup function.
-func (p *Unimplemented) Backup(app *spec.App, opts *Opts) error {
+func (p *Unimplemented) Backup(ctx context.Context, app *spec.App, opts *Opts) error {
 	return nil
 }
 
 // Restore is the restore function.
-func (p *Unimplemented) Restore(app *spec.App, opts *Opts) error {
+func (p *Unimplemented) Restore(ctx context.Context, app *spec.App, opts *Opts) error {
 	return nil
 }
 
 // Unlink is the unlink function.
-func (p *Unimplemented) Unlink(app *spec.App, opts *Opts) error {
+func (p *Unimplemented) Unlink(ctx context.Context, app *spec.App, opts *Opts) error {
 	return nil
 }
 
 // Link is the link function.
-func (p *Unimplemented) Link(app *spec.App, opts *Opts) error {
+func (p *Unimplemented) Link(ctx context.Context, app *spec.App, opts *Opts) error {
 	return nil
 }
 

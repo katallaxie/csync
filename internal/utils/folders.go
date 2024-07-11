@@ -34,7 +34,7 @@ func ICloudFolder() (string, error) {
 	return path, err
 }
 
-// DropboxFolder ...
+// DropboxFolder is the path to the Dropbox folder
 func DropboxFolder() (string, error) {
 	usr, err := user.Current()
 	if err != nil {
