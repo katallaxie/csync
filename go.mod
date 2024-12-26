@@ -7,7 +7,7 @@ require (
 	github.com/golang/mock v1.7.0-rc.1
 	github.com/golangci/golangci-lint v1.59.1
 	github.com/hashicorp/go-hclog v1.6.3
-	github.com/hashicorp/go-plugin v1.6.1
+	github.com/hashicorp/go-plugin v1.6.2
 	github.com/katallaxie/pkg v0.6.6
 	github.com/otiai10/copy v1.14.0
 	github.com/pkg/errors v0.9.1
@@ -126,7 +126,6 @@ require (
 	github.com/matttproud/golang_protobuf_extensions/v2 v2.0.0 // indirect
 	github.com/mgechev/revive v1.3.7 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
-	github.com/mitchellh/go-testing-interface v0.0.0-20171004221916-a61a99592b77 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/moricho/tparallel v0.3.1 // indirect
 	github.com/nakabonne/nestif v0.3.1 // indirect
