@@ -4,7 +4,7 @@ go 1.22
 toolchain go1.22.5
 
 require (
-	github.com/go-playground/validator/v10 v10.22.0
+	github.com/go-playground/validator/v10 v10.23.0
 	github.com/golang/mock v1.7.0-rc.1
 	github.com/golangci/golangci-lint v1.62.2
 	github.com/hashicorp/go-hclog v1.6.3
