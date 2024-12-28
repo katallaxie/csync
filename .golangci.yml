@@ -1,15 +1,10 @@
 run:
-  deadline: 6m
-
-  skip-files:
-    - "zz_generated\\..+\\.go$"
-
-  skip-dirs:
-    - vendor$
+  timeout: 6m
 
 output:
   # colored-line-number|line-number|json|tab|checkstyle|code-climate, default is "colored-line-number"
-  format: colored-line-number
+  formats:
+    - format: colored-line-number
 
 linters-settings:
   errcheck:
@@ -21,23 +16,14 @@ linters-settings:
     # default is false: such cases aren't reported by default.
     check-blank: false
 
-    # [deprecated] comma-separated list of pairs of the form pkg:regex
-    # the regex is used to ignore names within pkg. (default "fmt:.*").
-    # see https://github.com/kisielk/errcheck#the-deprecated-method for details
-    ignore: fmt:.*,io/ioutil:^Read.*
-
-  gosec:
-    excludes:
-      - G204 # Subprocess launched with variable
-      - G107 # Potential HTTP request made with variable url
+    # report about not checking of errors in assignments: `num, err := strconv.Atoi(numStr)`;
+    exclude-functions:
+      - fmt:.*
+      - io/ioutil:^Read.*
 
   govet:
     # report about shadowed variables
     check-shadowing: false
-
-  golint:
-    # minimal confidence for issues, default is 0.8
-    min-confidence: 0.8
 
   gofmt:
     # simplify code: gofmt with `-s` option, true by default
@@ -51,10 +37,6 @@ linters-settings:
   gocyclo:
     # minimal code complexity to report, 30 by default (but we recommend 10-20)
     min-complexity: 10
-
-  maligned:
-    # print struct with more effective memory layout or not, false by default
-    suggest-new: true
 
   dupl:
     # tokens count to trigger issue, 150 by default
@@ -116,10 +98,12 @@ linters-settings:
 
 linters:
   enable:
-    - megacheck
     - govet
     - gocyclo
     - gocritic
+    - gosimple
+    - staticcheck
+    - unused
     - goconst
     - goimports
     - gofmt # We enable this as well as goimports for its simplify mode.
@@ -128,11 +112,10 @@ linters:
     - unconvert
     - misspell
     - nakedret
-    - exportloopref
+    - copyloopvar
     - gosec
 
   disable:
-    - scopelint
     - errcheck
 
   presets:
@@ -141,8 +124,14 @@ linters:
   fast: false
 
 issues:
+  exclude-files:
+    - "zz_generated\\..+\\.go$"
+  exclude-dirs:
+    - vendor$
+
   exclude:
     - "G103: Use of unsafe calls should be audited"
+    - "G204: Subprocess launched with variable"
 
   # Excluding configuration per-path and per-linter
   exclude-rules:
@@ -189,6 +178,11 @@ issues:
 
     # This is an 'errors unhandled' warning that duplicates errcheck.
     - text: "G104:"
+      linters:
+        - gosec
+        - gas
+
+    - text: "G115:"
       linters:
         - gosec
         - gas
