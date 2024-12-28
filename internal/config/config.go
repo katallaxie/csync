@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/katallaxie/csync/internal/spec"
+	"github.com/katallaxie/csync/pkg/spec"
 	"github.com/katallaxie/pkg/utils/files"
 )
 

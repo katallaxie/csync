@@ -8,9 +8,9 @@ import (
 	"github.com/katallaxie/csync/internal/checker"
 	"github.com/katallaxie/csync/internal/config"
 	"github.com/katallaxie/csync/internal/provider/files"
-	"github.com/katallaxie/csync/internal/spec"
 	"github.com/katallaxie/csync/pkg/plugin"
 	"github.com/katallaxie/csync/pkg/provider"
+	"github.com/katallaxie/csync/pkg/spec"
 
 	"github.com/spf13/cobra"
 )

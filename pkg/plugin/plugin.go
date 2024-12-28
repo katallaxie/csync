@@ -5,9 +5,9 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/katallaxie/csync/internal/spec"
 	"github.com/katallaxie/csync/pkg/proto"
 	"github.com/katallaxie/csync/pkg/provider"
+	"github.com/katallaxie/csync/pkg/spec"
 
 	"github.com/hashicorp/go-hclog"
 	p "github.com/hashicorp/go-plugin"

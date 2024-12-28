@@ -3,7 +3,7 @@ package provider
 import (
 	"context"
 
-	"github.com/katallaxie/csync/internal/spec"
+	"github.com/katallaxie/csync/pkg/spec"
 )
 
 // Opts are the options.

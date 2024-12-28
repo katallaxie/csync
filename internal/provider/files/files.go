@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/katallaxie/csync/internal/spec"
 	p "github.com/katallaxie/csync/pkg/provider"
+	"github.com/katallaxie/csync/pkg/spec"
 	"github.com/katallaxie/pkg/utils/files"
 
 	cp "github.com/otiai10/copy"
