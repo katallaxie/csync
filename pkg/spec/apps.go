@@ -9,6 +9,7 @@ func List() []App {
 		Bartender(),
 		Bash(),
 		Bat(),
+		Ghostty(),
 		Docker(),
 		Git(),
 		GnuPG(),

@@ -24,6 +24,35 @@ provider:
   name: icloud
 ```
 
+## Supported Applications
+
+- [x] `alacritty`
+- [x] `aws`
+- [x] `azure`
+- [x] `bash`
+- [x] `bartender`
+- [x] `docker`
+- [x] `bat`
+- [x] `ghostty`
+- [x] `git`
+- [x] `gnupg`
+- [x] `brew`
+- [x] `hyper`
+- [x] `kubectl`
+- [x] `macos`
+- [x] `magnet`
+- [x] `mail`
+- [x] `nano`
+- [x] `ngrok`
+- [x] `npm`
+- [x] `raycast`
+- [x] `ssh`
+- [x] `terminal`
+- [x] `tmux`
+- [x] `vscode`
+- [x] `wget`
+- [x] `zsh` 
+
 ## Documentation 
 
 [Wiki](https://github.com/katallaxie/csync/wiki)
