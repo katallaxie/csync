@@ -5,8 +5,7 @@ before:
     - go mod tidy
 
 builds:
-   -
-    goos:
+  - goos:
       - darwin
       - linux
       - windows
@@ -18,10 +17,10 @@ builds:
     goarm:
       - 7
     ignore:
-        - goos: darwin
-          goarch: 386
-        - goos: windows
-          goarch: arm
+      - goos: darwin
+        goarch: 386
+      - goos: windows
+        goarch: arm
     env:
       - CGO_ENABLED=0
     ldflags:
@@ -33,10 +32,10 @@ archives:
     name_template: "csync_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
 
 brews:
-  -
-    repository: 
+  - repository:
       owner: katallaxie
       name: homebrew-csync-tap
+      token: "{{ .Env.TAP_GITHUB_TOKEN }}"
     directory: Formula
     goarm: "7"
     homepage: https://katallaxie.github.io/csync/
