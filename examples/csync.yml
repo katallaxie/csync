@@ -3,9 +3,10 @@ provider:
   name: file
   path: /workspaces/csync/.temp
   # path: override the destination
+stderr: true # default: false
+stdout: true # default: false
 apps:
-  - 
-    name: "example"
+  - name: "example"
     files:
       - "/workspaces/csync/examples/example.txt"
   - name: "example2"

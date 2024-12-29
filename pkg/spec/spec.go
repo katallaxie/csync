@@ -42,6 +42,12 @@ type Spec struct {
 	Includes []string `yaml:"includes,omitempty" validate:"required_with=Excludes"`
 	// Excludes is a list of apps to exclude.
 	Excludes []string `yaml:"excludes,omitempty" validate:"required_with=Includes"`
+	// Stderr is the standard error output.
+	Stderr bool `yaml:"stderr,omitempty"`
+	// Stdout is the standard output.
+	Stdout bool `yaml:"stdout,omitempty"`
+	// FailOnMissing is the flag to fail on missing files.
+	FailOnMissing bool `yaml:"fail_on_missing,omitempty"`
 
 	sync.Mutex `yaml:"-"`
 }
@@ -55,7 +61,12 @@ func (s *Spec) UnmarshalYAML(data []byte) error {
 		Apps     []App    `yaml:"apps,omitempty"`
 		Includes []string `yaml:"includes,omitempty" validate:"required_with=Excludes"`
 		Excludes []string `yaml:"excludes,omitempty" validate:"required_with=Includes"`
-	}{}
+		Stderr   bool     `yaml:"stderr,omitempty"`
+		Stdout   bool     `yaml:"stdout,omitempty"`
+	}{
+		Stderr: true,
+		Stdout: true,
+	}
 
 	if err := yaml.Unmarshal(data, &spec); err != nil {
 		return errors.WithStack(err)

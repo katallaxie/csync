@@ -143,12 +143,7 @@ func (p *provider) Restore(ctx context.Context, app *spec.App, opts *p.Opts) err
 			return err
 		}
 
-		ok, err := files.FileNotExists(dst)
-		if err != nil {
-			return err
-		}
-
-		if !ok {
+		if ok, _ := files.FileNotExists(dst); ok {
 			continue
 		}
 

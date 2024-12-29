@@ -46,6 +46,7 @@ func init() {
 	RootCmd.PersistentFlags().StringSliceVar(&cfg.Flags.Vars, "var", cfg.Flags.Vars, "variables")
 
 	RootCmd.SilenceErrors = true
+	RootCmd.SilenceUsage = true
 }
 
 func initConfig() {
