@@ -8,6 +8,7 @@ import (
 	"github.com/katallaxie/csync/internal/checker"
 	"github.com/katallaxie/csync/internal/config"
 	"github.com/katallaxie/csync/internal/provider/files"
+	"github.com/katallaxie/csync/pkg/homedir"
 	"github.com/katallaxie/csync/pkg/plugin"
 	"github.com/katallaxie/csync/pkg/provider"
 	"github.com/katallaxie/csync/pkg/spec"
@@ -109,7 +110,7 @@ func runRoot(ctx context.Context) error {
 	}
 
 	// configuring the default file provider as fallback
-	p = files.New(files.WithFolder(f))
+	p = files.New(files.WithFolder(f), files.WithHomeDir(homedir.Get()))
 
 	opts := &provider.Opts{
 		Force: cfg.Flags.Force,

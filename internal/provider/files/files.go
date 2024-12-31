@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/katallaxie/csync/pkg/homedir"
 	p "github.com/katallaxie/csync/pkg/provider"
 	"github.com/katallaxie/csync/pkg/spec"
 	"github.com/katallaxie/pkg/utils/files"
@@ -16,7 +17,8 @@ import (
 )
 
 type provider struct {
-	folder string
+	folder  string
+	homedir string
 
 	p.Unimplemented
 }
@@ -30,6 +32,13 @@ type Opt func(*provider)
 func WithFolder(folder string) Opt {
 	return func(p *provider) {
 		p.folder = folder
+	}
+}
+
+// WithHomeDir is configuring a specific home directory for the provider.
+func WithHomeDir(homedir string) Opt {
+	return func(p *provider) {
+		p.homedir = homedir
 	}
 }
 
@@ -62,7 +71,7 @@ func (p *provider) Backup(ctx context.Context, app *spec.App, opts *p.Opts) erro
 			return err
 		}
 
-		src, err := files.ExpandHomeFolder(src)
+		src, err := homedir.Expand(src)
 		if err != nil {
 			return err
 		}
@@ -228,7 +237,7 @@ func (p *provider) getFilePath(f string) (string, error) {
 	f = filepath.Clean(f)
 
 	if strings.HasPrefix(f, "~/") {
-		f = filepath.Join(p.folder, f[2:])
+		f = filepath.Join(p.homedir, f[2:])
 	}
 
 	return f, nil
