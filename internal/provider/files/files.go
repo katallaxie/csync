@@ -61,7 +61,7 @@ func New(opts ...Opt) *provider {
 // nolint:gocyclo
 func (p *provider) Backup(ctx context.Context, app *spec.App, opts *p.Opts) error {
 	for _, src := range app.Files {
-		dst, err := p.getFilePath(src)
+		dst, err := FilePath(src, p.folder)
 		if err != nil {
 			return err
 		}
@@ -176,12 +176,12 @@ func (p *provider) Restore(ctx context.Context, app *spec.App, opts *p.Opts) err
 // nolint:gocyclo
 func (p *provider) Unlink(ctx context.Context, app *spec.App, opts *p.Opts) error {
 	for _, dst := range app.Files {
-		dstfi, err := files.ExpandHomeFolder(dst)
+		dstfi, err := homedir.Expand(dst)
 		if err != nil {
 			return err
 		}
 
-		src, err := p.getFilePath(dst)
+		src, err := FilePath(dst, p.folder)
 		if err != nil {
 			return err
 		}
@@ -232,13 +232,13 @@ func (p *provider) Link(ctx context.Context, app *spec.App, opts *p.Opts) error 
 	return nil
 }
 
-// nolint:unparam
-func (p *provider) getFilePath(f string) (string, error) {
-	f = filepath.Clean(f)
+// FilePath ...
+func FilePath(src, folder string) (string, error) {
+	src = filepath.Clean(src)
 
-	if strings.HasPrefix(f, "~/") {
-		f = filepath.Join(p.homedir, f[2:])
+	if strings.HasPrefix(src, "~/") {
+		src = filepath.Join(folder, src[2:])
 	}
 
-	return f, nil
+	return src, nil
 }

@@ -8,7 +8,7 @@ stdout: true # default: false
 apps:
   - name: "example"
     files:
-      - "/workspaces/csync/examples/example.txt"
+      - ~/examples/example.txt
   - name: "example2"
     files:
-      - "/workspaces/csync/examples/example2"
+      - ~/examples/example2
