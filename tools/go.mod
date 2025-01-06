@@ -3,7 +3,7 @@ module tools
 go 1.23.4
 
 require (
-	github.com/golangci/golangci-lint v1.63.3
+	github.com/golangci/golangci-lint v1.63.4
 	github.com/goreleaser/goreleaser v1.26.2
 	github.com/vektra/mockery/v2 v2.50.3
 	gotest.tools/gotestsum v1.12.0
