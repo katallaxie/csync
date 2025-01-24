@@ -5,7 +5,7 @@ go 1.23.4
 require (
 	github.com/go-playground/validator/v10 v10.24.0
 	github.com/hashicorp/go-hclog v1.6.3
-	github.com/hashicorp/go-plugin v1.6.2
+	github.com/hashicorp/go-plugin v1.6.3
 	github.com/katallaxie/pkg v0.6.6
 	github.com/otiai10/copy v1.14.1
 	github.com/pkg/errors v0.9.1
