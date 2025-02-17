@@ -3,7 +3,7 @@ module github.com/katallaxie/csync
 go 1.23.4
 
 require (
-	github.com/go-playground/validator/v10 v10.24.0
+	github.com/go-playground/validator/v10 v10.25.0
 	github.com/hashicorp/go-hclog v1.6.3
 	github.com/hashicorp/go-plugin v1.6.3
 	github.com/katallaxie/pkg v0.6.6
