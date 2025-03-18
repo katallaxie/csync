@@ -51,6 +51,7 @@ provider:
 - [x] `tmux`
 - [x] `vscode`
 - [x] `wget`
+- [x] `zed`
 - [x] `zsh` 
 
 ## Documentation 
