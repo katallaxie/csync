@@ -9,8 +9,8 @@ func List() []App {
 		Bartender(),
 		Bash(),
 		Bat(),
-		Ghostty(),
 		Docker(),
+		Ghostty(),
 		Git(),
 		GnuPG(),
 		Homebrew(),
@@ -28,6 +28,7 @@ func List() []App {
 		Tmux(),
 		VSCode(),
 		Wget(),
+		Zed(),
 		Zsh(),
 	}
 }
