@@ -22,9 +22,6 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: ./go.mod
-          cache-dependency-path: |
-            tools/go.sum
-            go.sum
       - run: make test
       - uses: dorny/test-reporter@v2
         if: success() || failure()

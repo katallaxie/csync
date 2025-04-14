@@ -6,7 +6,8 @@ import (
 	"os/user"
 
 	"github.com/katallaxie/csync/internal/config"
-	"github.com/katallaxie/pkg/utils/files"
+
+	"github.com/katallaxie/pkg/filex"
 )
 
 // UseableEnv is a check to see if the environment is useable.
@@ -25,7 +26,7 @@ func UseableEnv(ctx context.Context, cfg *config.Config) error {
 
 // UseSetup is a check to see if the setup is useable.
 func UseSetup(ctx context.Context, cfg *config.Config) error {
-	ok, _ := files.FileExists(cfg.File)
+	ok, _ := filex.FileExists(cfg.File)
 
 	if !ok {
 		return fmt.Errorf("%s does not exists. You can create a new config with 'init'", cfg.File)

@@ -10,9 +10,9 @@ import (
 
 	"github.com/katallaxie/csync/internal/utils"
 	"github.com/katallaxie/csync/pkg/proto"
+	"github.com/katallaxie/pkg/filex"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/katallaxie/pkg/utils/files"
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v3"
 )
@@ -235,7 +235,7 @@ func Write(s *Spec, file string, force bool) error {
 		return err
 	}
 
-	ok, _ := files.FileExists(filepath.Clean(file))
+	ok, _ := filex.FileExists(filepath.Clean(file))
 	if ok && !force {
 		return fmt.Errorf("%s already exists, use --force to overwrite", file)
 	}

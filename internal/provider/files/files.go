@@ -11,8 +11,8 @@ import (
 	"github.com/katallaxie/csync/pkg/homedir"
 	p "github.com/katallaxie/csync/pkg/provider"
 	"github.com/katallaxie/csync/pkg/spec"
-	"github.com/katallaxie/pkg/utils/files"
 
+	"github.com/katallaxie/pkg/filex"
 	cp "github.com/otiai10/copy"
 )
 
@@ -76,7 +76,7 @@ func (p *provider) Backup(ctx context.Context, app *spec.App, opts *p.Opts) erro
 			return err
 		}
 
-		if ok, _ := files.FileNotExists(src); ok {
+		if ok, _ := filex.FileNotExists(src); ok {
 			continue
 		}
 
@@ -100,7 +100,7 @@ func (p *provider) Backup(ctx context.Context, app *spec.App, opts *p.Opts) erro
 		}
 
 		if fi.Mode().IsDir() {
-			if ok, _ := files.FileExists(dst); ok && opts.Force {
+			if ok, _ := filex.FileExists(dst); ok && opts.Force {
 				err = os.RemoveAll(dst)
 				if err != nil {
 					return err
@@ -118,7 +118,7 @@ func (p *provider) Backup(ctx context.Context, app *spec.App, opts *p.Opts) erro
 			}
 		} else {
 			// Copy file to backup directory ...
-			_, err = files.CopyFile(src, dst, true)
+			_, err = filex.CopyFile(src, dst, true)
 			if err != nil {
 				return err
 			}
@@ -143,16 +143,16 @@ func (p *provider) Backup(ctx context.Context, app *spec.App, opts *p.Opts) erro
 // Restore a file.
 func (p *provider) Restore(ctx context.Context, app *spec.App, opts *p.Opts) error {
 	for _, src := range app.Files {
-		if ok, _ := files.FileNotExists(src); !ok {
+		if ok, _ := filex.FileNotExists(src); !ok {
 			continue
 		}
 
-		dst, err := files.PathTransform(src, files.ExpandHomeFolder, files.ExpandHomeFolder)
+		dst, err := filex.PathTransform(src, filex.ExpandHomeFolder, filex.ExpandHomeFolder)
 		if err != nil {
 			return err
 		}
 
-		if ok, _ := files.FileNotExists(dst); ok {
+		if ok, _ := filex.FileNotExists(dst); ok {
 			continue
 		}
 
@@ -186,7 +186,7 @@ func (p *provider) Unlink(ctx context.Context, app *spec.App, opts *p.Opts) erro
 			return err
 		}
 
-		not, err := files.FileNotExists(src)
+		not, err := filex.FileNotExists(src)
 		if err != nil {
 			return err
 		}
@@ -215,7 +215,7 @@ func (p *provider) Unlink(ctx context.Context, app *spec.App, opts *p.Opts) erro
 				return err
 			}
 		} else {
-			_, err = files.CopyFile(src, dstfi, true)
+			_, err = filex.CopyFile(src, dstfi, true)
 			if err != nil {
 				return err
 			}

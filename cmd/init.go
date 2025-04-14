@@ -7,7 +7,7 @@ import (
 
 	"github.com/katallaxie/csync/pkg/spec"
 
-	"github.com/katallaxie/pkg/utils/files"
+	"github.com/katallaxie/pkg/filex"
 	"github.com/spf13/cobra"
 )
 
@@ -28,7 +28,7 @@ func runInit(_ context.Context) error {
 
 	log.Printf("creating config folder (%s)", cfg.Path)
 
-	err := files.MkdirAll(cfg.Path, os.ModePerm)
+	err := filex.MkdirAll(cfg.Path, os.ModePerm)
 	if err != nil {
 		return err
 	}

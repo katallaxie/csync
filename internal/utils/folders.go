@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/katallaxie/pkg/utils/files"
+	"github.com/katallaxie/pkg/filex"
 )
 
 // ErrNoICloudDrive is returned when the iCloud Drive folder cannot be found.
@@ -17,12 +17,12 @@ var ErrNoICloudDrive = fmt.Errorf("unable to find iCloud Drive")
 
 // ICloudFolder is the path to the iCloud Drive folder
 func ICloudFolder() (string, error) {
-	path, err := files.ExpandHomeFolder("~/Library/Mobile Documents/com~apple~CloudDocs/")
+	path, err := filex.ExpandHomeFolder("~/Library/Mobile Documents/com~apple~CloudDocs/")
 	if err != nil {
 		return "", err
 	}
 
-	ok, err := files.IsDir(path)
+	ok, err := filex.IsDir(path)
 	if err != nil {
 		return "", err
 	}
