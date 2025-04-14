@@ -38,6 +38,7 @@ brews:
       token: "{{ .Env.TAP_GITHUB_TOKEN }}"
     goarm: "7"
     homepage: https://katallaxie.github.io/csync/
+    directory: Formula
     dependencies:
       - name: go
         type: optional
