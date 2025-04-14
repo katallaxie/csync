@@ -36,7 +36,6 @@ brews:
       owner: katallaxie
       name: homebrew-csync-tap
       token: "{{ .Env.TAP_GITHUB_TOKEN }}"
-    directory: Formula
     goarm: "7"
     homepage: https://katallaxie.github.io/csync/
     dependencies:
