@@ -29,7 +29,7 @@ func GetRuntimeDir() (string, error) {
 func StickRuntimeDirContents(files []string) ([]string, error) {
 	runtimeDir, err := GetRuntimeDir()
 	if err != nil {
-		// nolint:nilerr
+		//nolint:nilerr
 		return nil, nil
 	}
 

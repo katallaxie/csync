@@ -60,10 +60,10 @@ func initConfig() {
 var RootCmd = &cobra.Command{
 	Use:   "csync",
 	Short: "csync",
-	PreRunE: func(cmd *cobra.Command, args []string) error {
+	PreRunE: func(cmd *cobra.Command, _ []string) error {
 		return checkEnv(cmd.Context())
 	},
-	RunE: func(cmd *cobra.Command, args []string) error {
+	RunE: func(cmd *cobra.Command, _ []string) error {
 		return runRoot(cmd.Context())
 	},
 	Version: fmt.Sprintf(versionFmt, version, commit, date),

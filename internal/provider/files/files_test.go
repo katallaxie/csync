@@ -34,8 +34,6 @@ func TestNew(t *testing.T) {
 		test := tt
 
 		t.Run(test.name, func(t *testing.T) {
-			t.Parallel()
-
 			f := New(test.opts...)
 
 			assert.NotNil(t, f)

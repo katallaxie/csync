@@ -12,7 +12,7 @@ func init() {
 	AppsCmd.AddCommand(&cobra.Command{
 		Use:   "list",
 		Short: "List apps",
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, _ []string) error {
 			return runAppsList(cmd.Context())
 		},
 	})

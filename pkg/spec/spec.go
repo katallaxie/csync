@@ -109,18 +109,18 @@ type Provider struct {
 }
 
 // GetPath ...
-func (s *Provider) GetPath() string {
-	return s.Path
+func (p *Provider) GetPath() string {
+	return p.Path
 }
 
 // GetDirectory ...
-func (s *Provider) GetDirectory() string {
-	return s.Directory
+func (p *Provider) GetDirectory() string {
+	return p.Directory
 }
 
 // GetName ...
-func (s *Provider) GetName() string {
-	return strings.ToLower(s.Name)
+func (p *Provider) GetName() string {
+	return strings.ToLower(p.Name)
 }
 
 // GetApps reutrns the list of apps to sync.

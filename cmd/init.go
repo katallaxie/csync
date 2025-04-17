@@ -14,7 +14,7 @@ import (
 var InitCmd = &cobra.Command{
 	Use:   "init",
 	Short: "Initialize a new config",
-	RunE: func(cmd *cobra.Command, args []string) error {
+	RunE: func(cmd *cobra.Command, _ []string) error {
 		return runInit(cmd.Context())
 	},
 }

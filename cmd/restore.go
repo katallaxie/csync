@@ -15,10 +15,10 @@ import (
 var RestoreCmd = &cobra.Command{
 	Use:   "restore",
 	Short: "Restore files from the cloud to the local machine",
-	PreRunE: func(cmd *cobra.Command, args []string) error {
+	PreRunE: func(cmd *cobra.Command, _ []string) error {
 		return checkEnv(cmd.Context())
 	},
-	RunE: func(cmd *cobra.Command, args []string) error {
+	RunE: func(cmd *cobra.Command, _ []string) error {
 		return runRestore(cmd.Context())
 	},
 }

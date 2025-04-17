@@ -15,7 +15,7 @@ import (
 // ErrNoICloudDrive is returned when the iCloud Drive folder cannot be found.
 var ErrNoICloudDrive = fmt.Errorf("unable to find iCloud Drive")
 
-// ICloudFolder is the path to the iCloud Drive folder
+// ICloudFolder is the path to the iCloud Drive folder.
 func ICloudFolder() (string, error) {
 	path, err := filex.ExpandHomeFolder("~/Library/Mobile Documents/com~apple~CloudDocs/")
 	if err != nil {
@@ -34,7 +34,7 @@ func ICloudFolder() (string, error) {
 	return path, err
 }
 
-// DropboxFolder is the path to the Dropbox folder
+// DropboxFolder is the path to the Dropbox folder.
 func DropboxFolder() (string, error) {
 	usr, err := user.Current()
 	if err != nil {

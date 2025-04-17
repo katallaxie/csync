@@ -50,7 +50,7 @@ func (p *provider) Configure(opts ...Opt) {
 }
 
 // New ...
-func New(opts ...Opt) *provider {
+func New(opts ...Opt) p.Provider {
 	p := new(provider)
 	p.Configure(opts...)
 
@@ -58,8 +58,9 @@ func New(opts ...Opt) *provider {
 }
 
 // Backup a file.
-// nolint:gocyclo
-func (p *provider) Backup(ctx context.Context, app *spec.App, opts *p.Opts) error {
+//
+//nolint:gocyclo
+func (p *provider) Backup(_ context.Context, app *spec.App, opts *p.Opts) error {
 	for _, src := range app.Files {
 		dst, err := FilePath(src, p.folder)
 		if err != nil {
@@ -99,6 +100,7 @@ func (p *provider) Backup(ctx context.Context, app *spec.App, opts *p.Opts) erro
 			continue
 		}
 
+		//nolint:nestif
 		if fi.Mode().IsDir() {
 			if ok, _ := filex.FileExists(dst); ok && opts.Force {
 				err = os.RemoveAll(dst)
@@ -141,7 +143,7 @@ func (p *provider) Backup(ctx context.Context, app *spec.App, opts *p.Opts) erro
 }
 
 // Restore a file.
-func (p *provider) Restore(ctx context.Context, app *spec.App, opts *p.Opts) error {
+func (p *provider) Restore(_ context.Context, app *spec.App, opts *p.Opts) error {
 	for _, src := range app.Files {
 		if ok, _ := filex.FileNotExists(src); !ok {
 			continue
@@ -173,8 +175,9 @@ func (p *provider) Restore(ctx context.Context, app *spec.App, opts *p.Opts) err
 }
 
 // Unlink is unlinking files from the backup folder.
-// nolint:gocyclo
-func (p *provider) Unlink(ctx context.Context, app *spec.App, opts *p.Opts) error {
+//
+//nolint:gocyclo
+func (p *provider) Unlink(_ context.Context, app *spec.App, opts *p.Opts) error {
 	for _, dst := range app.Files {
 		dstfi, err := homedir.Expand(dst)
 		if err != nil {
@@ -226,7 +229,7 @@ func (p *provider) Unlink(ctx context.Context, app *spec.App, opts *p.Opts) erro
 }
 
 // Link ...
-func (p *provider) Link(ctx context.Context, app *spec.App, opts *p.Opts) error {
+func (p *provider) Link(_ context.Context, _ *spec.App, _ *p.Opts) error {
 	// this is not implemented with the file provider right now,
 	// because the file provider does this in the backup phase.
 	return nil

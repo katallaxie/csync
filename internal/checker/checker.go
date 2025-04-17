@@ -18,25 +18,25 @@ type Checker interface {
 	Check(context.Context, *config.Config) error
 }
 
-// Opt is a functional option for the checker
+// Opt is a functional option for the checker.
 type Opt func(*Opts)
 
-// Func is a function to check the configuration
+// Func is a function to check the configuration.
 type Func func(context.Context, *config.Config) error
 
-// Opts are the options for the checker
+// Opts are the options for the checker.
 type Opts struct {
 	funcs []Func
 }
 
-// Configure is a method to apply multiple options
+// Configure is a method to apply multiple options.
 func (o *Opts) Configure(opts ...Opt) {
 	for _, opt := range opts {
 		opt(o)
 	}
 }
 
-// WithChecks ...
+// WithChecks is a functional option to add checks to the checker.
 func WithChecks(funcs ...Func) Opt {
 	return func(o *Opts) {
 		o.funcs = append(o.funcs, funcs...)

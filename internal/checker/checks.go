@@ -11,7 +11,7 @@ import (
 )
 
 // UseableEnv is a check to see if the environment is useable.
-func UseableEnv(ctx context.Context, cfg *config.Config) error {
+func UseableEnv(_ context.Context, cfg *config.Config) error {
 	user, err := user.Current()
 	if err != nil {
 		return err
@@ -25,7 +25,7 @@ func UseableEnv(ctx context.Context, cfg *config.Config) error {
 }
 
 // UseSetup is a check to see if the setup is useable.
-func UseSetup(ctx context.Context, cfg *config.Config) error {
+func UseSetup(_ context.Context, cfg *config.Config) error {
 	ok, _ := filex.FileExists(cfg.File)
 
 	if !ok {

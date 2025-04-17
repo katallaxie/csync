@@ -16,7 +16,7 @@ func TestNew(t *testing.T) {
 
 	c := checker.New()
 	assert.NotNil(t, c)
-	require.NoError(t, c.Check(context.Background(), nil))
+	require.NoError(t, c.Check(t.Context(), nil))
 }
 
 func TestCheck(t *testing.T) {
@@ -27,7 +27,7 @@ func TestCheck(t *testing.T) {
 	}{
 		{
 			desc: "no checks",
-			fn:   func(ctx context.Context, c *config.Config) error { return nil },
+			fn:   func(_ context.Context, _ *config.Config) error { return nil },
 			cfg:  nil,
 		},
 	}
@@ -36,11 +36,9 @@ func TestCheck(t *testing.T) {
 		test := tt
 
 		t.Run(test.desc, func(t *testing.T) {
-			t.Parallel()
-
 			c := checker.New(checker.WithChecks(test.fn))
 			assert.NotNil(t, c)
-			require.NoError(t, c.Check(context.Background(), test.cfg))
+			require.NoError(t, c.Check(t.Context(), test.cfg))
 		})
 	}
 }

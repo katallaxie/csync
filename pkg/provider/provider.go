@@ -37,22 +37,22 @@ var _ Provider = (*Unimplemented)(nil)
 type Unimplemented struct{}
 
 // Backup is the backup function.
-func (p *Unimplemented) Backup(ctx context.Context, app *spec.App, opts *Opts) error {
+func (p *Unimplemented) Backup(_ context.Context, _ *spec.App, _ *Opts) error {
 	return nil
 }
 
 // Restore is the restore function.
-func (p *Unimplemented) Restore(ctx context.Context, app *spec.App, opts *Opts) error {
+func (p *Unimplemented) Restore(_ context.Context, _ *spec.App, _ *Opts) error {
 	return nil
 }
 
 // Unlink is the unlink function.
-func (p *Unimplemented) Unlink(ctx context.Context, app *spec.App, opts *Opts) error {
+func (p *Unimplemented) Unlink(_ context.Context, _ *spec.App, _ *Opts) error {
 	return nil
 }
 
 // Link is the link function.
-func (p *Unimplemented) Link(ctx context.Context, app *spec.App, opts *Opts) error {
+func (p *Unimplemented) Link(_ context.Context, _ *spec.App, _ *Opts) error {
 	return nil
 }
 

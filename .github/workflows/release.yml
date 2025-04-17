@@ -7,10 +7,6 @@ on:
     tags:
       - "v*"
 
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  TAP_GITHUB_TOKEN: ${{ secrets.TAP_GITHUB_TOKEN }}
-
 jobs:
   test:
     permissions:
@@ -27,8 +23,9 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: ./go.mod
-          cache-dependency-path: |
-            tools/go.sum
-            go.sum
-      - run: make release
-        if: success()
+      - uses: goreleaser/goreleaser-action@v6
+        with:
+          version: '~> v2'
+          args: release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

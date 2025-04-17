@@ -15,10 +15,10 @@ import (
 var UnlinkCmd = &cobra.Command{
 	Use:   "unlink",
 	Short: "Unlink the local files from the cloud",
-	PreRunE: func(cmd *cobra.Command, args []string) error {
+	PreRunE: func(cmd *cobra.Command, _ []string) error {
 		return checkEnv(cmd.Context())
 	},
-	RunE: func(cmd *cobra.Command, args []string) error {
+	RunE: func(cmd *cobra.Command, _ []string) error {
 		return runUnlink(cmd.Context())
 	},
 }

@@ -7,10 +7,10 @@ import (
 var BackupCmd = &cobra.Command{
 	Use:   "backup",
 	Short: "Backup files from the local machine to the cloud",
-	PreRunE: func(cmd *cobra.Command, args []string) error {
+	PreRunE: func(cmd *cobra.Command, _ []string) error {
 		return checkEnv(cmd.Context())
 	},
-	RunE: func(cmd *cobra.Command, args []string) error {
+	RunE: func(cmd *cobra.Command, _ []string) error {
 		return runRoot(cmd.Context())
 	},
 }

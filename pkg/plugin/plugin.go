@@ -2,6 +2,7 @@ package plugin
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"os/exec"
 
@@ -42,13 +43,13 @@ type GRPCProviderPlugin struct {
 }
 
 // GRPCClient ...
-func (p *GRPCProviderPlugin) GRPCClient(ctx context.Context, broker *p.GRPCBroker, c *grpc.ClientConn) (interface{}, error) {
+func (p *GRPCProviderPlugin) GRPCClient(_ context.Context, _ *p.GRPCBroker, c *grpc.ClientConn) (interface{}, error) {
 	return &GRPCPlugin{
 		client: proto.NewPluginClient(c),
 	}, nil
 }
 
-func (p *GRPCProviderPlugin) GRPCServer(broker *p.GRPCBroker, s *grpc.Server) error {
+func (p *GRPCProviderPlugin) GRPCServer(_ *p.GRPCBroker, s *grpc.Server) error {
 	proto.RegisterPluginServer(s, p.GRPCPlugin())
 	return nil
 }
@@ -150,7 +151,7 @@ func (p *GRPCPlugin) Unlink(ctx context.Context, app *spec.App, opts *provider.O
 	return nil
 }
 
-// Factory is creatig a new instance of the plugin
+// Factory is creatig a new instance of the plugin.
 type Factory func() (Plugin, error)
 
 var _ provider.Provider = (*GRPCPlugin)(nil)
@@ -199,7 +200,11 @@ func pluginFactory(ctx context.Context, meta *Meta) Factory {
 			return nil, err
 		}
 
-		p := raw.(*GRPCPlugin)
+		p, ok := raw.(*GRPCPlugin)
+		if !ok {
+			return nil, fmt.Errorf("invalid plugin type %T", raw)
+		}
+
 		p.PluginClient = client
 		p.Meta = meta
 
