@@ -75,7 +75,7 @@ func (p *GRPCPlugin) Close() error {
 }
 
 // Backup is sending a request to the plugin to backup the app.
-func (p *GRPCPlugin) Backup(ctx context.Context, app *spec.App, opts *provider.Opts) error {
+func (p *GRPCPlugin) Backup(ctx context.Context, app spec.App, opts provider.Opts) error {
 	r := new(proto.Backup_Request)
 	r.Force = opts.Force
 	r.Dry = opts.Dry
@@ -94,7 +94,7 @@ func (p *GRPCPlugin) Backup(ctx context.Context, app *spec.App, opts *provider.O
 }
 
 // Restore is sending a request to the plugin to restore the app.
-func (p *GRPCPlugin) Restore(ctx context.Context, app *spec.App, opts *provider.Opts) error {
+func (p *GRPCPlugin) Restore(ctx context.Context, app spec.App, opts provider.Opts) error {
 	r := new(proto.Restore_Request)
 	r.Force = opts.Force
 	r.Dry = opts.Dry
@@ -113,7 +113,7 @@ func (p *GRPCPlugin) Restore(ctx context.Context, app *spec.App, opts *provider.
 }
 
 // Link is sending a request to link an app with the plugin provided.
-func (p *GRPCPlugin) Link(ctx context.Context, app *spec.App, opts *provider.Opts) error {
+func (p *GRPCPlugin) Link(ctx context.Context, app spec.App, opts provider.Opts) error {
 	r := new(proto.Link_Request)
 	r.Force = opts.Force
 	r.Dry = opts.Dry
@@ -133,7 +133,7 @@ func (p *GRPCPlugin) Link(ctx context.Context, app *spec.App, opts *provider.Opt
 
 // Unlink is unlinking an app with the plugin provided.
 // Restore is sending a request to the plugin to restore the app.
-func (p *GRPCPlugin) Unlink(ctx context.Context, app *spec.App, opts *provider.Opts) error {
+func (p *GRPCPlugin) Unlink(ctx context.Context, app spec.App, opts provider.Opts) error {
 	r := new(proto.Unlink_Request)
 	r.Force = opts.Force
 	r.Dry = opts.Dry

@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"context"
-	"log"
 	"os"
 
 	"github.com/katallaxie/csync/pkg/spec"
@@ -20,13 +19,9 @@ var InitCmd = &cobra.Command{
 }
 
 func runInit(_ context.Context) error {
-	log.Printf("initializing config (%s)", cfg.File)
-
 	if err := spec.Write(spec.Default(), cfg.File, cfg.Flags.Force); err != nil {
 		return err
 	}
-
-	log.Printf("creating config folder (%s)", cfg.Path)
 
 	err := filex.MkdirAll(cfg.Path, os.ModePerm)
 	if err != nil {

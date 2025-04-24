@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"context"
-	"log"
 
 	"github.com/spf13/cobra"
 )
@@ -28,8 +27,6 @@ func runValidate(_ context.Context) error {
 	if err != nil {
 		return err
 	}
-
-	log.Print("OK")
 
 	return nil
 }

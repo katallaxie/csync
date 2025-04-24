@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"context"
-	"log"
 
 	"github.com/katallaxie/csync/internal/provider/files"
 	"github.com/katallaxie/csync/pkg/homedir"
@@ -37,12 +36,6 @@ func runRestore(ctx context.Context) error {
 		return err
 	}
 
-	log.Printf("Restoring apps ...")
-
-	if cfg.Flags.Dry {
-		log.Printf("Running in Dry-Mode ...")
-	}
-
 	var p provider.Provider
 
 	f, err := cfg.Spec.Provider.GetFolder()
@@ -53,7 +46,7 @@ func runRestore(ctx context.Context) error {
 	// configuring the default file provider as fallback
 	p = files.New(files.WithFolder(f), files.WithHomeDir(homedir.Get()))
 
-	opts := &provider.Opts{
+	opts := provider.Opts{
 		Force: cfg.Flags.Force,
 		Dry:   cfg.Flags.Dry,
 		Root:  cfg.Flags.Root,
@@ -73,7 +66,7 @@ func runRestore(ctx context.Context) error {
 
 	apps := cfg.Spec.GetApps(spec.List()...)
 	for i := range apps {
-		if err := p.Restore(ctx, &apps[i], opts); err != nil {
+		if err := p.Restore(ctx, apps[i], opts); err != nil {
 			return err
 		}
 	}

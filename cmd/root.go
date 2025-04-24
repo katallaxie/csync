@@ -8,11 +8,15 @@ import (
 	"github.com/katallaxie/csync/internal/checker"
 	"github.com/katallaxie/csync/internal/config"
 	"github.com/katallaxie/csync/internal/provider/files"
+	"github.com/katallaxie/csync/internal/ui"
 	"github.com/katallaxie/csync/pkg/homedir"
 	"github.com/katallaxie/csync/pkg/plugin"
 	"github.com/katallaxie/csync/pkg/provider"
 	"github.com/katallaxie/csync/pkg/spec"
 
+	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
+	"github.com/muesli/termenv"
 	"github.com/spf13/cobra"
 )
 
@@ -96,12 +100,6 @@ func runRoot(ctx context.Context) error {
 		return err
 	}
 
-	log.Printf("Backup apps ...")
-
-	if cfg.Flags.Dry {
-		log.Print("Running in Dry-Mode ...")
-	}
-
 	var p provider.Provider
 
 	f, err := cfg.Spec.Provider.GetFolder()
@@ -112,7 +110,7 @@ func runRoot(ctx context.Context) error {
 	// configuring the default file provider as fallback
 	p = files.New(files.WithFolder(f), files.WithHomeDir(homedir.Get()))
 
-	opts := &provider.Opts{
+	opts := provider.Opts{
 		Force: cfg.Flags.Force,
 		Dry:   cfg.Flags.Dry,
 		Root:  cfg.Flags.Root,
@@ -127,14 +125,24 @@ func runRoot(ctx context.Context) error {
 			return err
 		}
 	}
-
 	defer p.Close()
 
 	apps := cfg.Spec.GetApps(spec.List()...)
-	for i := range apps {
-		if err := p.Backup(ctx, &apps[i], opts); err != nil {
-			return err
-		}
+
+	// see https://github.com/charmbracelet/lipgloss/issues/73
+	lipgloss.SetHasDarkBackground(termenv.HasDarkBackground())
+
+	model := ui.NewModel(apps, p.Backup, opts)
+
+	proc := tea.NewProgram(
+		model,
+		// tea.WithAltScreen(),
+		tea.WithReportFocus(),
+		tea.WithContext(ctx),
+	)
+
+	if _, err := proc.Run(); err != nil {
+		return err
 	}
 
 	return nil

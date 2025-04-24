@@ -3,7 +3,6 @@ package files
 import (
 	"context"
 	"errors"
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -60,7 +59,7 @@ func New(opts ...Opt) p.Provider {
 // Backup a file.
 //
 //nolint:gocyclo
-func (p *provider) Backup(_ context.Context, app *spec.App, opts *p.Opts) error {
+func (p *provider) Backup(_ context.Context, app spec.App, opts p.Opts) error {
 	for _, src := range app.Files {
 		dst, err := FilePath(src, p.folder)
 		if err != nil {
@@ -93,8 +92,6 @@ func (p *provider) Backup(_ context.Context, app *spec.App, opts *p.Opts) error 
 		if fi.Mode()&os.ModeSymlink == os.ModeSymlink && !opts.Force {
 			continue // already is a symlink, needs force
 		}
-
-		log.Printf("Link '%s' => '%s'", src, dst)
 
 		if opts.Dry {
 			continue
@@ -143,7 +140,7 @@ func (p *provider) Backup(_ context.Context, app *spec.App, opts *p.Opts) error 
 }
 
 // Restore a file.
-func (p *provider) Restore(_ context.Context, app *spec.App, opts *p.Opts) error {
+func (p *provider) Restore(_ context.Context, app spec.App, opts p.Opts) error {
 	for _, src := range app.Files {
 		if ok, _ := filex.FileNotExists(src); !ok {
 			continue
@@ -157,8 +154,6 @@ func (p *provider) Restore(_ context.Context, app *spec.App, opts *p.Opts) error
 		if ok, _ := filex.FileNotExists(dst); ok {
 			continue
 		}
-
-		log.Printf("Restore %s from %s", src, dst)
 
 		if opts.Dry {
 			continue
@@ -177,7 +172,7 @@ func (p *provider) Restore(_ context.Context, app *spec.App, opts *p.Opts) error
 // Unlink is unlinking files from the backup folder.
 //
 //nolint:gocyclo
-func (p *provider) Unlink(_ context.Context, app *spec.App, opts *p.Opts) error {
+func (p *provider) Unlink(_ context.Context, app spec.App, opts p.Opts) error {
 	for _, dst := range app.Files {
 		dstfi, err := homedir.Expand(dst)
 		if err != nil {
@@ -197,8 +192,6 @@ func (p *provider) Unlink(_ context.Context, app *spec.App, opts *p.Opts) error 
 		if not {
 			continue
 		}
-
-		log.Printf("Unlink %s from %s", dstfi, src)
 
 		if opts.Dry {
 			continue
@@ -229,7 +222,7 @@ func (p *provider) Unlink(_ context.Context, app *spec.App, opts *p.Opts) error 
 }
 
 // Link ...
-func (p *provider) Link(_ context.Context, _ *spec.App, _ *p.Opts) error {
+func (p *provider) Link(_ context.Context, _ spec.App, _ p.Opts) error {
 	// this is not implemented with the file provider right now,
 	// because the file provider does this in the backup phase.
 	return nil
