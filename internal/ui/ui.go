@@ -127,7 +127,7 @@ type installedPkgMsg string
 
 func installApp(app spec.App, cmd Cmd, opts provider.Opts) tea.Cmd {
 	return func() tea.Msg {
-		cmd(context.Background(), app, opts)
+		_ = cmd(context.Background(), app, opts)
 		return installedPkgMsg(app.Name)
 	}
 }
