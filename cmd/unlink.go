@@ -3,11 +3,15 @@ package cmd
 import (
 	"context"
 
+	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 	"github.com/katallaxie/csync/internal/provider/files"
+	"github.com/katallaxie/csync/internal/ui"
 	"github.com/katallaxie/csync/pkg/homedir"
 	"github.com/katallaxie/csync/pkg/plugin"
 	"github.com/katallaxie/csync/pkg/provider"
 	"github.com/katallaxie/csync/pkg/spec"
+	"github.com/muesli/termenv"
 	"github.com/spf13/cobra"
 )
 
@@ -64,11 +68,21 @@ func runUnlink(ctx context.Context) error {
 
 	defer p.Close()
 
+	// see https://github.com/charmbracelet/lipgloss/issues/73
+	lipgloss.SetHasDarkBackground(termenv.HasDarkBackground())
+
 	apps := cfg.Spec.GetApps(spec.List()...)
-	for i := range apps {
-		if err := p.Unlink(ctx, apps[i], opts); err != nil {
-			return err
-		}
+	model := ui.NewModel(apps, p.Unlink, opts)
+
+	proc := tea.NewProgram(
+		model,
+		// tea.WithAltScreen(),
+		tea.WithReportFocus(),
+		tea.WithContext(ctx),
+	)
+
+	if _, err := proc.Run(); err != nil {
+		return err
 	}
 
 	return nil

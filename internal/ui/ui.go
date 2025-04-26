@@ -111,7 +111,7 @@ func (m Model) View() string {
 	w := lipgloss.Width(fmt.Sprintf("%d", n))
 
 	if m.done {
-		return doneStyle.Render(fmt.Sprintf("Done! Installed %d packages.\n", n))
+		return doneStyle.Render(fmt.Sprintf("Done! Backup %d applications.\n", n))
 	}
 
 	pkgCount := fmt.Sprintf(" %*d/%*d", w, m.index, w, n)
