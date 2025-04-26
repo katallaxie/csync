@@ -5,12 +5,14 @@ import (
 	"fmt"
 	"strings"
 
+	c "github.com/katallaxie/csync/internal/ui/context"
+	"github.com/katallaxie/csync/pkg/provider"
+	"github.com/katallaxie/csync/pkg/spec"
+
 	"github.com/charmbracelet/bubbles/progress"
 	"github.com/charmbracelet/bubbles/spinner"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/katallaxie/csync/pkg/provider"
-	"github.com/katallaxie/csync/pkg/spec"
 )
 
 // Cmd is the command to run the UI.
@@ -27,6 +29,7 @@ type Model struct {
 	done     bool
 	cmd      Cmd
 	opts     provider.Opts
+	ctx      *c.ProgramContext
 }
 
 var (
@@ -45,17 +48,20 @@ func NewModel(apps []spec.App, cmd Cmd, opts provider.Opts) Model {
 	s := spinner.New()
 	s.Style = lipgloss.NewStyle().Foreground(lipgloss.Color("63"))
 
+	ctx := c.NewProgramContext()
+
 	return Model{
 		apps:     apps,
 		cmd:      cmd,
 		spinner:  s,
 		progress: p,
 		opts:     opts,
+		ctx:      ctx,
 	}
 }
 
 func (m Model) Init() tea.Cmd {
-	return tea.Batch(installApp(m.apps[m.index], m.cmd, m.opts), m.spinner.Tick)
+	return tea.Batch(installApp(m.ctx.Context(), m.apps[m.index], m.cmd, m.opts), m.spinner.Tick)
 }
 
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
@@ -83,7 +89,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, tea.Batch(
 			progressCmd,
 			tea.Printf("%s %s", checkMark, pkg.Name),
-			installApp(m.apps[m.index], m.cmd, m.opts),
+			installApp(m.ctx.Context(), m.apps[m.index], m.cmd, m.opts),
 		)
 	case spinner.TickMsg:
 		var cmd tea.Cmd
@@ -125,9 +131,9 @@ func (m Model) View() string {
 
 type installedPkgMsg string
 
-func installApp(app spec.App, cmd Cmd, opts provider.Opts) tea.Cmd {
+func installApp(ctx context.Context, app spec.App, cmd Cmd, opts provider.Opts) tea.Cmd {
 	return func() tea.Msg {
-		_ = cmd(context.Background(), app, opts)
+		_ = cmd(ctx, app, opts)
 		return installedPkgMsg(app.Name)
 	}
 }
