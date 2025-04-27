@@ -7,9 +7,9 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-type contextKey int
+// type contextKey int
 
-const programContextKey contextKey = 0 // __local_user_context__
+// const programContextKey contextKey = 0 // __local_user_context__
 
 // NewProgramContext creates a new ProgramContext with default values.
 func NewProgramContext() *ProgramContext {
@@ -29,6 +29,7 @@ type ProgramContext struct {
 	ScreenWidth       int
 	MainContentWidth  int
 	MainContentHeight int
+	StartTask         func(task Task) tea.Cmd
 
 	ctx context.Context
 }
@@ -58,12 +59,11 @@ const (
 
 // Task is a task to be executed.
 type Task struct {
-	Id           string
+	ID           string
 	StartText    string
 	FinishedText string
 	State        State
 	Error        error
 	StartTime    time.Time
 	FinishedTime *time.Time
-	StartTask    func(task Task) tea.Cmd
 }
