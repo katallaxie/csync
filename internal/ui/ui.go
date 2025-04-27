@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	c "github.com/katallaxie/csync/internal/ui/context"
+	pctx "github.com/katallaxie/csync/internal/ui/context"
 	"github.com/katallaxie/csync/pkg/provider"
 	"github.com/katallaxie/csync/pkg/spec"
 
@@ -29,7 +29,7 @@ type Model struct {
 	done     bool
 	cmd      Cmd
 	opts     provider.Opts
-	ctx      *c.ProgramContext
+	ctx      *pctx.ProgramContext
 }
 
 var (
@@ -39,7 +39,7 @@ var (
 )
 
 // NewModel creates a new Model.
-func NewModel(apps []spec.App, cmd Cmd, opts provider.Opts) Model {
+func NewModel(ctx *pctx.ProgramContext, apps []spec.App, cmd Cmd, opts provider.Opts) Model {
 	p := progress.New(
 		progress.WithDefaultGradient(),
 		progress.WithWidth(40),
@@ -47,8 +47,6 @@ func NewModel(apps []spec.App, cmd Cmd, opts provider.Opts) Model {
 	)
 	s := spinner.New()
 	s.Style = lipgloss.NewStyle().Foreground(lipgloss.Color("63"))
-
-	ctx := c.NewProgramContext()
 
 	return Model{
 		apps:     apps,

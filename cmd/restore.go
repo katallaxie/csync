@@ -3,14 +3,16 @@ package cmd
 import (
 	"context"
 
-	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
 	"github.com/katallaxie/csync/internal/provider/files"
 	"github.com/katallaxie/csync/internal/ui"
+	pctx "github.com/katallaxie/csync/internal/ui/context"
 	"github.com/katallaxie/csync/pkg/homedir"
 	"github.com/katallaxie/csync/pkg/plugin"
 	"github.com/katallaxie/csync/pkg/provider"
 	"github.com/katallaxie/csync/pkg/spec"
+
+	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 	"github.com/muesli/termenv"
 	"github.com/spf13/cobra"
 )
@@ -72,7 +74,7 @@ func runRestore(ctx context.Context) error {
 	lipgloss.SetHasDarkBackground(termenv.HasDarkBackground())
 
 	apps := cfg.Spec.GetApps(spec.List()...)
-	model := ui.NewModel(apps, p.Restore, opts)
+	model := ui.NewModel(pctx.WithContext(ctx), apps, p.Restore, opts)
 
 	proc := tea.NewProgram(
 		model,

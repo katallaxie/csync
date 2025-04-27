@@ -9,6 +9,7 @@ import (
 	"github.com/katallaxie/csync/internal/config"
 	"github.com/katallaxie/csync/internal/provider/files"
 	"github.com/katallaxie/csync/internal/ui"
+	pctx "github.com/katallaxie/csync/internal/ui/context"
 	"github.com/katallaxie/csync/pkg/homedir"
 	"github.com/katallaxie/csync/pkg/plugin"
 	"github.com/katallaxie/csync/pkg/provider"
@@ -132,7 +133,7 @@ func runRoot(ctx context.Context) error {
 	// see https://github.com/charmbracelet/lipgloss/issues/73
 	lipgloss.SetHasDarkBackground(termenv.HasDarkBackground())
 
-	model := ui.NewModel(apps, p.Backup, opts)
+	model := ui.NewModel(pctx.WithContext(ctx), apps, p.Backup, opts)
 
 	proc := tea.NewProgram(
 		model,

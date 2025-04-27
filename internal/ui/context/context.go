@@ -16,6 +16,13 @@ func NewProgramContext() *ProgramContext {
 	return &ProgramContext{}
 }
 
+// WithContext creates a new ProgramContext with the given context.
+func WithContext(ctx context.Context) *ProgramContext {
+	return &ProgramContext{
+		ctx: ctx,
+	}
+}
+
 // ProgramContext is the context for the program.
 type ProgramContext struct {
 	ScreenHeight      int

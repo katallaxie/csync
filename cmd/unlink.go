@@ -7,6 +7,7 @@ import (
 	"github.com/charmbracelet/lipgloss"
 	"github.com/katallaxie/csync/internal/provider/files"
 	"github.com/katallaxie/csync/internal/ui"
+	pctx "github.com/katallaxie/csync/internal/ui/context"
 	"github.com/katallaxie/csync/pkg/homedir"
 	"github.com/katallaxie/csync/pkg/plugin"
 	"github.com/katallaxie/csync/pkg/provider"
@@ -72,7 +73,7 @@ func runUnlink(ctx context.Context) error {
 	lipgloss.SetHasDarkBackground(termenv.HasDarkBackground())
 
 	apps := cfg.Spec.GetApps(spec.List()...)
-	model := ui.NewModel(apps, p.Unlink, opts)
+	model := ui.NewModel(pctx.WithContext(ctx), apps, p.Unlink, opts)
 
 	proc := tea.NewProgram(
 		model,
