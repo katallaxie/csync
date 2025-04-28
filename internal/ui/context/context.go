@@ -5,6 +5,7 @@ import (
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/katallaxie/csync/pkg/spec"
 )
 
 // type contextKey int
@@ -66,4 +67,10 @@ type Task struct {
 	Error        error
 	StartTime    time.Time
 	FinishedTime *time.Time
+}
+
+// InstallPkgMessage is the message sent when a package is installed.
+type InstalledPkgMessage struct {
+	App spec.App
+	Err error
 }

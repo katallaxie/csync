@@ -8,6 +8,7 @@ import (
 	pctx "github.com/katallaxie/csync/internal/ui/context"
 	"github.com/katallaxie/csync/pkg/provider"
 	"github.com/katallaxie/csync/pkg/spec"
+	"github.com/katallaxie/pkg/utilx"
 
 	"github.com/charmbracelet/bubbles/progress"
 	"github.com/charmbracelet/bubbles/spinner"
@@ -36,6 +37,7 @@ var (
 	currentPkgNameStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("211"))
 	doneStyle           = lipgloss.NewStyle().Margin(1, 2)
 	checkMark           = lipgloss.NewStyle().Foreground(lipgloss.Color("42")).SetString("✓")
+	errorCross          = lipgloss.NewStyle().Foreground(lipgloss.Color("196")).SetString("✗")
 )
 
 // NewModel creates a new Model.
@@ -63,45 +65,51 @@ func (m Model) Init() tea.Cmd {
 }
 
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	var cmd tea.Cmd
+	var cmds []tea.Cmd
+
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
 		m.width, m.height = msg.Width, msg.Height
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "ctrl+c", "esc", "q":
-			return m, tea.Quit
+			cmds = append(cmds, tea.Quit)
 		}
-	case installedPkgMsg:
-		pkg := m.apps[m.index]
+	case pctx.InstalledPkgMessage:
 		if m.index >= len(m.apps)-1 {
 			m.done = true
 			return m, tea.Sequence(
-				tea.Printf("%s %s", checkMark, pkg.Name),
+				utilx.IfElse(
+					utilx.Empty(msg.Err),
+					tea.Printf("%s %s", checkMark, msg.App.Name),
+					tea.Printf("%s %s", errorCross, msg.App.Name),
+				),
 				tea.Quit,
 			)
 		}
 
 		m.index++
 		progressCmd := m.progress.SetPercent(float64(m.index) / float64(len(m.apps)))
-
-		return m, tea.Batch(
-			progressCmd,
-			tea.Printf("%s %s", checkMark, pkg.Name),
-			installApp(m.ctx.Context(), m.apps[m.index], m.cmd, m.opts),
+		msgCmd := utilx.IfElse(
+			utilx.Empty(msg.Err),
+			tea.Printf("%s %s", checkMark, msg.App.Name),
+			tea.Printf("%s %s", errorCross, msg.App.Name),
 		)
+
+		cmds = append(cmds, progressCmd, msgCmd, installApp(m.ctx.Context(), m.apps[m.index], m.cmd, m.opts))
 	case spinner.TickMsg:
-		var cmd tea.Cmd
 		m.spinner, cmd = m.spinner.Update(msg)
-		return m, cmd
+		cmds = append(cmds, cmd)
 	case progress.FrameMsg:
 		newModel, cmd := m.progress.Update(msg)
 		if newModel, ok := newModel.(progress.Model); ok {
 			m.progress = newModel
 		}
-		return m, cmd
+		cmds = append(cmds, cmd)
 	}
 
-	return m, nil
+	return m, tea.Batch(cmds...)
 }
 
 func (m Model) View() string {
@@ -109,7 +117,7 @@ func (m Model) View() string {
 	w := lipgloss.Width(fmt.Sprintf("%d", n))
 
 	if m.done {
-		return doneStyle.Render(fmt.Sprintf("Done! Backup %d applications.\n", n))
+		return doneStyle.Render("Done!")
 	}
 
 	pkgCount := fmt.Sprintf(" %*d/%*d", w, m.index, w, n)
@@ -127,11 +135,11 @@ func (m Model) View() string {
 	return spin + info + gap + prog + pkgCount
 }
 
-type installedPkgMsg string
-
 func installApp(ctx context.Context, app spec.App, cmd Cmd, opts provider.Opts) tea.Cmd {
 	return func() tea.Msg {
-		_ = cmd(ctx, app, opts)
-		return installedPkgMsg(app.Name)
+		return pctx.InstalledPkgMessage{
+			App: app,
+			Err: cmd(ctx, app, opts),
+		}
 	}
 }
