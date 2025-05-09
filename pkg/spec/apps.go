@@ -15,6 +15,7 @@ func List() []App {
 		GnuPG(),
 		Homebrew(),
 		Hyper(),
+		Istat(),
 		Kubectl(),
 		MacOS(),
 		Magnet(),
