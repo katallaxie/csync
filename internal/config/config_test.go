@@ -34,17 +34,6 @@ func TestNew(t *testing.T) {
 	assert.NotEmpty(t, cwd)
 }
 
-func TestUsePlugin(t *testing.T) {
-	t.Parallel()
-
-	c := config.New()
-	c.Flags.Plugin = "dummy"
-
-	assert.NotNil(t, c)
-	assert.Equal(t, "dummy", c.Flags.Plugin)
-	assert.True(t, c.UsePlugin())
-}
-
 func TestVars(t *testing.T) {
 	t.Parallel()
 

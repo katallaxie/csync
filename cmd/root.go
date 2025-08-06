@@ -11,7 +11,6 @@ import (
 	"github.com/katallaxie/csync/internal/ui"
 	pctx "github.com/katallaxie/csync/internal/ui/context"
 	"github.com/katallaxie/csync/pkg/homedir"
-	"github.com/katallaxie/csync/pkg/plugin"
 	"github.com/katallaxie/csync/pkg/provider"
 	"github.com/katallaxie/csync/pkg/spec"
 
@@ -48,7 +47,7 @@ func init() {
 	RootCmd.PersistentFlags().BoolVarP(&cfg.Flags.Dry, "dry", "d", cfg.Flags.Dry, "dry run")
 	RootCmd.PersistentFlags().BoolVarP(&cfg.Flags.Root, "root", "r", cfg.Flags.Root, "run as root")
 	RootCmd.PersistentFlags().BoolVarP(&cfg.Flags.Force, "force", "f", cfg.Flags.Force, "force init")
-	RootCmd.PersistentFlags().StringVarP(&cfg.Flags.Plugin, "plugin", "p", cfg.Flags.Plugin, "plugin")
+	RootCmd.PersistentFlags().StringSliceVarP(&cfg.Flags.Plugins, "plugin", "p", cfg.Flags.Plugins, "plugin")
 	RootCmd.PersistentFlags().StringSliceVar(&cfg.Flags.Vars, "var", cfg.Flags.Vars, "variables")
 
 	RootCmd.SilenceErrors = true
@@ -116,17 +115,6 @@ func runRoot(ctx context.Context) error {
 		Dry:   cfg.Flags.Dry,
 		Root:  cfg.Flags.Root,
 	}
-
-	if cfg.Flags.Plugin != "" {
-		m := plugin.Meta{Path: cfg.Flags.Plugin}
-		f := m.Factory(ctx)
-
-		p, err = f()
-		if err != nil {
-			return err
-		}
-	}
-	defer p.Close()
 
 	apps := cfg.Spec.GetApps(spec.List()...)
 

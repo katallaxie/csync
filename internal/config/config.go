@@ -22,8 +22,8 @@ type Flags struct {
 	Verbose bool
 	// Version toggles the version.
 	Version bool
-	// Plugin uses a plugin as storage provider.
-	Plugin string
+	// Plugins uses a plugin as storage provider.
+	Plugins []string
 	// Vars captures the variables.
 	Vars []string
 }
@@ -91,11 +91,6 @@ func (c *Config) HomeDir() (string, error) {
 	}
 
 	return usr.HomeDir, err
-}
-
-// UsePlugin returns true if the plugin is set.
-func (c *Config) UsePlugin() bool {
-	return c.Flags.Plugin != ""
 }
 
 // Cwd returns the current working directory.

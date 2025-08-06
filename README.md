@@ -60,7 +60,11 @@ provider:
 
 ## Plugins
 
-`csync` supports plugins for `backup`, `restore`, `link` and `unlink` commands. These plugins use [go-plugin](https://github.com/hashicorp/go-plugin) to plug in new features.
+`csync` supports plugins for `backup`, `restore`, `link` and `unlink` commands.
+
+```go
+import "github.com/katallaxie/csync/pkg/plugins/v1"
+```
 
 :warning: The support is still under development and the APIs may change in the future.
 

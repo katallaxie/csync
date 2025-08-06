@@ -9,7 +9,6 @@ import (
 	"github.com/katallaxie/csync/internal/ui"
 	pctx "github.com/katallaxie/csync/internal/ui/context"
 	"github.com/katallaxie/csync/pkg/homedir"
-	"github.com/katallaxie/csync/pkg/plugin"
 	"github.com/katallaxie/csync/pkg/provider"
 	"github.com/katallaxie/csync/pkg/spec"
 	"github.com/muesli/termenv"
@@ -56,18 +55,6 @@ func runUnlink(ctx context.Context) error {
 		Dry:   cfg.Flags.Dry,
 		Root:  cfg.Flags.Root,
 	}
-
-	if cfg.Flags.Plugin != "" {
-		m := plugin.Meta{Path: cfg.Flags.Plugin}
-		f := m.Factory(ctx)
-
-		p, err = f()
-		if err != nil {
-			return err
-		}
-	}
-
-	defer p.Close()
 
 	// see https://github.com/charmbracelet/lipgloss/issues/73
 	lipgloss.SetHasDarkBackground(termenv.HasDarkBackground())
