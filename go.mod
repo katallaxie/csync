@@ -11,7 +11,7 @@ tool (
 
 require (
 	github.com/charmbracelet/bubbles v0.21.0
-	github.com/charmbracelet/bubbletea v1.3.7
+	github.com/charmbracelet/bubbletea v1.3.8
 	github.com/charmbracelet/lipgloss v1.1.0
 	github.com/go-playground/validator/v10 v10.27.0
 	github.com/katallaxie/pkg v0.7.8
@@ -227,7 +227,7 @@ require (
 	golang.org/x/mod v0.26.0 // indirect
 	golang.org/x/net v0.42.0 // indirect
 	golang.org/x/sync v0.16.0 // indirect
-	golang.org/x/sys v0.34.0 // indirect
+	golang.org/x/sys v0.36.0 // indirect
 	golang.org/x/term v0.33.0 // indirect
 	golang.org/x/text v0.27.0 // indirect
 	golang.org/x/tools v0.34.0 // indirect
