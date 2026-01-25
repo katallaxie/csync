@@ -12,8 +12,14 @@ import (
 	"github.com/katallaxie/pkg/filex"
 )
 
-// ErrNoICloudDrive is returned when the iCloud Drive folder cannot be found.
-var ErrNoICloudDrive = fmt.Errorf("unable to find iCloud Drive")
+var (
+	// ErrNoICloudDrive is returned when the iCloud Drive folder cannot be found.
+	ErrNoICloudDrive = fmt.Errorf("unable to find iCloud Drive")
+	// ErrNoDropbox is returned when the Dropbox folder cannot be found.
+	ErrNoDropbox = fmt.Errorf("unable to find Dropbox folder")
+	// ErrNoOpenCloud is returned when the OpenCloud folder cannot be found.
+	ErrNoOpenCloud = fmt.Errorf("unable to find OpenCloud folder")
+)
 
 // ICloudFolder is the path to the iCloud Drive folder.
 func ICloudFolder() (string, error) {
@@ -63,4 +69,24 @@ func DropboxFolder() (string, error) {
 	}
 
 	return string(dec), err
+}
+
+// OpenCloudFolder is the path to the OpenCloud folder.
+func OpenCloudFolder() (string, error) {
+	usr, err := user.Current()
+	if err != nil {
+		return "", err
+	}
+
+	path := filepath.Join(usr.HomeDir, "OpenCloud")
+	ok, err := filex.IsDir(path)
+	if err != nil {
+		return "", err
+	}
+
+	if !ok {
+		return "", ErrNoOpenCloud
+	}
+
+	return path, nil
 }

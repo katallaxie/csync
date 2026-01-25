@@ -21,7 +21,7 @@ brew install katallaxie/csync-tap/csync
 ```yaml
 version: 1
 provider:
-  name: icloud
+  name: opencloud
 ```
 
 ## Supported Applications

@@ -108,7 +108,10 @@ func runRoot(ctx context.Context) error {
 	}
 
 	// configuring the default file provider as fallback
-	p = files.New(files.WithFolder(f), files.WithHomeDir(homedir.Get()))
+	p = files.New(
+		files.WithFolder(f),
+		files.WithHomeDir(homedir.Get()),
+	)
 
 	opts := provider.Opts{
 		Force: cfg.Flags.Force,

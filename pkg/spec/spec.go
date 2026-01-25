@@ -175,6 +175,11 @@ func (p *Provider) GetFolder() (string, error) {
 		if err != nil {
 			return "", err
 		}
+	case "opencloud":
+		base, err = utils.OpenCloudFolder()
+		if err != nil {
+			return "", err
+		}
 	default:
 		return "", fmt.Errorf("unknown provider")
 	}
