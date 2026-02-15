@@ -203,7 +203,9 @@ func (p *provider) Unlink(_ context.Context, app spec.App, opts p.Opts) error {
 		}
 
 		// try to delete and ignore any error
-		_ = os.Remove(dstfi)
+		if err = os.RemoveAll(dstfi); err != nil {
+			return err
+		}
 
 		if fi.Mode().IsDir() {
 			err := cp.Copy(src, dstfi)

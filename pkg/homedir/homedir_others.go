@@ -12,7 +12,7 @@ func GetRuntimeDir() (string, error) {
 }
 
 // StickRuntimeDirContents is unsupported on non-linux system.
-func StickRuntimeDirContents(files []string) ([]string, error) {
+func StickRuntimeDirContents(_ []string) ([]string, error) {
 	return nil, errors.New("homedir.StickRuntimeDirContents() is not supported on this system")
 }
 
