@@ -24,6 +24,12 @@ provider:
   name: opencloud
 ```
 
+## Providers
+
+- [x] `opencloud`
+- [x] `icloud`
+- [x] `dropbox`
+
 ## Supported Applications
 
 - [x] `alacritty`
