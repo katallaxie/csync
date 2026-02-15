@@ -127,7 +127,7 @@ func (m Model) View() string {
 	cellsAvail := max(0, m.width-lipgloss.Width(spin+prog+pkgCount))
 
 	pkgName := currentPkgNameStyle.Render(m.apps[m.index].Name)
-	info := lipgloss.NewStyle().MaxWidth(cellsAvail).Render("Installing " + pkgName)
+	info := lipgloss.NewStyle().MaxWidth(cellsAvail).Render(pkgName)
 
 	cellsRemaining := max(0, m.width-lipgloss.Width(spin+info+prog+pkgCount))
 	gap := strings.Repeat(" ", cellsRemaining)
