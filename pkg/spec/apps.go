@@ -15,6 +15,7 @@ func List() []App {
 		GnuPG(),
 		Homebrew(),
 		Hyper(),
+		IceMenuBar(),
 		Istat(),
 		Kubectl(),
 		MacOS(),
