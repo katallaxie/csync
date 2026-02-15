@@ -6,7 +6,7 @@
 [![Volkswagen](https://auchenberg.github.io/volkswagen/volkswargen_ci.svg?v=1)](https://github.com/auchenberg/volkswagen)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-`csync` is a tool to backup your settings using common cloud storage solutions like [iCloud Drive](https://www.icloud.com), [Dropbox](https://dropbox.com), [Google Drive](https://www.google.com/intl/de/drive/) or any other file system based sync solution.
+`csync` is a tool to backup your settings using common cloud storage solutions like [OpenCloud](https://github.com/opencloud-eu), [iCloud Drive](https://www.icloud.com), [Dropbox](https://dropbox.com), [Google Drive](https://www.google.com/intl/de/drive/) or any other file system based sync solution.
 
 ## Install
 
