@@ -17,6 +17,7 @@ func List() []App {
 		Hyper(),
 		IceMenuBar(),
 		Istat(),
+		K9s(),
 		Kubectl(),
 		MacOS(),
 		Magnet(),
