@@ -40,6 +40,7 @@ provider:
 - [x] `bat`
 - [x] `brew`
 - [x] `docker`
+- [x] `gh`
 - [x] `ghostty`
 - [x] `git`
 - [x] `gnupg`
