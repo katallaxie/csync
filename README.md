@@ -35,6 +35,7 @@ provider:
 - [x] `bat`
 - [x] `ghostty`
 - [x] `git`
+- [x] `icemenubar`
 - [x] `gnupg`
 - [x] `brew`
 - [x] `hyper`
