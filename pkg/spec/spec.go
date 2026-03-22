@@ -39,9 +39,9 @@ type Spec struct {
 	// Apps is a list of apps to sync.
 	Apps []App `yaml:"apps,omitempty"`
 	// Includes is a list of apps to include.
-	Includes []string `yaml:"includes,omitempty" validate:"required_with=Excludes"`
+	Includes []string `yaml:"includes,omitempty"`
 	// Excludes is a list of apps to exclude.
-	Excludes []string `yaml:"excludes,omitempty" validate:"required_with=Includes"`
+	Excludes []string `yaml:"excludes,omitempty" validate:"required_without=Includes"`
 	// Stderr is the standard error output.
 	Stderr bool `yaml:"stderr,omitempty"`
 	// Stdout is the standard output.
@@ -59,8 +59,8 @@ func (s *Spec) UnmarshalYAML(data []byte) error {
 		Path     string   `yaml:"path,omitempty"`
 		Provider Provider `yaml:"provider" validate:"required"`
 		Apps     []App    `yaml:"apps,omitempty"`
-		Includes []string `yaml:"includes,omitempty" validate:"required_with=Excludes"`
-		Excludes []string `yaml:"excludes,omitempty" validate:"required_with=Includes"`
+		Includes []string `yaml:"includes,omitempty"`
+		Excludes []string `yaml:"excludes,omitempty" validate:"required_without=Includes,omitempty"`
 		Stderr   bool     `yaml:"stderr,omitempty"`
 		Stdout   bool     `yaml:"stdout,omitempty"`
 	}{
@@ -92,7 +92,7 @@ func Default() *Spec {
 	return &Spec{
 		Version: 1,
 		Provider: Provider{
-			Name: "icloud",
+			Name: "opencloud",
 		},
 	}
 }

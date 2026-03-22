@@ -2,9 +2,12 @@ package provider
 
 import (
 	"context"
+	"errors"
 
 	"github.com/katallaxie/csync/pkg/spec"
 )
+
+var ErrFileDoesNotExist = errors.New("file does not exist")
 
 // Opts are the options.
 type Opts struct {

@@ -8,49 +8,49 @@ import (
 	"strings"
 
 	"github.com/katallaxie/csync/pkg/homedir"
-	p "github.com/katallaxie/csync/pkg/provider"
+	"github.com/katallaxie/csync/pkg/provider"
 	"github.com/katallaxie/csync/pkg/spec"
 
 	"github.com/katallaxie/pkg/filex"
 	cp "github.com/otiai10/copy"
 )
 
-type provider struct {
+type providerImpl struct {
 	folder  string
 	homedir string
 
-	p.Unimplemented
+	provider.Unimplemented
 }
 
-var _ p.Provider = (*provider)(nil)
+var _ provider.Provider = (*providerImpl)(nil)
 
 // Opt is the functional option for the provider.
-type Opt func(*provider)
+type Opt func(*providerImpl)
 
 // WithFolder is configuring a specific folder for the provider.
 func WithFolder(folder string) Opt {
-	return func(p *provider) {
+	return func(p *providerImpl) {
 		p.folder = folder
 	}
 }
 
 // WithHomeDir is configuring a specific home directory for the provider.
 func WithHomeDir(homedir string) Opt {
-	return func(p *provider) {
+	return func(p *providerImpl) {
 		p.homedir = homedir
 	}
 }
 
 // Configure is configuring a set of options of the provider.
-func (p *provider) Configure(opts ...Opt) {
+func (p *providerImpl) Configure(opts ...Opt) {
 	for _, o := range opts {
 		o(p)
 	}
 }
 
 // New ...
-func New(opts ...Opt) p.Provider {
-	p := new(provider)
+func New(opts ...Opt) provider.Provider {
+	p := new(providerImpl)
 	p.Configure(opts...)
 
 	return p
@@ -59,7 +59,7 @@ func New(opts ...Opt) p.Provider {
 // Backup a file.
 //
 //nolint:gocyclo
-func (p *provider) Backup(_ context.Context, app spec.App, opts p.Opts) error {
+func (p *providerImpl) Backup(_ context.Context, app spec.App, opts provider.Opts) error {
 	for _, src := range app.Files {
 		dst, err := FilePath(src, p.folder)
 		if err != nil {
@@ -77,7 +77,7 @@ func (p *provider) Backup(_ context.Context, app spec.App, opts p.Opts) error {
 		}
 
 		if ok, _ := filex.FileNotExists(src); ok {
-			continue
+			return provider.ErrFileDoesNotExist
 		}
 
 		fi, err := os.Lstat(src)
@@ -140,10 +140,10 @@ func (p *provider) Backup(_ context.Context, app spec.App, opts p.Opts) error {
 }
 
 // Restore a file.
-func (p *provider) Restore(_ context.Context, app spec.App, opts p.Opts) error {
+func (p *providerImpl) Restore(_ context.Context, app spec.App, opts provider.Opts) error {
 	for _, src := range app.Files {
-		if ok, _ := filex.FileNotExists(src); !ok {
-			continue
+		if ok, err := filex.FileNotExists(src); !ok {
+			return err
 		}
 
 		dst, err := filex.PathTransform(src, filex.ExpandHomeFolder, filex.ExpandHomeFolder)
@@ -152,7 +152,7 @@ func (p *provider) Restore(_ context.Context, app spec.App, opts p.Opts) error {
 		}
 
 		if ok, _ := filex.FileNotExists(dst); ok {
-			continue
+			return provider.ErrFileDoesNotExist
 		}
 
 		if opts.Dry {
@@ -172,7 +172,7 @@ func (p *provider) Restore(_ context.Context, app spec.App, opts p.Opts) error {
 // Unlink is unlinking files from the backup folder.
 //
 //nolint:gocyclo
-func (p *provider) Unlink(_ context.Context, app spec.App, opts p.Opts) error {
+func (p *providerImpl) Unlink(_ context.Context, app spec.App, opts provider.Opts) error {
 	for _, dst := range app.Files {
 		dstfi, err := homedir.Expand(dst)
 		if err != nil {
@@ -224,7 +224,7 @@ func (p *provider) Unlink(_ context.Context, app spec.App, opts p.Opts) error {
 }
 
 // Link ...
-func (p *provider) Link(_ context.Context, _ spec.App, _ p.Opts) error {
+func (p *providerImpl) Link(_ context.Context, _ spec.App, _ provider.Opts) error {
 	// this is not implemented with the file provider right now,
 	// because the file provider does this in the backup phase.
 	return nil

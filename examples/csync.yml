@@ -5,10 +5,4 @@ provider:
   # path: override the destination
 stderr: true # default: false
 stdout: true # default: false
-apps:
-  - name: "example"
-    files:
-      - ~/examples/example.txt
-  - name: "example2"
-    files:
-      - ~/examples/example2
+excludes: []

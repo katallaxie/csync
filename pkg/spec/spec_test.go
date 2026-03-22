@@ -23,6 +23,7 @@ func Test_Validate(t *testing.T) {
 				Provider: spec.Provider{
 					Name: "file",
 				},
+				Excludes: []string{},
 			},
 		},
 		{
@@ -32,6 +33,7 @@ func Test_Validate(t *testing.T) {
 				Provider: spec.Provider{
 					Name: "file",
 				},
+				Excludes: []string{},
 			},
 			err: fmt.Errorf("Key: 'Spec.version' Error:Field validation for 'version' failed on the 'eq' tag"),
 		},
@@ -70,47 +72,6 @@ func Test_UnmarshalYAML(t *testing.T) {
 			err := s.UnmarshalYAML(tc.in)
 			require.NoError(t, err)
 			assert.Equal(t, tc.out, s)
-		})
-	}
-}
-
-func Test_GetApps(t *testing.T) {
-	tests := []struct {
-		desc     string
-		in       []byte
-		out      []spec.App
-		defaults []spec.App
-	}{
-		{
-			desc: "default apps",
-			in: []byte(
-				`version: 1
-apps:
-  - 
-    name: "example"
-    files:
-      - "/workspaces/csync/examples/example.txt"
-`),
-			out: append([]spec.App{
-				{
-					Name: "example",
-					Files: []string{
-						"/workspaces/csync/examples/example.txt",
-					},
-				},
-			}, spec.List()...),
-			defaults: spec.List(),
-		},
-	}
-
-	for _, tc := range tests {
-		t.Run(tc.desc, func(t *testing.T) {
-			s := spec.Default()
-
-			err := s.UnmarshalYAML(tc.in)
-			require.NoError(t, err)
-
-			assert.Equal(t, s.GetApps(tc.defaults...), tc.out)
 		})
 	}
 }

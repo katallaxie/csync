@@ -12,19 +12,19 @@ func TestNew(t *testing.T) {
 	tests := []struct {
 		name   string
 		opts   []Opt
-		expect *provider
+		expect *providerImpl
 	}{
 		{
 			name:   "empty",
 			opts:   []Opt{},
-			expect: &provider{},
+			expect: &providerImpl{},
 		},
 		{
 			name: "with folder",
 			opts: []Opt{
 				WithFolder("foo"),
 			},
-			expect: &provider{
+			expect: &providerImpl{
 				folder: "foo",
 			},
 		},
